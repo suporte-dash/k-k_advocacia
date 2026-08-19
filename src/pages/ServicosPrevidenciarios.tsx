@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 import "./services.css";
 import {
   ArrowUpRight,
+  Check,
   Instagram,
+  MapPin,
   Menu,
   MessageCircle,
   Phone,
@@ -18,6 +20,7 @@ const WHATSAPP_URL =
 const PHONE_DISPLAY = "(91) 9162-0280";
 const PHONE_TEL = "+559191620280";
 const INSTAGRAM_URL = "https://www.instagram.com/karllaekeyteleradvogadas/";
+const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/nYM61PbWSiUUTxLa6";
 const BRAND_LOGO = `${import.meta.env.BASE_URL}assets/logo-oficial.png`;
 
 const pageNavItems = [
@@ -190,8 +193,27 @@ export default function ServicosPrevidenciarios() {
                 <a className="button button-primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
                   <MessageCircle size={17} aria-hidden="true" /> Falar sobre o meu caso
                 </a>
+                <a className="services-text-link services-text-link-light" href={internalHref("/#atendimento")}>
+                  Ver como funciona o atendimento <ArrowUpRight size={15} aria-hidden="true" />
+                </a>
               </div>
+              <p className="services-phone-note"><Phone size={14} aria-hidden="true" /> WhatsApp e telefone: {PHONE_DISPLAY}</p>
             </div>
+            <aside className="services-hero-card" aria-label="Principais frentes de atendimento">
+              <span className="services-hero-card-label">Para começar</span>
+              <h2>Converse sobre o seu caso.</h2>
+              <p>Uma orientação inicial ajuda a organizar a história, os documentos e os próximos passos.</p>
+              <div className="services-hero-card-list">
+                <span><Check size={14} aria-hidden="true" /> Aposentadorias e pensões</span>
+                <span><Check size={14} aria-hidden="true" /> Salário-maternidade</span>
+                <span><Check size={14} aria-hidden="true" /> Seguro-defeso e benefícios</span>
+              </div>
+            </aside>
+          </div>
+          <div className="site-container services-hero-footer" aria-label="Informações rápidas">
+            <span>Atendimento próximo</span>
+            <span>Salinópolis / PA</span>
+            <span>Atuação nacional</span>
           </div>
         </section>
 
@@ -201,6 +223,7 @@ export default function ServicosPrevidenciarios() {
             <div>
               <p className="section-kicker">Serviços previdenciários</p>
               <h2 id="services-list-title">Áreas em que atuamos.</h2>
+              <p className="services-section-lead">Cada orientação começa pela compreensão do seu histórico e pela análise dos documentos disponíveis. Conheça as principais frentes de atendimento da sociedade.</p>
             </div>
           </div>
           <div className="site-container services-grid">
@@ -212,6 +235,11 @@ export default function ServicosPrevidenciarios() {
               </article>
             ))}
           </div>
+          <ol className="site-container services-steps" aria-label="Como iniciar o atendimento">
+            <li><span>01</span><p><strong>Conte sua situação.</strong><br />Envie uma mensagem breve pelo WhatsApp.</p><Check size={16} aria-hidden="true" /></li>
+            <li><span>02</span><p><strong>Separe os documentos.</strong><br />A sociedade orienta o que é importante reunir.</p><Check size={16} aria-hidden="true" /></li>
+            <li><span>03</span><p><strong>Receba os próximos passos.</strong><br />A análise individual indica o caminho possível.</p><Check size={16} aria-hidden="true" /></li>
+          </ol>
         </section>
 
         <section className="services-section services-contact-section" id="atendimento" aria-labelledby="contact-title">
@@ -220,10 +248,18 @@ export default function ServicosPrevidenciarios() {
               <div className="services-marker"><span>02</span><span className="marker-rule" /><span>Atendimento</span></div>
               <p className="section-kicker">Contato</p>
               <h2 id="contact-title">Fale com a sociedade.</h2>
-              <p>WhatsApp e telefone para orientação inicial.</p>
+              <p>WhatsApp e telefone para orientação inicial. Conte brevemente o que você precisa e receba uma indicação dos primeiros passos.</p>
               <div className="services-contact-actions">
                 <a className="button button-wine" href={WHATSAPP_URL} target="_blank" rel="noreferrer"><MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp</a>
                 <a className="services-phone-link" href={`tel:${PHONE_TEL}`}><Phone size={16} aria-hidden="true" /> {PHONE_DISPLAY}</a>
+              </div>
+            </div>
+            <div className="services-address-card">
+              <MapPin size={20} aria-hidden="true" />
+              <div>
+                <strong>Onde estamos</strong>
+                <address>Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus<br />Salinópolis — PA, 68721-000</address>
+                <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer">Abrir no Google Maps <ArrowUpRight size={14} aria-hidden="true" /></a>
               </div>
             </div>
           </div>

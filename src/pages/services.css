@@ -20,9 +20,18 @@
 
 .services-hero { position: relative; overflow: hidden; padding: clamp(75px, 9vw, 120px) 0; background: var(--wine); color: var(--ivory); }
 .services-hero::after { position: absolute; right: -10vw; bottom: -14vw; width: min(44vw, 620px); aspect-ratio: 1; border: 1px solid rgba(226, 189, 137, 0.18); border-radius: 50%; box-shadow: 0 0 0 48px rgba(226, 189, 137, 0.035), 0 0 0 96px rgba(226, 189, 137, 0.025); content: ""; pointer-events: none; }
-.services-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1fr); align-items: end; }
+.services-hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr); gap: clamp(42px, 7vw, 112px); align-items: end; }
 .services-eyebrow, .services-card-index { color: #e2bd89; font-size: 10px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; }
-.services-hero-copy { max-width: 700px; }
+.services-hero-copy { max-width: 760px; }
+.services-text-link-light { color: var(--ivory); }
+.services-text-link-light:hover { color: #e2bd89; }
+.services-hero-card { border: 1px solid rgba(255, 250, 243, 0.34); padding: clamp(26px, 3vw, 40px); background: rgba(66, 20, 30, 0.52); }
+.services-hero-card-label { color: #e2bd89; font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; }
+.services-hero-card h2 { margin: 42px 0 0; color: var(--ivory); font-family: "Cormorant Garamond", serif; font-size: clamp(2.2rem, 3.4vw, 3.6rem); font-weight: 500; letter-spacing: -0.03em; line-height: 0.94; }
+.services-hero-card p { margin: 20px 0 0; color: rgba(255, 250, 243, 0.72); font-size: 13px; line-height: 1.7; }
+.services-hero-card-list { display: grid; gap: 12px; margin-top: 28px; border-top: 1px solid rgba(255, 250, 243, 0.22); padding-top: 19px; }
+.services-hero-card-list span { display: flex; align-items: center; gap: 9px; color: rgba(255, 250, 243, 0.84); font-size: 11px; font-weight: 700; }
+.services-hero-card-list svg { flex: 0 0 auto; color: #e2bd89; }
 .services-hero-copy h1 { max-width: 760px; margin: 22px 0 0; font-family: "Cormorant Garamond", serif; font-size: clamp(3.8rem, 6.4vw, 6.7rem); font-weight: 500; letter-spacing: -0.045em; line-height: 0.91; }
 .services-hero-copy > p:not(.services-eyebrow):not(.services-phone-note) { max-width: 620px; margin: 30px 0 0; color: rgba(255, 250, 243, 0.76); font-size: 16px; line-height: 1.75; }
 .services-hero-actions, .services-contact-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px; margin-top: 34px; }
@@ -67,11 +76,16 @@
 .services-address-card { display: flex; gap: 18px; border-top: 1px solid rgba(255, 250, 243, 0.36); padding-top: 24px; }
 .services-address-card > svg { flex: 0 0 auto; color: #e2bd89; }
 .services-address-card strong { display: block; color: #e2bd89; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
-.services-address-card address { margin-top: 15px; color: rgba(255, 250, 243, 0.76); font-size: 14px; font-style: normal; line-height: 1.75; }
+.services-address-card address { margin-top: 15px; color: var(--slate); font-size: 14px; font-style: normal; line-height: 1.75; }
+.services-contact-section .services-address-card { margin-top: 58px; border-top-color: var(--line); }
+.services-contact-section .services-address-card > svg { color: var(--gold); }
+.services-contact-section .services-address-card strong { color: var(--wine); }
+.services-contact-section .services-address-card a { color: var(--wine); }
 .services-address-card a { margin-top: 22px; color: var(--ivory); }
 
 .services-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 34px; margin-top: 78px; padding-left: 0; list-style: none; }
 .services-steps li { display: grid; grid-template-columns: auto 1fr auto; gap: 15px; align-items: start; border-top: 1px solid var(--line); padding-top: 20px; }
+.services-steps li strong { color: var(--wine); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
 .services-steps p { margin: 0; color: var(--slate); font-size: 13px; line-height: 1.65; }
 .services-steps svg { color: var(--gold); }
 
@@ -92,6 +106,7 @@
 @media (max-width: 1040px) {
   .services-nav { gap: 15px; }
   .services-hero-grid, .services-local-grid { gap: 6vw; }
+  .services-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr); }
   .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; }
   .service-card, .service-card-featured { grid-column: span 1; padding-right: 0; }
   .service-card-featured h3 { font-size: 34px; }
@@ -110,9 +125,11 @@
   .services-nav-cta { padding: 10px 12px; font-size: 8px; }
   .services-hero { padding: 64px 0; }
   .services-hero-grid, .services-local-grid, .services-contact-grid, .services-intro-grid { display: block; }
+  .services-hero-card { margin-top: 48px; }
   .services-hero-copy h1 { font-size: clamp(3.45rem, 16vw, 4.65rem); }
   .services-hero-copy > p:not(.services-eyebrow):not(.services-phone-note) { font-size: 14px; }
   .services-hero-actions, .services-contact-actions { display: grid; grid-template-columns: 1fr; gap: 13px; margin-top: 28px; }
+  .services-hero-actions .services-text-link { justify-content: center; width: fit-content; margin-inline: auto; }
   .services-hero-actions .button, .services-contact-actions .button, .services-contact-actions .services-phone-link { justify-content: center; width: 100%; min-height: 51px; }
   .services-phone-note { margin-top: 18px; }
   .services-local-card { margin-top: 52px; padding: 28px; }
@@ -134,6 +151,7 @@
   .services-steps { grid-template-columns: 1fr; gap: 25px; margin-top: 50px; }
   .services-steps li { padding: 19px 0 0; }
   .services-contact-grid > div:first-child > p:not(.section-kicker) { font-size: 14px; }
+  .services-contact-section .services-address-card { margin-top: 44px; }
   .services-phone-link { border: 1px solid var(--wine); padding: 0 18px; }
   .services-faq-prompt { margin-top: 48px; padding: 28px; }
   .services-faq-prompt h3 { margin-top: 30px; font-size: 35px; }

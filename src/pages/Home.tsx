@@ -199,6 +199,11 @@ export default function Home() {
             </span>
           </a>
 
+          <a className="header-phone" href={`tel:${PHONE_TEL}`}>
+            <Phone size={15} aria-hidden="true" />
+            <span>{PHONE_DISPLAY}</span>
+          </a>
+
           <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">
             {navItems.map((item) => (
               <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
@@ -295,9 +300,9 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-bottom-note site-container" data-reveal style={{ transitionDelay: "260ms" }}>
-            <span>KP + KL</span>
+            <span>Atendimento próximo</span>
             <span>Salinópolis / PA</span>
-            <span>↓ 01 — 05</span>
+            <span>Atuação nacional</span>
           </div>
         </section>
 

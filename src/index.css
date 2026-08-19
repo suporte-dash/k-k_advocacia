@@ -279,6 +279,23 @@ a:focus-visible {
   border-bottom: 1px solid rgba(255, 250, 243, 0.12);
 }
 
+.header-phone {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-left: auto;
+  color: rgba(255, 250, 243, 0.78);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+
+.header-phone:hover {
+  color: #e2bd89;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
@@ -1477,6 +1494,10 @@ a:focus-visible {
 }
 
 @media (max-width: 1040px) {
+  .header-phone span {
+    display: none;
+  }
+
   .desktop-nav {
     gap: 16px;
   }
@@ -1556,6 +1577,10 @@ a:focus-visible {
   }
 
   .whatsapp-float span {
+    display: none;
+  }
+
+  .header-phone {
     display: none;
   }
 
