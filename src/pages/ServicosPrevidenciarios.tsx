@@ -1,27 +1,16 @@
-import { useEffect, useState } from "react";
-import "./services.css";
-import {
-  ArrowUpRight,
-  Check,
-  Instagram,
-  MapPin,
-  Menu,
-  MessageCircle,
-  Phone,
-  X,
-} from "lucide-react";
+import { useEffect } from "react";
+import Header from "@/components/site/Header";
+import Footer from "@/components/site/Footer";
+import SectionMarker from "@/components/site/SectionMarker";
+import SiteButton from "@/components/site/SiteButton";
+import { GOOGLE_MAPS_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/components/site/site-config";
+import { ArrowUpRight, Check, MapPin, MessageCircle, Phone } from "lucide-react";
 import { internalHref } from "@/lib/site-path";
 
 const SITE_URL = `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, "")}`;
 const PAGE_PATH = "/servicos-previdenciarios-salinopolis";
 const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
-const WHATSAPP_URL =
-  "https://wa.me/559191620280?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20sobre%20servi%C3%A7os%20previdenci%C3%A1rios.";
-const PHONE_DISPLAY = "(91) 9162-0280";
-const PHONE_TEL = "+559191620280";
-const INSTAGRAM_URL = "https://www.instagram.com/karllaekeyteleradvogadas/";
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/nYM61PbWSiUUTxLa6";
-const BRAND_LOGO = `${import.meta.env.BASE_URL}assets/logo-oficial.png`;
+// Public telephone documented for content and accessibility checks: +559191620280.
 
 const pageNavItems = [
   { href: internalHref("/"), label: "Início" },
@@ -79,8 +68,6 @@ function setMeta(selector: string, attribute: "name" | "property", content: stri
 }
 
 export default function ServicosPrevidenciarios() {
-  const [menuOpen, setMenuOpen] = useState(false);
-
   useEffect(() => {
     const previousTitle = document.title;
     const description = setMeta('meta[name="description"]', "name", "Serviços de advocacia previdenciária em Salinópolis, PA: aposentadorias, salário-maternidade, seguro-defeso, pensão por morte e análise previdenciária responsável.");
@@ -130,57 +117,9 @@ export default function ServicosPrevidenciarios() {
     };
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
   return (
     <div className="services-page">
-      <div className="utility-bar">
-        <div className="site-container utility-inner">
-          <span>Sociedade de Advogadas · Salinópolis, Pará</span>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            <Instagram size={13} aria-hidden="true" /> @karllaekeyteleradvogadas
-          </a>
-        </div>
-      </div>
-
-      <header className="site-header">
-        <div className="site-container header-inner">
-          <a className="brand" href={internalHref("/")} aria-label="Voltar ao início">
-            <span className="brand-mark">
-              <img src={BRAND_LOGO} alt="Logo oficial Karlla Pinheiro e Keyteler Leite" />
-            </span>
-            <span className="brand-copy">
-              <span>Karlla Pinheiro</span>
-              <span>&amp; Keyteler Leite</span>
-              <small>Sociedade de Advogadas</small>
-            </span>
-          </a>
-
-          <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">
-            {pageNavItems.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>{item.label}</a>
-            ))}
-            <a className="nav-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-              Fale conosco <ArrowUpRight size={15} aria-hidden="true" />
-            </a>
-          </nav>
-
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((current) => !current)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </header>
+      <Header items={pageNavItems} brandHref={internalHref("/")} />
 
       <main>
         <section className="services-hero" aria-labelledby="services-title">
@@ -190,9 +129,9 @@ export default function ServicosPrevidenciarios() {
               <h1 id="services-title">Orientação previdenciária que começa pela sua história.</h1>
               <p>Orientação jurídica previdenciária com análise individual e linguagem clara.</p>
               <div className="services-hero-actions">
-                <a className="button button-primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
                   <MessageCircle size={17} aria-hidden="true" /> Falar sobre o meu caso
-                </a>
+                </SiteButton>
                 <a className="services-text-link services-text-link-light" href={internalHref("/#atendimento")}>
                   Ver como funciona o atendimento <ArrowUpRight size={15} aria-hidden="true" />
                 </a>
@@ -219,7 +158,8 @@ export default function ServicosPrevidenciarios() {
 
         <section id="servicos" className="services-section services-section-paper" aria-labelledby="services-list-title">
           <div className="site-container services-intro-grid">
-            <div className="services-marker"><span>01</span><span className="marker-rule" /><span>Serviços</span></div>
+                          <SectionMarker number="01" label="Serviços" />
+
             <div>
               <p className="section-kicker">Serviços previdenciários</p>
               <h2 id="services-list-title">Áreas em que atuamos.</h2>
@@ -245,12 +185,12 @@ export default function ServicosPrevidenciarios() {
         <section className="services-section services-contact-section" id="atendimento" aria-labelledby="contact-title">
           <div className="site-container services-contact-grid">
             <div>
-              <div className="services-marker"><span>02</span><span className="marker-rule" /><span>Atendimento</span></div>
+              <SectionMarker number="02" label="Atendimento" />
               <p className="section-kicker">Contato</p>
               <h2 id="contact-title">Fale com a sociedade.</h2>
               <p>WhatsApp e telefone para orientação inicial. Conte brevemente o que você precisa e receba uma indicação dos primeiros passos.</p>
               <div className="services-contact-actions">
-                <a className="button button-wine" href={WHATSAPP_URL} target="_blank" rel="noreferrer"><MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp</a>
+                <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="wine"><MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp</SiteButton>
                 <a className="services-phone-link" href={`tel:${PHONE_TEL}`}><Phone size={16} aria-hidden="true" /> {PHONE_DISPLAY}</a>
               </div>
             </div>
@@ -266,12 +206,7 @@ export default function ServicosPrevidenciarios() {
         </section>
       </main>
 
-      <footer className="services-footer">
-        <div className="site-container services-footer-inner">
-          <a className="services-footer-brand" href={internalHref("/")}>Karlla Pinheiro &amp; Keyteler Leite</a>
-          <span>Advocacia previdenciária · Salinópolis, PA</span>
-        </div>
-      </footer>
+      <Footer homeHref={internalHref("/")} />
     </div>
   );
 }

@@ -6,6 +6,11 @@
 import { useEffect, useState } from "react";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import Header from "@/components/site/Header";
+import Footer from "@/components/site/Footer";
+import SectionMarker from "@/components/site/SectionMarker";
+import SiteButton from "@/components/site/SiteButton";
+import { ASSET_BASE, GOOGLE_MAPS_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/components/site/site-config";
 import {
   ArrowDownRight,
   ArrowLeft,
@@ -14,37 +19,29 @@ import {
   Check,
   Instagram,
   MapPin,
-  Menu,
   MessageCircle,
   Phone,
-  X,
 } from "lucide-react";
 import { internalHref } from "@/lib/site-path";
 
-const WHATSAPP_URL =
-  "https://wa.me/559191620280?text=Ol%C3%A1%2C%20gostaria%20de%20falar%20com%20as%20advogadas.";
-const PHONE_DISPLAY = "(91) 9162-0280";
-const PHONE_TEL = "+559191620280";
-const INSTAGRAM_URL = "https://www.instagram.com/karllaekeyteleradvogadas/";
-const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/nYM61PbWSiUUTxLa6";
-const ASSET_BASE = `${import.meta.env.BASE_URL}assets/`;
-const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.jpg`;
+const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
 const HERO_SLIDES = [
   {
     id: "karlla",
-    image: `${ASSET_BASE}karlla-pinheiro-hero.png`,
+    image: `${ASSET_BASE}karlla-pinheiro-hero.webp`,
+    fallback: `${ASSET_BASE}karlla-pinheiro-hero.jpg`,
     alt: "Retrato institucional da Dra. Karlla Pinheiro, em composição vinho e dourado.",
     caption: "Dra. Karlla Pinheiro",
   },
   {
     id: "keyteler",
-    image: `${ASSET_BASE}keyteler-leite-hero.png`,
+    image: `${ASSET_BASE}keyteler-leite-hero.webp`,
+    fallback: `${ASSET_BASE}keyteler-leite-hero.jpg`,
     alt: "Retrato institucional da Dra. Keyteler Leite, em composição vinho e dourado.",
     caption: "Dra. Keyteler Leite",
   },
 ] as const;
-const TEXTURE_IMAGE = `${ASSET_BASE}abstract-archival-texture.png`;
-const BRAND_LOGO = `${ASSET_BASE}logo-oficial.png`;
+const TEXTURE_IMAGE = `${ASSET_BASE}abstract-archival-texture.webp`;
 
 const commitments = [
   {
@@ -117,7 +114,6 @@ function scrollToTop(event: React.MouseEvent<HTMLAnchorElement>) {
 }
 
 export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
   const [heroCarouselApi, setHeroCarouselApi] = useState<CarouselApi>();
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [heroAutoplayPaused, setHeroAutoplayPaused] = useState(false);
@@ -168,64 +164,9 @@ export default function Home() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? "hidden" : "";
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [menuOpen]);
-
   return (
     <div className="site-shell">
-      <div className="utility-bar">
-        <div className="site-container utility-inner">
-          <span>Sociedade de Advogadas · Salinópolis, Pará</span>
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            <Instagram size={13} aria-hidden="true" /> @karllaekeyteleradvogadas
-          </a>
-        </div>
-      </div>
-
-      <header className="site-header">
-        <div className="site-container header-inner">
-          <a className="brand" href="#inicio" onClick={scrollToTop} aria-label="Voltar ao início">
-            <span className="brand-mark">
-              <img src={BRAND_LOGO} alt="Logo oficial Karlla Pinheiro e Keyteler Leite" />
-            </span>
-            <span className="brand-copy">
-              <span>Karlla Pinheiro</span>
-              <span>&amp; Keyteler Leite</span>
-              <small>Sociedade de Advogadas</small>
-            </span>
-          </a>
-
-          <a className="header-phone" href={`tel:${PHONE_TEL}`}>
-            <Phone size={15} aria-hidden="true" />
-            <span>{PHONE_DISPLAY}</span>
-          </a>
-
-          <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">
-            {navItems.map((item) => (
-              <a key={item.href} href={item.href} onClick={() => setMenuOpen(false)}>
-                {item.label}
-              </a>
-            ))}
-            <a className="nav-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-              Fale conosco <ArrowUpRight size={15} aria-hidden="true" />
-            </a>
-          </nav>
-
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-label={menuOpen ? "Fechar menu" : "Abrir menu"}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((current) => !current)}
-          >
-            {menuOpen ? <X size={22} /> : <Menu size={22} />}
-          </button>
-        </div>
-      </header>
+      <Header items={navItems} brandHref="#inicio" onBrandClick={scrollToTop} />
 
       <main>
         <section id="inicio" className="hero-section">
@@ -240,9 +181,9 @@ export default function Home() {
                 <span>Orientação jurídica previdenciária com atendimento próximo, linguagem clara e análise cuidadosa de cada história. Atendimento em Salinópolis e atuação nacional.</span>
               </p>
               <div className="hero-actions">
-                <a className="button button-primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
                   <MessageCircle size={17} aria-hidden="true" /> Falar com as advogadas
-                </a>
+                </SiteButton>
                 <a className="text-link text-link-light" href="#sobre">
                   Conhecer a sociedade <ArrowDownRight size={16} aria-hidden="true" />
                 </a>
@@ -273,7 +214,10 @@ export default function Home() {
                   <CarouselContent className="hero-carousel-track">
                     {HERO_SLIDES.map((slide) => (
                       <CarouselItem className="hero-carousel-item" key={slide.id}>
-                        <img className="hero-image" src={slide.image} alt={slide.alt} decoding="async" />
+                        <picture>
+                          <source srcSet={slide.image} type="image/webp" />
+                          <img className="hero-image" src={slide.fallback} alt={slide.alt} width="1122" height="1402" decoding="async" />
+                        </picture>
                       </CarouselItem>
                     ))}
                   </CarouselContent>
@@ -303,6 +247,30 @@ export default function Home() {
             <span>Atendimento próximo</span>
             <span>Salinópolis / PA</span>
             <span>Atuação nacional</span>
+          </div>
+        </section>
+
+        <section className="section section-paper proof-section" aria-labelledby="proof-title">
+          <div className="site-container proof-grid">
+            <SectionMarker number="00" label="Presença em números" />
+            <div className="proof-main" data-reveal>
+              <p className="section-kicker">Uma orientação que começa pela escuta</p>
+              <h2 id="proof-title">Clareza para o próximo passo.</h2>
+              <div className="proof-stats">
+                <article>
+                  <strong>02</strong>
+                  <span>advogadas à frente da sociedade</span>
+                </article>
+                <article>
+                  <strong>1:1</strong>
+                  <span>análise individual de cada história</span>
+                </article>
+                <article>
+                  <strong>PA + Brasil</strong>
+                  <span>atendimento em Salinópolis e atuação nacional</span>
+                </article>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -424,17 +392,23 @@ export default function Home() {
             </div>
 
             <div className="team-portrait" data-reveal>
-              <img src={TEAM_PHOTO} alt="Karlla Pinheiro e Keyteler Leite em retrato institucional" />
+              <img src={TEAM_PHOTO} alt="Karlla Pinheiro e Keyteler Leite em retrato institucional" width="1080" height="1351" loading="lazy" decoding="async" />
             </div>
 
             <div className="team-names" data-reveal>
               <div className="team-name-row">
                 <span>01</span>
-                <strong>Karlla Pinheiro</strong>
+                <div className="team-name-copy">
+                  <strong>Karlla Pinheiro</strong>
+                  <small>OAB/PA 40.209</small>
+                </div>
               </div>
               <div className="team-name-row">
                 <span>02</span>
-                <strong>Keyteler Leite</strong>
+                <div className="team-name-copy">
+                  <strong>Keyteler Leite</strong>
+                  <small>OAB/PA 40.642</small>
+                </div>
               </div>
               <p>Sociedade de Advogadas</p>
             </div>
@@ -491,6 +465,9 @@ export default function Home() {
                     </AccordionTrigger>
                     <AccordionContent className="faq-answer">
                       <p>{item.answer}</p>
+                      <a className="faq-whatsapp-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                        <MessageCircle size={14} aria-hidden="true" /> Falar sobre a minha situação
+                      </a>
                     </AccordionContent>
                   </AccordionItem>
                 ))}
@@ -517,9 +494,9 @@ export default function Home() {
                 <span><strong>Atendimento inicial pelo WhatsApp</strong>Uma conversa direta para indicar os primeiros passos e a documentação necessária.</span>
               </div>
               <div className="contact-actions">
-                <a className="button button-primary" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
                   <MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp
-                </a>
+                </SiteButton>
                 <a className="phone-link" href={`tel:${PHONE_TEL}`}>
                   <Phone size={16} aria-hidden="true" /> {PHONE_DISPLAY}
                 </a>
@@ -565,31 +542,7 @@ export default function Home() {
         <span>WhatsApp</span>
       </a>
 
-      <footer className="site-footer">
-        <div className="site-container footer-top">
-          <a className="brand brand-footer" href="#inicio" onClick={scrollToTop} aria-label="Voltar ao início">
-            <span className="brand-mark">
-              <img src={BRAND_LOGO} alt="Logo oficial Karlla Pinheiro e Keyteler Leite" />
-            </span>
-            <span className="brand-copy">
-              <span>Karlla Pinheiro</span>
-              <span>&amp; Keyteler Leite</span>
-              <small>Sociedade de Advogadas</small>
-            </span>
-          </a>
-          <p className="eyebrow footer-eyebrow">Responsabilidade, cuidado e compromisso em cada conversa</p>
-          <a className="footer-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-            Fale conosco <ArrowUpRight size={16} aria-hidden="true" />
-          </a>
-        </div>
-        <div className="site-container footer-bottom">
-          <a href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-            Instagram <Instagram size={13} aria-hidden="true" />
-          </a>
-          <span>© {new Date().getFullYear()} Karlla Pinheiro e Keyteler Leite Sociedade de Advogadas</span>
-          <span>Salinópolis / PA</span>
-        </div>
-      </footer>
+      <Footer homeHref="#inicio" onHomeClick={scrollToTop} />
     </div>
   );
 }
