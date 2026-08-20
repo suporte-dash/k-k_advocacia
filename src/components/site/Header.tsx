@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Instagram, Menu, Phone, X } from "lucide-react";
-import { BRAND_LOGO, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "./site-config";
+import { ArrowUpRight, Instagram, Menu, X } from "lucide-react";
+import { BRAND_LOGO, INSTAGRAM_URL, WHATSAPP_URL } from "./site-config";
 
 export type SiteNavItem = { href: string; label: string };
 
@@ -42,11 +42,6 @@ export default function Header({ items, brandHref, onBrandClick }: HeaderProps) 
               <span>&amp; Keyteler Leite</span>
               <small>Sociedade de Advogadas</small>
             </span>
-          </a>
-
-          <a className="header-phone" href={`tel:${PHONE_TEL}`}>
-            <Phone size={15} aria-hidden="true" />
-            <span>{PHONE_DISPLAY}</span>
           </a>
 
           <nav className={`desktop-nav ${menuOpen ? "is-open" : ""}`} aria-label="Navegação principal">
