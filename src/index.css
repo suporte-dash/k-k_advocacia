@@ -2092,8 +2092,10 @@ a:focus-visible {
 .services-local-card h2 { margin: 46px 0 0; font-family: "Cormorant Garamond", serif; font-size: clamp(2.15rem, 3vw, 3.3rem); font-weight: 500; line-height: 0.96; }
 .services-local-card p { margin: 22px 0 0; color: rgba(255, 250, 243, 0.7); font-size: 13px; line-height: 1.65; }
 .services-local-card a { margin-top: 32px; color: var(--gold-light); }
-.services-hero-footer { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr auto; margin-top: clamp(70px, 11vw, 140px); color: rgba(255, 250, 243, 0.5); font-size: 8px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
-.services-hero-footer span:nth-child(2) { justify-self: center; }
+.services-hero-footer { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(300px, 0.72fr); gap: clamp(42px, 7vw, 112px); margin-top: clamp(70px, 11vw, 140px); color: rgba(255, 250, 243, 0.5); font-size: 8px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
+.services-hero-footer span:nth-child(1) { grid-column: 1; grid-row: 1; justify-self: start; }
+.services-hero-footer span:nth-child(2) { grid-column: 2; grid-row: 1; justify-self: start; }
+.services-hero-footer span:nth-child(3) { grid-column: 2; grid-row: 1; justify-self: end; }
 .services-section { padding: clamp(76px, 9vw, 120px) 0; }
 .services-section-paper, .services-section-ivory { background: var(--ivory); }
 .services-section-wine { background: var(--wine); color: var(--ivory); }
@@ -2150,6 +2152,7 @@ a:focus-visible {
   .services-nav { gap: 15px; }
   .services-hero-grid, .services-local-grid { gap: 6vw; }
   .services-hero-grid { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr); }
+  .services-hero-footer { grid-template-columns: minmax(0, 1fr) minmax(260px, 0.7fr); gap: 6vw; }
   .services-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; }
   .service-card, .service-card-featured { grid-column: span 1; padding-right: 0; }
   .service-card-featured h3 { font-size: 34px; }
@@ -2177,7 +2180,7 @@ a:focus-visible {
   .services-phone-note { margin-top: 18px; }
   .services-local-card { margin-top: 52px; padding: 28px; }
   .services-local-card h2 { margin-top: 34px; }
-  .services-hero-footer { grid-template-columns: 1fr auto; margin-top: 68px; }
+  .services-hero-footer { grid-template-columns: 1fr auto; gap: 18px; margin-top: 68px; }
   .services-hero-footer span:nth-child(2) { display: none; }
   .services-section { padding: 85px 0; }
   .services-marker { margin-bottom: 45px; }
