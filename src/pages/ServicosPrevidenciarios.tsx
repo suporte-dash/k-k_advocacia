@@ -123,9 +123,11 @@ export default function ServicosPrevidenciarios() {
 
       <main>
         <section className="services-hero" aria-labelledby="services-title">
+          <div className="site-container services-hero-eyebrow-wrap">
+            <p className="services-eyebrow">Serviços previdenciários em Salinópolis, PA</p>
+          </div>
           <div className="site-container services-hero-grid">
             <div className="services-hero-copy">
-              <p className="services-eyebrow">Serviços previdenciários em Salinópolis, PA</p>
               <h1 id="services-title">Orientação previdenciária que começa pela sua história.</h1>
               <p>Orientação jurídica previdenciária com análise individual e linguagem clara.</p>
               <div className="services-hero-actions">
