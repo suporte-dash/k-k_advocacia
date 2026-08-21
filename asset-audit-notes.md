@@ -24,4 +24,4 @@ Os retratos individuais de Karlla e Keyteler estão limpos, sem nome ou sublinha
 
 ## Correção do pipeline WebP
 
-Após o primeiro deploy da restauração, a inspeção pública mostrou que o elemento `picture` ainda carregava os WebP antigos. A causa foi a existência de WebP pré-restauração versionados em `public/assets`, que o build copiava sem recriá-los a partir dos JPG atualizados. O script `scripts/prepare-assets.py` agora gera os três WebP diretamente dos JPG canônicos, e o script `pages:build` executa essa etapa antes do Vite. O cache de otimização foi removido durante a validação do build final.
+Após o primeiro deploy da restauração, a inspeção pública mostrou que o elemento `picture` ainda carregava os WebP antigos. A causa foi a existência de WebP pré-restauração versionados em `public/assets`, que o build copiava sem recriá-los a partir dos JPG atualizados. O script `scripts/prepare-assets.mjs` agora usa Sharp para gerar os três WebP diretamente dos JPG canônicos, e o script `pages:build` executa essa etapa antes do Vite. O cache de otimização foi removido durante a validação do build final.
