@@ -87,3 +87,7 @@ O `Header.tsx` e o `Footer.tsx` reutilizam `BRAND_LOGO` dentro de `.brand-mark`,
 Após o ajuste responsivo, a captura mobile de 390×844 mostrou a logo original com maior altura visual e enquadramento quadrado no cabeçalho, sem perda do monograma dourado ou do texto institucional ao lado. A regra móvel também define uma caixa de 62×62 para `.brand-footer .brand-mark`, mantendo o mesmo formato no rodapé.
 
 Após o deploy do commit `1f6fd11`, a captura pública mobile confirmou a logo original alta e quadrada no cabeçalho, com o monograma K e o texto institucional preservados. A Home pública também foi rolada até o rodapé; a logo oficial continua visível na área de marca do rodapé, usando a mesma regra de enquadramento responsivo.
+
+## Rollback do enquadramento da logo
+
+A alteração de enquadramento mobile introduzida no commit `1f6fd11` foi desfeita. As regras anteriores de `.brand-mark` foram restauradas para `68×43px` no estado normal, `62×39px` no header condensado e `object-fit: contain`; o ajuste específico de `.brand-footer .brand-mark` também foi removido. A captura local de 390×844 confirmou o retorno visual ao formato anterior.
