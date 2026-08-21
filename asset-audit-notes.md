@@ -20,4 +20,8 @@ A primeira restauração determinística preservou os sujeitos, mas a inspeção
 
 ## Candidatos restaurados
 
-Os retratos individuais de Karlla e Keyteler agora estão limpos, sem nome ou sublinhado, com o monograma K preservado e o gradiente inferior contínuo. A foto de equipe preserva as pessoas e remove o texto principal, mas ainda requer refinamento local no fundo esquerdo para eliminar totalmente vestígios e suavizar a transição; ela não será publicada até essa última correção.
+Os retratos individuais de Karlla e Keyteler estão limpos, sem nome ou sublinhado, com o monograma K preservado e o gradiente inferior contínuo. A foto de equipe foi refinada com máscaras OCR/localizadas, preservando integralmente as pessoas e o monograma; a inspeção final não encontrou palavras institucionais legíveis.
+
+## Correção do pipeline WebP
+
+Após o primeiro deploy da restauração, a inspeção pública mostrou que o elemento `picture` ainda carregava os WebP antigos. A causa foi a existência de WebP pré-restauração versionados em `public/assets`, que o build copiava sem recriá-los a partir dos JPG atualizados. O script `scripts/prepare-assets.py` agora gera os três WebP diretamente dos JPG canônicos, e o script `pages:build` executa essa etapa antes do Vite. O cache de otimização foi removido durante a validação do build final.
