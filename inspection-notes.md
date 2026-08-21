@@ -91,3 +91,5 @@ Após o deploy do commit `1f6fd11`, a captura pública mobile confirmou a logo o
 ## Rollback do enquadramento da logo
 
 A alteração de enquadramento mobile introduzida no commit `1f6fd11` foi desfeita. As regras anteriores de `.brand-mark` foram restauradas para `68×43px` no estado normal, `62×39px` no header condensado e `object-fit: contain`; o ajuste específico de `.brand-footer .brand-mark` também foi removido. A captura local de 390×844 confirmou o retorno visual ao formato anterior.
+
+Após o deploy do commit `2a67678`, a captura pública mobile confirmou o retorno do enquadramento anterior da logo no cabeçalho. O restante do site permaneceu inalterado.
