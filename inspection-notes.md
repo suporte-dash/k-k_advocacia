@@ -67,3 +67,7 @@ A primeira captura pública após a restauração ainda aparentava mostrar uma l
 ## Substituição da foto da seção “As advogadas”
 
 A imagem fornecida pelo usuário em `kek.jpeg` foi copiada para `public/assets/foto-oficial-advogadas.jpg`, mantendo suas dimensões originais de 1122×1402. O WebP correspondente foi regenerado pelo pipeline Sharp e a Home pública passou a referenciar o asset atualizado em `assets/foto-oficial-advogadas.webp`. O commit `a6a6662` foi publicado pelo workflow `32488391492`, concluído com sucesso. A inspeção pública confirmou que a seção mantém os nomes e OABs em HTML e usa a nova fotografia. A captura direta da seção `#advogadas` mostrou a imagem enviada ocupando o card central, com enquadramento preservado, sem distorção ou sobreposição dos textos laterais.
+
+## Substituição dos retratos do hero
+
+As duas imagens PNG enviadas foram associadas corretamente aos retratos: `pasted_file_QN7eVs_image.png` para Karlla Pinheiro e `pasted_file_kVlyHV_image.png` para Keyteler Leite. Ambas foram convertidas para JPG canônico e WebP, mantendo 1122×1402. O commit `96069f5` foi publicado pelo workflow `32490868933`, concluído com sucesso. A validação pública do carrossel confirmou a nova foto de Karlla no primeiro slide e a nova foto de Keyteler no segundo slide, sem alterar captions, controles ou a composição editorial do hero.
