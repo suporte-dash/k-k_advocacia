@@ -85,3 +85,5 @@ A Home local foi revisada após a implementação do prompt `pasted_content_4.tx
 O `Header.tsx` e o `Footer.tsx` reutilizam `BRAND_LOGO` dentro de `.brand-mark`, declarando a imagem como 160×160. O ajuste deve ocorrer no CSS responsivo, preservando o arquivo original e o texto da marca; a altura visual da caixa e o `object-fit` precisam evitar a perda de renderização observada em telas estreitas.
 
 Após o ajuste responsivo, a captura mobile de 390×844 mostrou a logo original com maior altura visual e enquadramento quadrado no cabeçalho, sem perda do monograma dourado ou do texto institucional ao lado. A regra móvel também define uma caixa de 62×62 para `.brand-footer .brand-mark`, mantendo o mesmo formato no rodapé.
+
+Após o deploy do commit `1f6fd11`, a captura pública mobile confirmou a logo original alta e quadrada no cabeçalho, com o monograma K e o texto institucional preservados. A Home pública também foi rolada até o rodapé; a logo oficial continua visível na área de marca do rodapé, usando a mesma regra de enquadramento responsivo.
