@@ -12,10 +12,17 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).not.toContain("11 avaliações");
   });
 
-  it("mantém caminhos de contato claros e a numeração correta das seções finais", () => {
+  it("mantém caminhos de contato e a numeração editorial completa das seções", () => {
     expect(homeSource).toContain("Atendimento inicial pelo WhatsApp");
     expect(homeSource).toContain("WhatsApp e telefone:");
-    expect(homeSource).toContain('<span>06</span>');
+    expect(homeSource).toContain('<SectionMarker number="01" label="Presença em números" />');
+    expect(homeSource).toContain('<SectionMarker number="02" label="Sobre" />');
+    expect(homeSource).toContain('<SectionMarker number="03" label="Área de atuação" />');
+    expect(homeSource).toContain('<SectionMarker light number="04" label="Advogadas" />');
+    expect(homeSource).toContain('<SectionMarker number="05" label="Compromissos" />');
+    expect(homeSource).toContain('<SectionMarker light number="06" label="Perguntas frequentes" />');
+    expect(homeSource).toContain('<SectionMarker number="07" label="Atendimento" />');
+    expect(homeSource).not.toContain('SectionMarker number="00"');
   });
 
   it("inclui um caminho interno para a página de serviços previdenciários", () => {

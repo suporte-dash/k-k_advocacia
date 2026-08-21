@@ -252,7 +252,7 @@ export default function Home() {
 
         <section className="section section-paper proof-section" aria-labelledby="proof-title">
           <div className="site-container proof-grid">
-            <SectionMarker number="00" label="Presença em números" />
+            <SectionMarker number="01" label="Presença em números" />
             <div className="proof-main" data-reveal>
               <p className="section-kicker">Uma orientação que começa pela escuta</p>
               <h2 id="proof-title">Clareza para o próximo passo.</h2>
@@ -276,11 +276,7 @@ export default function Home() {
 
         <section id="sobre" className="section section-ivory">
           <div className="site-container about-grid">
-            <div className="section-marker" data-reveal>
-              <span>01</span>
-              <span className="marker-rule" />
-              <span>Sobre a sociedade</span>
-            </div>
+            <SectionMarker number="02" label="Sobre" />
             <div className="about-main" data-reveal>
               <p className="section-kicker">Uma nova casa para uma advocacia próxima</p>
               <h2>Presença para ouvir. Clareza para orientar.</h2>
@@ -334,11 +330,7 @@ export default function Home() {
 
         <section id="atuacao" className="section section-paper">
           <div className="site-container practice-grid">
-            <div className="section-marker" data-reveal>
-              <span>02</span>
-              <span className="marker-rule" />
-              <span>Área de atuação</span>
-            </div>
+            <SectionMarker number="03" label="Área de atuação" />
             <div className="practice-main" data-reveal>
               <p className="section-kicker">Áreas atendidas pelo escritório</p>
               <h2>O direito previdenciário pede atenção aos detalhes da sua história.</h2>
@@ -375,11 +367,7 @@ export default function Home() {
         <section id="advogadas" className="section section-wine">
           <div className="site-container team-grid">
             <div className="team-intro" data-reveal>
-              <div className="section-marker section-marker-light">
-                <span>03</span>
-                <span className="marker-rule" />
-                <span>As advogadas</span>
-              </div>
+              <SectionMarker light number="04" label="Advogadas" />
               <p className="section-kicker section-kicker-light">Duas histórias, um propósito em comum</p>
               <h2>Uma sociedade feita de presença.</h2>
               <p className="team-description">
@@ -417,11 +405,7 @@ export default function Home() {
 
         <section id="compromissos" className="section section-ivory commitments-section">
           <div className="site-container commitments-header" data-reveal>
-            <div className="section-marker">
-              <span>04</span>
-              <span className="marker-rule" />
-              <span>Como atuamos</span>
-            </div>
+            <SectionMarker number="05" label="Compromissos" />
             <div>
               <p className="section-kicker">Compromissos institucionais</p>
               <h2>Cuidado em cada etapa da orientação.</h2>
@@ -444,11 +428,7 @@ export default function Home() {
 
         <section id="faq" className="section section-wine faq-section">
           <div className="site-container">
-            <div className="section-marker section-marker-light" data-reveal>
-              <span>05</span>
-              <span className="marker-rule" />
-              <span>Dúvidas frequentes</span>
-            </div>
+            <SectionMarker light number="06" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
               <p className="section-kicker section-kicker-light">Esclarecimentos essenciais</p>
               <h2 className="text-white">Perguntas frequentes sobre direito previdenciário</h2>
@@ -479,11 +459,7 @@ export default function Home() {
         <section id="atendimento" className="section contact-section">
           <div className="site-container contact-grid">
             <div className="contact-copy" data-reveal>
-              <div className="section-marker">
-                <span>06</span>
-                <span className="marker-rule" />
-                <span>Atendimento</span>
-              </div>
+              <SectionMarker number="07" label="Atendimento" />
               <p className="section-kicker">A porta está aberta</p>
               <h2>Sua história merece uma orientação clara.</h2>
               <p>
