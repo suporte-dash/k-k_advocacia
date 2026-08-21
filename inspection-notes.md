@@ -79,3 +79,9 @@ O prompt `pasted_content_3.txt` foi decomposto e a implementação inicial foi a
 ## Padronização da numeração das seções
 
 A Home local foi revisada após a implementação do prompt `pasted_content_4.txt`. O DOM confirmou os marcadores `01 Presença em números`, `02 Sobre`, `03 Área de atuação`, `04 Advogadas`, `05 Compromissos`, `06 Perguntas frequentes` e `07 Atendimento` em ordem. Os marcadores `04` e `06` usam `section-marker-light` sobre fundo vinho. O Hero e o `quote-section` não possuem marcadores. Na página de Serviços, o DOM confirmou `01 Serviços` e `02 Atendimento` em ordem, com o Hero sem marcador. Após o deploy do commit `55cee68`, a Home pública confirmou os marcadores `01 Presença em números`, `02 Sobre`, `03 Área de atuação`, `04 Advogadas`, `05 Compromissos`, `06 Perguntas frequentes` e `07 Atendimento`; `04` e `06` usam `section-marker-light`, enquanto Hero e `quote-section` permanecem sem SectionMarker. A rota pública de Serviços confirmou `01 Serviços` e `02 Atendimento`, sem marcador no Hero.
+
+## Ajuste de logo no mobile — auditoria
+
+O `Header.tsx` e o `Footer.tsx` reutilizam `BRAND_LOGO` dentro de `.brand-mark`, declarando a imagem como 160×160. O ajuste deve ocorrer no CSS responsivo, preservando o arquivo original e o texto da marca; a altura visual da caixa e o `object-fit` precisam evitar a perda de renderização observada em telas estreitas.
+
+Após o ajuste responsivo, a captura mobile de 390×844 mostrou a logo original com maior altura visual e enquadramento quadrado no cabeçalho, sem perda do monograma dourado ou do texto institucional ao lado. A regra móvel também define uma caixa de 62×62 para `.brand-footer .brand-mark`, mantendo o mesmo formato no rodapé.

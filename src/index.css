@@ -1613,18 +1613,25 @@ a:focus-visible {
   }
 
   .site-header.is-scrolled .brand-mark {
-    width: 62px;
-    height: 39px;
+    width: 54px;
+    height: 54px;
   }
 
   .brand-mark {
-    width: 68px;
-    height: 43px;
+    width: 58px;
+    height: 58px;
   }
 
   .brand-mark img {
     width: 100%;
     height: 100%;
+    object-fit: cover;
+    object-position: left center;
+  }
+
+  .brand-footer .brand-mark {
+    width: 62px;
+    height: 62px;
   }
 
   .whatsapp-float {
