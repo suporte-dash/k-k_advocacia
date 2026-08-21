@@ -196,7 +196,30 @@
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 96px;
   background: var(--ivory);
+}
+
+section[id] {
+  scroll-margin-top: 96px;
+}
+
+.scroll-progress {
+  position: fixed;
+  z-index: 40;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 3px;
+  pointer-events: none;
+}
+
+.scroll-progress-bar {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--gold);
+  transition: width 120ms linear;
 }
 
 body {
@@ -279,6 +302,12 @@ a:focus-visible {
   background: var(--wine);
   color: var(--ivory);
   border-bottom: 1px solid rgba(255, 250, 243, 0.12);
+  transition: box-shadow 200ms ease, border-color 200ms ease;
+}
+
+.site-header.is-scrolled {
+  border-bottom-color: rgba(255, 250, 243, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
 
 .header-phone {
@@ -303,6 +332,11 @@ a:focus-visible {
   align-items: center;
   justify-content: space-between;
   min-height: 78px;
+  transition: min-height 200ms ease;
+}
+
+.site-header.is-scrolled .header-inner {
+  min-height: 62px;
 }
 
 .brand {
@@ -321,6 +355,12 @@ a:focus-visible {
   height: 47px;
   border: 0;
   background: transparent;
+  transition: width 200ms ease, height 200ms ease;
+}
+
+.site-header.is-scrolled .brand-mark {
+  width: 68px;
+  height: 42px;
 }
 
 .brand-mark img {
@@ -388,6 +428,16 @@ a:focus-visible {
 }
 
 .desktop-nav > a:not(.nav-cta):hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.desktop-nav > a:not(.nav-cta).is-active {
+  color: var(--ivory);
+  opacity: 1;
+}
+
+.desktop-nav > a:not(.nav-cta).is-active::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -1558,6 +1608,15 @@ a:focus-visible {
     min-height: 72px;
   }
 
+  .site-header.is-scrolled .header-inner {
+    min-height: 60px;
+  }
+
+  .site-header.is-scrolled .brand-mark {
+    width: 62px;
+    height: 39px;
+  }
+
   .brand-mark {
     width: 68px;
     height: 43px;
@@ -1615,6 +1674,10 @@ a:focus-visible {
 
   .desktop-nav.is-open {
     transform: translateY(0);
+  }
+
+  .site-header.is-scrolled .desktop-nav {
+    inset: 60px 0 auto;
   }
 
   .desktop-nav > a:not(.nav-cta) {
@@ -1919,6 +1982,11 @@ a:focus-visible {
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+    scroll-padding-top: 96px;
+  }
+
+  .scroll-progress {
+    display: none;
   }
 
   *,
