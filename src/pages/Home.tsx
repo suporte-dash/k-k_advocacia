@@ -392,7 +392,7 @@ export default function Home() {
             </div>
 
             <div className="team-portrait" data-reveal>
-              <img src={TEAM_PHOTO} alt="Karlla Pinheiro e Keyteler Leite em retrato institucional" width="1080" height="1351" loading="lazy" decoding="async" />
+              <img src={TEAM_PHOTO} alt="Karlla Pinheiro e Keyteler Leite em retrato institucional" width="1122" height="1402" loading="lazy" decoding="async" />
             </div>
 
             <div className="team-names" data-reveal>
