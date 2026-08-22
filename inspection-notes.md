@@ -103,3 +103,5 @@ Após o deploy do commit `fb1aea9`, a página pública de Serviços confirmou qu
 ## Centralização do card do hero de Serviços
 
 O card lateral do hero foi centralizado visualmente sem alterar seu conteúdo. O painel usa `text-align: center`; o parágrafo recebe margens automáticas; o checklist fica em uma coluna de até 320px centralizada, mantendo leitura alinhada à esquerda; e o CTA permanece centralizado com ícone e sublinhado. A revisão local em desktop e mobile de 390×844 confirmou um conjunto equilibrado e legível.
+
+Após o deploy do commit `2b1cf4d`, a página pública de Serviços confirmou o card centralizado no hero: título e texto alinhados ao centro, checklist organizado em coluna central, CTA centrado e conteúdo preservado. A captura pública mobile de 390×844 confirmou que o painel mantém proporção e legibilidade.
