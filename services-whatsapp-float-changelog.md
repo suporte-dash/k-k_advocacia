@@ -21,3 +21,8 @@ A inspeção do DOM confirmou o link com:
 Também foram aprovados TypeScript, **8 de 8 testes Vitest**, build do GitHub Pages e `git diff --check`.
 
 Data: 22 de agosto de 2026.
+
+
+## Publicação
+
+O commit `686998a` foi publicado em `main`. O workflow do GitHub Pages `32577024582` concluiu com sucesso. A rota pública de Serviços também foi aberta com cache bust em `https://suporte-dash.github.io/k-k_advocacia/servicos-previdenciarios-salinopolis?v=686998a`; o navegador renderizou a página e listou o botão flutuante como link acessível.
