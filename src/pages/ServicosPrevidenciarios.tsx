@@ -210,6 +210,18 @@ export default function ServicosPrevidenciarios() {
         </section>
       </main>
 
+      <a
+        className="whatsapp-float"
+        href={WHATSAPP_URL}
+        target="_blank"
+        rel="noreferrer"
+        aria-label="Falar com as advogadas pelo WhatsApp"
+        title="Falar com as advogadas pelo WhatsApp"
+      >
+        <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
+        <span>WhatsApp</span>
+      </a>
+
       <Footer homeHref={internalHref("/")} />
     </div>
   );

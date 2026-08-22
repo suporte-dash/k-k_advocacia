@@ -12,6 +12,12 @@ describe("página local de serviços previdenciários", () => {
     expect(pageSource).toContain("+559191620280");
   });
 
+  it("inclui o botão flutuante de WhatsApp com acessibilidade", () => {
+    expect(pageSource).toContain('className="whatsapp-float"');
+    expect(pageSource).toContain('aria-label="Falar com as advogadas pelo WhatsApp"');
+    expect(pageSource).toContain('title="Falar com as advogadas pelo WhatsApp"');
+  });
+
   it("descreve SEO local sem avaliações, notas ou promessas de resultado", () => {
     expect(pageSource).toContain('"@type": "LegalService"');
     expect(pageSource).toContain("serviceType");
