@@ -351,16 +351,16 @@ a:focus-visible {
   overflow: hidden;
   display: grid;
   place-items: center;
-  width: 76px;
-  height: 47px;
+  width: 96px;
+  height: 64px;
   border: 0;
   background: transparent;
   transition: width 200ms ease, height 200ms ease;
 }
 
 .site-header.is-scrolled .brand-mark {
-  width: 68px;
-  height: 42px;
+  width: 84px;
+  height: 56px;
 }
 
 .brand-mark img {
@@ -1613,13 +1613,13 @@ a:focus-visible {
   }
 
   .site-header.is-scrolled .brand-mark {
-    width: 62px;
-    height: 39px;
+    width: 72px;
+    height: 48px;
   }
 
   .brand-mark {
-    width: 68px;
-    height: 43px;
+    width: 84px;
+    height: 56px;
   }
 
   .brand-mark img {

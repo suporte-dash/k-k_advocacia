@@ -105,3 +105,9 @@ Após o deploy do commit `fb1aea9`, a página pública de Serviços confirmou qu
 O card lateral do hero foi centralizado visualmente sem alterar seu conteúdo. O painel usa `text-align: center`; o parágrafo recebe margens automáticas; o checklist fica em uma coluna de até 320px centralizada, mantendo leitura alinhada à esquerda; e o CTA permanece centralizado com ícone e sublinhado. A revisão local em desktop e mobile de 390×844 confirmou um conjunto equilibrado e legível.
 
 Após o deploy do commit `2b1cf4d`, a página pública de Serviços confirmou o card centralizado no hero: título e texto alinhados ao centro, checklist organizado em coluna central, CTA centrado e conteúdo preservado. A captura pública mobile de 390×844 confirmou que o painel mantém proporção e legibilidade.
+
+## Aumento de renderização da logo no Header e Footer
+
+O prompt `pasted_content_5.txt` foi aplicado. A captura mobile de 390×844 confirmou a logo ampliada no header normal (`84×56px`) com monograma nítido e sem quebra do texto ou do menu. A captura desktop de 1280×900 confirmou o novo tamanho padrão (`96×64px`) acomodado no header, com navegação e CTA alinhados. O estado condensado mantém `84×56px` no desktop e `72×48px` no mobile, todos na proporção 1,5:1. O Footer passou a declarar `width="160" height="107"`.
+
+A revisão local após rolagem confirmou o header no estado condensado com a logo ampliada ainda visível e sem quebra dos links de navegação ou do CTA. A troca de tamanho permanece suave pela transição existente de largura e altura.

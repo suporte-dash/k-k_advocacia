@@ -12,7 +12,7 @@ export default function Footer({ homeHref, onHomeClick }: FooterProps) {
       <div className="site-container footer-top">
         <a className="brand brand-footer" href={homeHref} onClick={onHomeClick} aria-label="Voltar ao início">
           <span className="brand-mark">
-            <img src={BRAND_LOGO} alt="Logo oficial Karlla Pinheiro e Keyteler Leite" width="160" height="160" loading="lazy" />
+            <img src={BRAND_LOGO} alt="Logo oficial Karlla Pinheiro e Keyteler Leite" width="160" height="107" loading="lazy" />
           </span>
           <span className="brand-copy">
             <span>Karlla Pinheiro</span>
