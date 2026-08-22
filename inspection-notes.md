@@ -97,3 +97,5 @@ Após o deploy do commit `2a67678`, a captura pública mobile confirmou o retorn
 ## Remoção de rótulo do card do hero de Serviços
 
 O bloco `services-hero-card-topline` foi removido da página de Serviços. A busca confirmou que `services-hero-card-topline`, `services-hero-card-index` e `services-hero-card-label` eram exclusivos desse trecho e não são mais usados. O título `Converse sobre o seu caso.` agora é o primeiro elemento visível do card; sua margem foi zerada para aproveitar o `padding: clamp(26px, 3vw, 40px)` do próprio painel como respiro superior. A revisão local em desktop e em viewport mobile de 390×844 confirmou proporção equilibrada, checklist e CTA intactos.
+
+Após o deploy do commit `fb1aea9`, a página pública de Serviços confirmou que o card do hero começa diretamente com `Converse sobre o seu caso.`, mantendo respiro superior, parágrafo, checklist de três itens e link `Enviar uma mensagem`. A captura pública mobile de 390×844 confirmou proporção equilibrada e ausência de faixa ou rótulo residual.
