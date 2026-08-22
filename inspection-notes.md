@@ -111,3 +111,5 @@ Após o deploy do commit `2b1cf4d`, a página pública de Serviços confirmou o 
 O prompt `pasted_content_5.txt` foi aplicado. A captura mobile de 390×844 confirmou a logo ampliada no header normal (`84×56px`) com monograma nítido e sem quebra do texto ou do menu. A captura desktop de 1280×900 confirmou o novo tamanho padrão (`96×64px`) acomodado no header, com navegação e CTA alinhados. O estado condensado mantém `84×56px` no desktop e `72×48px` no mobile, todos na proporção 1,5:1. O Footer passou a declarar `width="160" height="107"`.
 
 A revisão local após rolagem confirmou o header no estado condensado com a logo ampliada ainda visível e sem quebra dos links de navegação ou do CTA. A troca de tamanho permanece suave pela transição existente de largura e altura.
+
+Após o deploy do commit `7cae4b9`, as capturas públicas confirmaram a logo ampliada e nítida no mobile de 390×844px e no desktop de 1280×900px. O header permanece proporcional; a navegação, o CTA e o conteúdo do hero não sofreram quebras visíveis.
