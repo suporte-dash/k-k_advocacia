@@ -141,10 +141,6 @@ export default function ServicosPrevidenciarios() {
               <p className="services-phone-note"><Phone size={14} aria-hidden="true" /> WhatsApp e telefone: {PHONE_DISPLAY}</p>
             </div>
             <aside className="services-hero-card" aria-label="Principais frentes de atendimento">
-              <div className="services-hero-card-topline">
-                <span className="services-hero-card-index">01</span>
-                <span className="services-hero-card-label">Comece por aqui</span>
-              </div>
               <h2>Converse sobre o seu caso.</h2>
               <p>Uma orientação inicial ajuda a organizar a história, os documentos e os próximos passos.</p>
               <div className="services-hero-card-list">

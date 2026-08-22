@@ -93,3 +93,7 @@ Após o deploy do commit `1f6fd11`, a captura pública mobile confirmou a logo o
 A alteração de enquadramento mobile introduzida no commit `1f6fd11` foi desfeita. As regras anteriores de `.brand-mark` foram restauradas para `68×43px` no estado normal, `62×39px` no header condensado e `object-fit: contain`; o ajuste específico de `.brand-footer .brand-mark` também foi removido. A captura local de 390×844 confirmou o retorno visual ao formato anterior.
 
 Após o deploy do commit `2a67678`, a captura pública mobile confirmou o retorno do enquadramento anterior da logo no cabeçalho. O restante do site permaneceu inalterado.
+
+## Remoção de rótulo do card do hero de Serviços
+
+O bloco `services-hero-card-topline` foi removido da página de Serviços. A busca confirmou que `services-hero-card-topline`, `services-hero-card-index` e `services-hero-card-label` eram exclusivos desse trecho e não são mais usados. O título `Converse sobre o seu caso.` agora é o primeiro elemento visível do card; sua margem foi zerada para aproveitar o `padding: clamp(26px, 3vw, 40px)` do próprio painel como respiro superior. A revisão local em desktop e em viewport mobile de 390×844 confirmou proporção equilibrada, checklist e CTA intactos.
