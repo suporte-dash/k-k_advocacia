@@ -10,6 +10,7 @@ import { internalHref } from "@/lib/site-path";
 const SITE_URL = `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, "")}`;
 const PAGE_PATH = "/servicos-previdenciarios-salinopolis";
 const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
+const SERVICES_CONTACT_BACKGROUND_IMAGE = `${import.meta.env.BASE_URL}assets/k-k-servicos-atendimento.webp`;
 // Public telephone documented for content and accessibility checks: +559191620280.
 
 const pageNavItems = [
@@ -160,7 +161,11 @@ export default function ServicosPrevidenciarios() {
           </div>
         </section>
 
-        <section id="servicos" className="services-section services-section-paper" aria-labelledby="services-list-title">
+        <div
+          className="services-flow"
+          style={{ backgroundImage: `url("${SERVICES_CONTACT_BACKGROUND_IMAGE}")` }}
+        >
+          <section id="servicos" className="services-section services-section-paper" aria-labelledby="services-list-title">
           <div className="site-container services-intro-grid">
                           <SectionMarker number="01" label="Serviços" />
 
@@ -186,7 +191,11 @@ export default function ServicosPrevidenciarios() {
           </ol>
         </section>
 
-        <section className="services-section services-contact-section" id="atendimento" aria-labelledby="contact-title">
+          <section
+            className="services-section services-contact-section"
+            id="atendimento"
+            aria-labelledby="contact-title"
+          >
           <div className="site-container services-contact-grid">
             <div>
               <SectionMarker number="02" label="Atendimento" />
@@ -207,7 +216,8 @@ export default function ServicosPrevidenciarios() {
               </div>
             </div>
           </div>
-        </section>
+          </section>
+        </div>
       </main>
 
       <a

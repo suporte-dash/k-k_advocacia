@@ -32,4 +32,7 @@ export default defineConfig({
     outDir: "dist",
     emptyOutDir: true,
   },
+  preview: {
+    allowedHosts: ["4174-ib2fctn3dwcq6rfd1bpx3-0be50889.us4.manus.computer"],
+  },
 });

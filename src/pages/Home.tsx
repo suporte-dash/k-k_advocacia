@@ -41,7 +41,7 @@ const HERO_SLIDES = [
     caption: "Dra. Keyteler Leite",
   },
 ] as const;
-const TEXTURE_IMAGE = `${ASSET_BASE}abstract-archival-texture.webp`;
+const PROOF_BACKGROUND_IMAGE = `${ASSET_BASE}k-k-presenca-sobre-minimal-bg.webp`;
 
 const commitments = [
   {
@@ -250,7 +250,14 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="section section-paper proof-section" aria-labelledby="proof-title">
+        <div
+          className="proof-about-flow"
+          style={{ backgroundImage: `url(${PROOF_BACKGROUND_IMAGE})` }}
+        >
+          <section
+            className="section section-paper proof-section"
+            aria-labelledby="proof-title"
+          >
           <div className="site-container proof-grid">
             <SectionMarker number="01" label="Presença em números" />
             <div className="proof-main" data-reveal>
@@ -274,7 +281,7 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="sobre" className="section section-ivory">
+          <section id="sobre" className="section section-ivory">
           <div className="site-container about-grid">
             <SectionMarker number="02" label="Sobre" />
             <div className="about-main" data-reveal>
@@ -314,10 +321,10 @@ export default function Home() {
               <strong>Proximidade</strong>
             </div>
           </div>
-        </section>
+          </section>
+        </div>
 
         <section className="quote-section">
-          <div className="quote-image" style={{ backgroundImage: `url(${TEXTURE_IMAGE})` }} aria-hidden="true" />
           <div className="site-container quote-inner" data-reveal>
             <span className="quote-mark">“</span>
             <blockquote>
@@ -328,7 +335,11 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="atuacao" className="section section-paper">
+        <div
+          className="practice-team-flow"
+          style={{ backgroundImage: `url(${PROOF_BACKGROUND_IMAGE})` }}
+        >
+          <section id="atuacao" className="section section-paper">
           <div className="site-container practice-grid">
             <SectionMarker number="03" label="Área de atuação" />
             <div className="practice-main" data-reveal>
@@ -364,17 +375,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="advogadas" className="section section-wine">
+        <section id="advogadas" className="section section-paper team-section">
           <div className="site-container team-grid">
             <div className="team-intro" data-reveal>
               <SectionMarker light number="04" label="Advogadas" />
-              <p className="section-kicker section-kicker-light">Duas histórias, um propósito em comum</p>
+              <p className="section-kicker">Duas histórias, um propósito em comum</p>
               <h2>Uma sociedade feita de presença.</h2>
               <p className="team-description">
                 Karlla Pinheiro e Keyteler Leite são as duas advogadas à frente da sociedade. O
                 trabalho começa com uma conversa responsável e atenta à pessoa que chega.
               </p>
-              <a className="button button-outline-light" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
+              <a className="button button-outline-team" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
                 <Instagram size={16} aria-hidden="true" /> Ver no Instagram
               </a>
             </div>
@@ -402,8 +413,9 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </div>
 
-        <section id="compromissos" className="section section-ivory commitments-section">
+        <section id="compromissos" className="section section-wine commitments-section">
           <div className="site-container commitments-header" data-reveal>
             <SectionMarker number="05" label="Compromissos" />
             <div>
@@ -426,13 +438,17 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="faq" className="section section-wine faq-section">
+        <div
+          className="closing-flow"
+          style={{ backgroundImage: `url(${PROOF_BACKGROUND_IMAGE})` }}
+        >
+          <section id="faq" className="section section-paper faq-section">
           <div className="site-container">
             <SectionMarker light number="06" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
-              <p className="section-kicker section-kicker-light">Esclarecimentos essenciais</p>
-              <h2 className="text-white">Perguntas frequentes sobre direito previdenciário</h2>
-              <p className="faq-subtitle text-white/80">
+              <p className="section-kicker">Esclarecimentos essenciais</p>
+              <h2>Perguntas frequentes sobre direito previdenciário</h2>
+              <p className="faq-subtitle">
                 Respostas orientativas para ajudar você a compreender os conceitos fundamentais antes da orientação jurídica individual.
               </p>
             </div>
@@ -504,6 +520,7 @@ export default function Home() {
             </div>
           </div>
         </section>
+        </div>
       </main>
 
       <a

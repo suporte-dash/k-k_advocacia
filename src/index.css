@@ -635,6 +635,17 @@ a:focus-visible {
   color: var(--wine);
 }
 
+.button-outline-team {
+  border-color: var(--wine);
+  color: var(--wine);
+}
+
+.button-outline-team:hover {
+  border-color: var(--wine);
+  background: var(--wine);
+  color: var(--ivory);
+}
+
 .text-link {
   display: inline-flex;
   align-items: center;
@@ -862,6 +873,29 @@ a:focus-visible {
   color: var(--ivory);
 }
 
+.team-section {
+  background: var(--paper);
+  color: var(--graphite);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.proof-about-flow,
+.practice-team-flow {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--paper);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.practice-team-flow > #atuacao,
+.practice-team-flow > #advogadas {
+  background: transparent;
+}
+
 .about-grid,
 .practice-grid {
   display: grid;
@@ -955,24 +989,8 @@ a:focus-visible {
   position: relative;
   min-height: 430px;
   overflow: hidden;
-  background: var(--wine-deep);
+  background: var(--wine);
   color: var(--ivory);
-}
-
-.quote-image {
-  position: absolute;
-  inset: 0;
-  background-position: center;
-  background-size: cover;
-  opacity: 0.38;
-  mix-blend-mode: screen;
-}
-
-.quote-section::after {
-  position: absolute;
-  inset: 0;
-  background: rgba(65, 20, 30, 0.48);
-  content: "";
 }
 
 .quote-inner {
@@ -1079,6 +1097,10 @@ a:focus-visible {
   color: var(--gold-light);
 }
 
+.team-section .section-marker-light {
+  color: var(--gold-dark);
+}
+
 .section-kicker-light {
   margin-top: 84px;
 }
@@ -1090,7 +1112,7 @@ a:focus-visible {
 .team-description {
   max-width: 460px;
   margin: 30px 0 0;
-  color: rgba(255, 250, 243, 0.7);
+  color: var(--slate);
 }
 
 .team-intro .button {
@@ -1100,8 +1122,8 @@ a:focus-visible {
 .team-portrait {
   position: relative;
   overflow: hidden;
-  border: 1px solid rgba(255, 250, 243, 0.38);
-  background: var(--wine-deep);
+  border: 1px solid var(--line);
+  background: var(--ivory);
 }
 
 .team-portrait img {
@@ -1120,7 +1142,7 @@ a:focus-visible {
 
 .team-names {
   width: 100%;
-  border-top: 1px solid rgba(255, 250, 243, 0.32);
+  border-top: 1px solid var(--line);
 }
 
 .team-name-row {
@@ -1128,13 +1150,13 @@ a:focus-visible {
   grid-template-columns: 30px 1fr;
   gap: 10px;
   align-items: center;
-  border-bottom: 1px solid rgba(255, 250, 243, 0.32);
+  border-bottom: 1px solid var(--line);
   padding: 17px 0;
 }
 
 .team-name-row span,
 .team-names > p {
-  color: #e2bd89;
+  color: var(--gold-dark);
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.12em;
@@ -1150,16 +1172,53 @@ a:focus-visible {
 
 .team-names > p {
   margin-top: 21px;
-  color: rgba(255, 250, 243, 0.62);
+  color: var(--graphite);
 }
 
 .commitments-section {
-  background-color: var(--ivory);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='172' height='172' stroke-width='2'/%3E%3Cpath d='M82 58v104M82 111l54-53M82 111l54 51' stroke-width='4'/%3E%3Cpath d='M67 58h30M67 162h30' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
-  background-position: right clamp(24px, 10vw, 150px) bottom clamp(40px, 9vw, 105px);
-  background-repeat: no-repeat;
-  background-size: clamp(210px, 28vw, 360px);
+  background: var(--wine);
+  color: var(--ivory);
   padding-bottom: 145px;
+}
+
+.commitments-section .section-marker,
+.commitments-section .section-kicker {
+  color: var(--gold-light);
+}
+
+.commitments-section .commitments-header,
+.commitments-section .commitments-grid {
+  position: relative;
+  z-index: 1;
+}
+
+.commitments-section .commitments-header > div:last-child > p:last-child {
+  color: rgba(255, 250, 243, 0.74);
+}
+
+.commitments-section .commitment-card {
+  border-top-color: rgba(255, 250, 243, 0.34);
+}
+
+.commitments-section .commitment-card:hover {
+  border-top-color: var(--gold-light);
+}
+
+.commitments-section .commitment-number,
+.commitments-section .commitment-mark {
+  color: var(--gold-light);
+}
+
+.commitments-section .commitment-card h3 {
+  color: var(--ivory);
+}
+
+.commitments-section .commitment-card p {
+  color: rgba(255, 250, 243, 0.72);
+}
+
+.commitments-section .commitment-mark {
+  border-color: var(--gold-light);
 }
 
 .commitments-header {
@@ -1576,12 +1635,12 @@ a:focus-visible {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 18px;
-    border-top: 1px solid rgba(255, 250, 243, 0.32);
+    border-top: 1px solid var(--line);
     padding-top: 18px;
   }
 
   .team-name-row {
-    border-top: 1px solid rgba(255, 250, 243, 0.32);
+    border-top: 1px solid var(--line);
   }
 
   .team-names > p {
@@ -1846,6 +1905,18 @@ a:focus-visible {
     font-size: 13px;
   }
 
+  .proof-about-flow,
+  .practice-team-flow,
+  .team-section {
+    background-position: center center;
+    background-size: cover;
+  }
+
+  .faq-section {
+    background-position: center center;
+    background-size: cover;
+  }
+
   .team-grid {
     display: flex;
     flex-direction: column;
@@ -2022,6 +2093,16 @@ a:focus-visible {
 
 .faq-section {
   padding: 96px 0;
+  background-color: var(--paper);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='172' height='172' stroke-width='2'/%3E%3Cpath d='M82 58v104M82 111l54-53M82 111l54 51' stroke-width='4'/%3E%3Cpath d='M67 58h30M67 162h30' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: right clamp(24px, 8vw, 120px) bottom clamp(28px, 8vw, 100px);
+  background-repeat: no-repeat;
+  background-size: clamp(170px, 22vw, 300px);
+  color: var(--graphite);
+}
+
+.faq-section .section-marker-light {
+  color: var(--gold-dark);
 }
 
 .faq-header {
@@ -2040,16 +2121,16 @@ a:focus-visible {
 }
 
 .faq-accordion {
-  border-top: 1px solid rgba(163, 126, 75, 0.35);
+  border-top: 1px solid var(--line);
 }
 
 .faq-item {
-  border-bottom: 1px solid rgba(163, 126, 75, 0.35);
+  border-bottom: 1px solid var(--line);
 }
 
 .faq-question {
   padding: 24px 0;
-  color: #fffaf3;
+  color: var(--wine);
   font-family: var(--font-serif);
   font-size: 20px;
   font-weight: 500;
@@ -2063,7 +2144,7 @@ a:focus-visible {
 
 .faq-answer {
   padding-bottom: 24px;
-  color: rgba(255, 250, 243, 0.85);
+  color: var(--slate);
   font-size: 15px;
   line-height: 1.75;
 }
@@ -2168,7 +2249,26 @@ a:focus-visible {
 .services-hero-footer { position: relative; z-index: 1; display: flex; justify-content: center; gap: clamp(28px, 7vw, 96px); max-width: 660px; margin: clamp(58px, 7vw, 92px) auto 0; border-top: 1px solid rgba(255, 250, 243, 0.18); padding-top: 18px; color: rgba(255, 250, 243, 0.58); font-size: 8px; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; }
 .services-hero-footer span { white-space: nowrap; }
 .services-section { padding: clamp(76px, 9vw, 120px) 0; }
-.services-section-paper, .services-section-ivory { background: var(--ivory); }
+.services-flow {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--ivory);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.services-flow::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgba(255, 250, 243, 0.08);
+  content: "";
+  pointer-events: none;
+}
+.services-flow .services-section-paper,
+.services-flow .services-contact-section {
+  background: transparent;
+}
 .services-section-wine { background: var(--wine); color: var(--ivory); }
 .services-intro-grid { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 8vw; align-items: start; }
 .services-marker { display: flex; align-items: center; gap: 11px; color: var(--gold-dark); font-size: 9px; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; }
@@ -2205,7 +2305,22 @@ a:focus-visible {
 .services-steps li strong { color: var(--wine); font-size: 11px; letter-spacing: 0.04em; text-transform: uppercase; }
 .services-steps p { margin: 0; color: var(--slate); font-size: 13px; line-height: 1.65; }
 .services-steps svg { color: var(--gold-dark); }
-.services-contact-section { background: var(--paper); }
+.services-contact-section {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--paper);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.services-contact-section::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: rgba(255, 250, 243, 0.14);
+  content: "";
+  pointer-events: none;
+}
 .services-contact-grid { max-width: 720px; }
 .services-contact-grid > div:first-child > p:not(.section-kicker) { max-width: 590px; margin: 26px 0 0; color: var(--slate); font-size: 15px; line-height: 1.72; }
 .button-wine { background: var(--wine); color: var(--ivory); }
@@ -2268,6 +2383,10 @@ a:focus-visible {
   .services-steps { grid-template-columns: 1fr; gap: 25px; margin-top: 50px; }
   .services-steps li { padding: 19px 0 0; }
   .services-contact-grid > div:first-child > p:not(.section-kicker) { font-size: 14px; }
+  .services-flow {
+    background-position: center center;
+    background-size: cover;
+  }
   .services-contact-section .services-address-card { margin-top: 44px; }
   .services-phone-link { border: 1px solid var(--wine); padding: 0 18px; }
   .services-faq-prompt { margin-top: 48px; padding: 28px; }
@@ -2284,15 +2403,51 @@ a:focus-visible {
   height: 100%;
 }
 
-.proof-section {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='172' height='172' stroke-width='2'/%3E%3Cpath d='M82 58v104M82 111l54-53M82 111l54 51' stroke-width='4'/%3E%3Cpath d='M67 58h30M67 162h30' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
-  background-position: right clamp(24px, 8vw, 120px) top clamp(28px, 5vw, 64px);
+.closing-flow,
+.proof-about-flow {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--ivory);
+  background-position: center center;
   background-repeat: no-repeat;
-  background-size: clamp(170px, 22vw, 300px);
+  background-size: cover;
+}
+
+.closing-flow::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: rgba(255, 250, 243, 0.12);
+  content: "";
+  pointer-events: none;
+}
+
+.closing-flow > #faq,
+.closing-flow > #atendimento,
+.proof-about-flow > .proof-section,
+.proof-about-flow > #sobre {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+}
+.proof-section {
+  position: relative;
+  isolation: isolate;
   padding-block: 82px;
 }
 
+.proof-about-flow::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: rgba(255, 250, 243, 0.12);
+  content: "";
+  pointer-events: none;
+}
+
 .proof-grid {
+  position: relative;
+  z-index: 1;
   display: grid;
   grid-template-columns: 190px minmax(0, 1fr);
   gap: 8vw;
@@ -2347,7 +2502,7 @@ a:focus-visible {
 }
 
 .team-name-copy small {
-  color: rgba(255, 250, 243, 0.7);
+  color: var(--graphite);
   font-size: 9px;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -2359,9 +2514,9 @@ a:focus-visible {
   align-items: center;
   gap: 8px;
   margin-top: 19px;
-  border-bottom: 1px solid var(--gold-light);
+  border-bottom: 1px solid var(--wine);
   padding-bottom: 5px;
-  color: var(--gold-light);
+  color: var(--wine);
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -2369,7 +2524,7 @@ a:focus-visible {
 }
 
 .faq-whatsapp-link:hover {
-  color: var(--ivory);
+  color: var(--wine-deep);
 }
 
 @media (max-width: 760px) {
