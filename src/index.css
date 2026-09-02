@@ -876,24 +876,6 @@ a:focus-visible {
 .team-section {
   background: var(--paper);
   color: var(--graphite);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.proof-about-flow,
-.practice-team-flow {
-  position: relative;
-  overflow: hidden;
-  background-color: var(--paper);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.practice-team-flow > #atuacao,
-.practice-team-flow > #advogadas {
-  background: transparent;
 }
 
 .about-grid,
@@ -955,6 +937,13 @@ a:focus-visible {
 
 .about-main > .text-link {
   margin-top: 29px;
+}
+
+.about-section {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M34 190V78l86-48 86 48v112' stroke-width='2'/%3E%3Cpath d='M62 188V92h116v96M83 92v96M105 92v96M127 92v96M149 92v96' stroke-width='3'/%3E%3Cpath d='M22 190h196' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-position: right clamp(24px, 8vw, 120px) bottom clamp(28px, 8vw, 100px);
+  background-repeat: no-repeat;
+  background-size: clamp(170px, 22vw, 300px);
 }
 
 .values-row {
@@ -1905,17 +1894,6 @@ a:focus-visible {
     font-size: 13px;
   }
 
-  .proof-about-flow,
-  .practice-team-flow,
-  .team-section {
-    background-position: center center;
-    background-size: cover;
-  }
-
-  .faq-section {
-    background-position: center center;
-    background-size: cover;
-  }
 
   .team-grid {
     display: flex;
@@ -2094,7 +2072,7 @@ a:focus-visible {
 .faq-section {
   padding: 96px 0;
   background-color: var(--paper);
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 220 220'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='24' y='24' width='172' height='172' stroke-width='2'/%3E%3Cpath d='M82 58v104M82 111l54-53M82 111l54 51' stroke-width='4'/%3E%3Cpath d='M67 58h30M67 162h30' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 240'%3E%3Cg opacity='0.04' fill='none' stroke='%23A37E4B' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='120' cy='120' r='78' stroke-width='2'/%3E%3Cpath d='M120 54v132M54 120h132M74 74l92 92M166 74l-92 92' stroke-width='3'/%3E%3Ccircle cx='120' cy='120' r='22' stroke-width='4'/%3E%3C/g%3E%3C/svg%3E");
   background-position: right clamp(24px, 8vw, 120px) bottom clamp(28px, 8vw, 100px);
   background-repeat: no-repeat;
   background-size: clamp(170px, 22vw, 300px);
@@ -2253,21 +2231,18 @@ a:focus-visible {
   position: relative;
   isolation: isolate;
   background-color: var(--ivory);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .services-flow::before {
   position: absolute;
-  z-index: -1;
+  z-index: 0;
   inset: 0;
   background: rgba(255, 250, 243, 0.08);
   content: "";
   pointer-events: none;
 }
-.services-flow .services-section-paper,
-.services-flow .services-contact-section {
-  background: transparent;
+.services-flow .services-section {
+  position: relative;
+  z-index: 1;
 }
 .services-section-wine { background: var(--wine); color: var(--ivory); }
 .services-intro-grid { display: grid; grid-template-columns: 190px minmax(0, 1fr); gap: 8vw; align-items: start; }
@@ -2309,9 +2284,6 @@ a:focus-visible {
   position: relative;
   isolation: isolate;
   background-color: var(--paper);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
 }
 .services-contact-section::before {
   position: absolute;
@@ -2383,10 +2355,6 @@ a:focus-visible {
   .services-steps { grid-template-columns: 1fr; gap: 25px; margin-top: 50px; }
   .services-steps li { padding: 19px 0 0; }
   .services-contact-grid > div:first-child > p:not(.section-kicker) { font-size: 14px; }
-  .services-flow {
-    background-position: center center;
-    background-size: cover;
-  }
   .services-contact-section .services-address-card { margin-top: 44px; }
   .services-phone-link { border: 1px solid var(--wine); padding: 0 18px; }
   .services-faq-prompt { margin-top: 48px; padding: 28px; }
@@ -2403,46 +2371,10 @@ a:focus-visible {
   height: 100%;
 }
 
-.closing-flow,
-.proof-about-flow {
-  position: relative;
-  isolation: isolate;
-  background-color: var(--ivory);
-  background-position: center center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}
-
-.closing-flow::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background: rgba(255, 250, 243, 0.12);
-  content: "";
-  pointer-events: none;
-}
-
-.closing-flow > #faq,
-.closing-flow > #atendimento,
-.proof-about-flow > .proof-section,
-.proof-about-flow > #sobre {
-  position: relative;
-  z-index: 1;
-  background: transparent;
-}
 .proof-section {
   position: relative;
   isolation: isolate;
   padding-block: 82px;
-}
-
-.proof-about-flow::before {
-  position: absolute;
-  z-index: 0;
-  inset: 0;
-  background: rgba(255, 250, 243, 0.12);
-  content: "";
-  pointer-events: none;
 }
 
 .proof-grid {
