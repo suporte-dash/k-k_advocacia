@@ -326,33 +326,33 @@ export default function Home() {
             className="section section-ivory proof-section"
             aria-labelledby="proof-title"
           >
-          <div className="site-container proof-grid">
-            <SectionMarker number="01" label="Presença em números" />
-            <div className="proof-main" data-reveal>
+          <div className="site-container">
+            <div className="proof-header" data-reveal>
+              <SectionMarker number="01" label="Presença em números" />
               <p className="section-kicker">Uma orientação que começa pela escuta</p>
               <h2 id="proof-title">Clareza para o próximo passo.</h2>
-              <div className="proof-stats">
-                <article>
-                  <strong>02</strong>
-                  <span>advogadas à frente da sociedade</span>
-                </article>
-                <article>
-                  <strong>1:1</strong>
-                  <span>análise individual de cada história</span>
-                </article>
-                <article>
-                  <strong>PA + Brasil</strong>
-                  <span>atendimento em Salinópolis e atuação nacional</span>
-                </article>
-              </div>
+            </div>
+            <div className="proof-stats" data-reveal>
+              <article>
+                <strong>02</strong>
+                <span>advogadas à frente da sociedade</span>
+              </article>
+              <article>
+                <strong>1:1</strong>
+                <span>análise individual de cada história</span>
+              </article>
+              <article>
+                <strong>PA + Brasil</strong>
+                <span>atendimento em Salinópolis e atuação nacional</span>
+              </article>
             </div>
           </div>
         </section>
 
           <section id="sobre" className="section section-ivory about-section">
-          <div className="site-container about-grid">
-            <SectionMarker number="02" label="Sobre" />
-            <div className="about-main" data-reveal>
+          <div className="site-container">
+            <div className="about-header" data-reveal>
+              <SectionMarker number="02" label="Sobre" />
               <p className="section-kicker">Uma nova casa para uma advocacia próxima</p>
               <h2>Presença para ouvir. Clareza para orientar.</h2>
               <div className="about-columns">
@@ -370,42 +370,43 @@ export default function Home() {
                 Encontrar a sociedade <ArrowUpRight size={16} aria-hidden="true" />
               </a>
             </div>
+
+            <div className="values-row" data-reveal>
+              <div className="value-item">
+                <div className="value-header">
+                  <span className="value-index">01</span>
+                  <Scale size={16} className="value-icon" aria-hidden="true" />
+                </div>
+                <strong>Responsabilidade</strong>
+                <p className="value-desc">Condução técnica, ética e minuciosa em cada pedido administrativo e judicial.</p>
+              </div>
+              <div className="value-item">
+                <div className="value-header">
+                  <span className="value-index">02</span>
+                  <HeartHandshake size={16} className="value-icon" aria-hidden="true" />
+                </div>
+                <strong>Cuidado</strong>
+                <p className="value-desc">Atenção humana a cada detalhe documental da história de cada segurado.</p>
+              </div>
+              <div className="value-item">
+                <div className="value-header">
+                  <span className="value-index">03</span>
+                  <Check size={16} className="value-icon" aria-hidden="true" />
+                </div>
+                <strong>Compromisso</strong>
+                <p className="value-desc">Atuação presente, comunicação transparente e respeito em cada etapa do atendimento.</p>
+              </div>
+              <div className="value-item">
+                <div className="value-header">
+                  <span className="value-index">04</span>
+                  <Users size={16} className="value-icon" aria-hidden="true" />
+                </div>
+                <strong>Proximidade</strong>
+                <p className="value-desc">Diálogo direto com as advogadas, escuta acolhedora e linguagem clara sem barreiras.</p>
+              </div>
+            </div>
           </div>
-          <div className="site-container values-row" data-reveal>
-            <div className="value-item">
-              <div className="value-header">
-                <span className="value-index">01</span>
-                <Scale size={16} className="value-icon" aria-hidden="true" />
-              </div>
-              <strong>Responsabilidade</strong>
-              <p className="value-desc">Condução técnica, ética e minuciosa em cada pedido administrativo e judicial.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-header">
-                <span className="value-index">02</span>
-                <HeartHandshake size={16} className="value-icon" aria-hidden="true" />
-              </div>
-              <strong>Cuidado</strong>
-              <p className="value-desc">Atenção humana a cada detalhe documental da história de cada segurado.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-header">
-                <span className="value-index">03</span>
-                <Check size={16} className="value-icon" aria-hidden="true" />
-              </div>
-              <strong>Compromisso</strong>
-              <p className="value-desc">Atuação presente, comunicação transparente e respeito em cada etapa do atendimento.</p>
-            </div>
-            <div className="value-item">
-              <div className="value-header">
-                <span className="value-index">04</span>
-                <Users size={16} className="value-icon" aria-hidden="true" />
-              </div>
-              <strong>Proximidade</strong>
-              <p className="value-desc">Diálogo direto com as advogadas, escuta acolhedora e linguagem clara sem barreiras.</p>
-            </div>
-          </div>
-          </section>
+        </section>
 
         <section className="quote-section">
           <div className="site-container quote-inner" data-reveal>
