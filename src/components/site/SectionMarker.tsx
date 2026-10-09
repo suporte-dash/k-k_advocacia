@@ -8,9 +8,9 @@ type SectionMarkerProps = {
 export default function SectionMarker({ number, label, light = false, className = "" }: SectionMarkerProps) {
   return (
     <div className={`section-marker ${light ? "section-marker-light" : ""} ${className}`.trim()}>
-      <span>{number}</span>
-      <span className="marker-rule" />
-      <span>{label}</span>
+      <span className="marker-number">{number}</span>
+      <span className="marker-rule" aria-hidden="true" />
+      <span className="marker-label">{label}</span>
     </div>
   );
 }

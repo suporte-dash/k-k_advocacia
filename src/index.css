@@ -696,8 +696,7 @@ a:focus-visible {
   color: #e2bd89;
 }
 
-.meta-line,
-.marker-rule {
+.meta-line {
   display: inline-block;
   width: 42px;
   height: 1px;
@@ -927,29 +926,88 @@ a:focus-visible {
 }
 
 .section-marker {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  align-content: flex-start;
+  align-content: center;
   flex-wrap: wrap;
-  gap: 13px;
-  margin-bottom: 24px;
-  color: var(--gold-dark);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  line-height: 1.3;
-  text-transform: uppercase;
+  gap: 15px;
+  margin-bottom: 22px;
+  line-height: 1;
+  user-select: none;
 }
 
+.marker-number,
 .section-marker > span:first-child {
   font-family: "Cormorant Garamond", serif;
-  font-size: 26px;
-  font-weight: 500;
-  letter-spacing: 0;
+  font-size: clamp(28px, 2.5vw, 33px);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 0.9;
+  color: var(--wine-deep);
+  transition: transform 200ms var(--ease-out), color 200ms ease;
 }
 
 .marker-rule {
-  width: 34px;
+  display: inline-block;
+  width: 38px;
+  height: 1.5px;
+  background: linear-gradient(90deg, var(--gold) 0%, rgba(163, 126, 75, 0.4) 100%);
+  border-radius: 999px;
+  transition: width 240ms var(--ease-out), background 240ms ease;
+}
+
+.marker-label,
+.section-marker > span:last-child {
+  font-family: "Manrope", sans-serif;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  line-height: 1.3;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  transition: color 200ms ease;
+}
+
+.section-marker:hover .marker-rule {
+  width: 48px;
+}
+
+.section-wine .marker-number,
+.section-wine .section-marker > span:first-child,
+.commitments-section .marker-number,
+.commitments-section .section-marker > span:first-child,
+.services-section-wine .marker-number,
+.services-section-wine .section-marker > span:first-child {
+  color: var(--gold-light);
+}
+
+.section-wine .marker-rule,
+.commitments-section .marker-rule,
+.services-section-wine .marker-rule {
+  background: linear-gradient(90deg, var(--gold-light) 0%, rgba(226, 189, 137, 0.35) 100%);
+}
+
+.section-wine .marker-label,
+.section-wine .section-marker > span:last-child,
+.commitments-section .marker-label,
+.commitments-section .section-marker > span:last-child,
+.services-section-wine .marker-label,
+.services-section-wine .section-marker > span:last-child {
+  color: var(--gold-light);
+}
+
+.team-section .section-marker-light .marker-number,
+.team-section .section-marker-light > span:first-child,
+.faq-section .section-marker-light .marker-number,
+.faq-section .section-marker-light > span:first-child {
+  color: var(--wine-deep);
+}
+
+.team-section .section-marker-light .marker-label,
+.team-section .section-marker-light > span:last-child,
+.faq-section .section-marker-light .marker-label,
+.faq-section .section-marker-light > span:last-child {
+  color: var(--gold-dark);
 }
 
 .about-header,
