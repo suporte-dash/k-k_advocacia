@@ -6,6 +6,7 @@ import SiteButton from "@/components/site/SiteButton";
 import { GOOGLE_MAPS_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/components/site/site-config";
 import { ArrowUpRight, Check, MapPin, MessageCircle, Phone } from "lucide-react";
 import { internalHref } from "@/lib/site-path";
+import BackToTop from "@/components/site/BackToTop";
 
 const SITE_URL = `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, "")}`;
 const PAGE_PATH = "/servicos-previdenciarios-salinopolis";
@@ -227,6 +228,8 @@ export default function ServicosPrevidenciarios() {
         <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
+
+      <BackToTop />
 
       <Footer homeHref={internalHref("/")} />
     </div>

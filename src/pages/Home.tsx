@@ -29,10 +29,14 @@ import {
   Scale,
   Search,
   X,
+  HeartHandshake,
+  Users,
 } from "lucide-react";
 import { internalHref } from "@/lib/site-path";
 import BenefitScreener from "@/components/site/BenefitScreener";
 import ContactForm from "@/components/site/ContactForm";
+import InstagramShowcase from "@/components/site/InstagramShowcase";
+import BackToTop from "@/components/site/BackToTop";
 
 const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
 const HERO_SLIDES = [
@@ -274,6 +278,10 @@ export default function Home() {
                   }
                 }}
               >
+                <div className="hero-badge-glass" aria-hidden="true">
+                  <Scale size={13} className="hero-badge-icon" />
+                  <span>OAB/PA · Advocacia Previdenciária</span>
+                </div>
                 <Carousel
                   className="hero-carousel"
                   opts={{ loop: true }}
@@ -296,11 +304,16 @@ export default function Home() {
                         <button
                           key={slide.id}
                           type="button"
-                          className={`hero-carousel-dot ${activeHeroSlide === index ? "is-active" : ""}`}
+                          className={`hero-carousel-bar ${activeHeroSlide === index ? "is-active" : ""}`}
                           aria-label={`Mostrar foto ${index + 1}: ${slide.caption}`}
                           aria-current={activeHeroSlide === index ? "true" : undefined}
                           onClick={() => heroCarouselApi?.scrollTo(index)}
-                        />
+                        >
+                          <span className="hero-bar-track">
+                            <span className="hero-bar-fill" />
+                          </span>
+                          <span className="hero-bar-label">{slide.caption}</span>
+                        </button>
                       ))}
                     </div>
                   </div>
@@ -371,20 +384,36 @@ export default function Home() {
           </div>
           <div className="site-container values-row" data-reveal>
             <div className="value-item">
-              <span className="value-index">01</span>
+              <div className="value-header">
+                <span className="value-index">01</span>
+                <Scale size={16} className="value-icon" aria-hidden="true" />
+              </div>
               <strong>Responsabilidade</strong>
+              <p className="value-desc">Condução técnica, ética e minuciosa em cada pedido administrativo e judicial.</p>
             </div>
             <div className="value-item">
-              <span className="value-index">02</span>
+              <div className="value-header">
+                <span className="value-index">02</span>
+                <HeartHandshake size={16} className="value-icon" aria-hidden="true" />
+              </div>
               <strong>Cuidado</strong>
+              <p className="value-desc">Atenção humana a cada detalhe documental da história de cada segurado.</p>
             </div>
             <div className="value-item">
-              <span className="value-index">03</span>
+              <div className="value-header">
+                <span className="value-index">03</span>
+                <Check size={16} className="value-icon" aria-hidden="true" />
+              </div>
               <strong>Compromisso</strong>
+              <p className="value-desc">Atuação presente, comunicação transparente e respeito em cada etapa do atendimento.</p>
             </div>
             <div className="value-item">
-              <span className="value-index">04</span>
+              <div className="value-header">
+                <span className="value-index">04</span>
+                <Users size={16} className="value-icon" aria-hidden="true" />
+              </div>
               <strong>Proximidade</strong>
+              <p className="value-desc">Diálogo direto com as advogadas, escuta acolhedora e linguagem clara sem barreiras.</p>
             </div>
           </div>
           </section>
@@ -483,6 +512,7 @@ export default function Home() {
                 <div className="team-name-copy">
                   <strong>Karlla Pinheiro</strong>
                   <small>OAB/PA 40.209</small>
+                  <p className="team-bio-text">Advogada com atuação focada em Direito Previdenciário, planejamento contributivo e condução técnica de benefícios do INSS.</p>
                 </div>
               </div>
               <div className="team-name-row">
@@ -490,6 +520,7 @@ export default function Home() {
                 <div className="team-name-copy">
                   <strong>Keyteler Leite</strong>
                   <small>OAB/PA 40.642</small>
+                  <p className="team-bio-text">Advogada com dedicação especial ao amparo de segurados do INSS, trabalhadores rurais e pesca artesanal.</p>
                 </div>
               </div>
               <p>Sociedade de Advogadas</p>
@@ -604,6 +635,8 @@ export default function Home() {
           </div>
         </section>
 
+        <InstagramShowcase />
+
         <section id="atendimento" className="section section-paper contact-section">
           <div className="site-container contact-grid">
             <div className="contact-copy" data-reveal>
@@ -668,6 +701,8 @@ export default function Home() {
         <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
+
+      <BackToTop />
 
       <Footer homeHref="#inicio" onHomeClick={scrollToTop} />
     </div>
