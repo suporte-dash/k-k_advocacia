@@ -278,10 +278,6 @@ export default function Home() {
                   }
                 }}
               >
-                <div className="hero-badge-glass" aria-hidden="true">
-                  <Scale size={13} className="hero-badge-icon" />
-                  <span>OAB/PA · Advocacia Previdenciária</span>
-                </div>
                 <Carousel
                   className="hero-carousel"
                   opts={{ loop: true }}

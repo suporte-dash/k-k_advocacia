@@ -3218,45 +3218,11 @@ a:focus-visible {
 }
 
 /* ==========================================================================
-   6. Hero Passe-Partout Framing & Timeline Indicators
+   6. Hero Framing & Timeline Indicators
    ========================================================================== */
 .hero-image-wrap {
   position: relative;
   box-shadow: 0 0 0 1px rgba(226, 189, 137, 0.45), 0 24px 60px rgba(25, 17, 16, 0.45);
-}
-
-.hero-image-wrap::before {
-  content: "";
-  position: absolute;
-  inset: 10px;
-  border: 1px solid rgba(226, 189, 137, 0.25);
-  pointer-events: none;
-  z-index: 5;
-}
-
-.hero-badge-glass {
-  position: absolute;
-  top: 18px;
-  left: 18px;
-  z-index: 10;
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 6px 14px;
-  background: rgba(66, 20, 30, 0.88);
-  backdrop-filter: blur(10px);
-  border: 1px solid var(--gold);
-  border-radius: 999px;
-  color: var(--ivory);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  box-shadow: 0 4px 14px rgba(25, 17, 16, 0.35);
-}
-
-.hero-badge-glass .hero-badge-icon {
-  color: var(--gold-light);
 }
 
 .hero-carousel-bar {
