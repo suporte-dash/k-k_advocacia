@@ -639,51 +639,80 @@ export default function Home() {
         <InstagramShowcase />
 
         <section id="atendimento" className="section section-paper contact-section">
-          <div className="site-container contact-grid">
-            <div className="contact-copy" data-reveal>
+          <div className="site-container">
+            <div className="contact-header" data-reveal>
               <SectionMarker number="07" label="Atendimento" />
               <p className="section-kicker">A porta está aberta</p>
               <h2>Sua história merece uma orientação clara.</h2>
-              <p>
-                Para iniciar o atendimento, envie uma mensagem pelo WhatsApp e conte brevemente a sua situação. Se preferir, fale por telefone ou visite o escritório em Salinópolis.
+              <p className="contact-lead">
+                Para iniciar o atendimento, envie uma mensagem pelo WhatsApp ou preencha o formulário abaixo para adiantar o seu contato. Se preferir, fale por telefone ou visite nosso escritório em Salinópolis.
               </p>
-              <div className="contact-guidance">
-                <MessageCircle size={17} aria-hidden="true" />
-                <span><strong>Atendimento inicial pelo WhatsApp</strong>Uma conversa direta para indicar os primeiros passos e a documentação necessária.</span>
-              </div>
-              <div className="contact-actions">
-                <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
-                  <MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp
-                </SiteButton>
-                <a className="phone-link" href={`tel:${PHONE_TEL}`}>
-                  <Phone size={16} aria-hidden="true" /> {PHONE_DISPLAY}
-                </a>
-              </div>
-
-              <ContactForm />
             </div>
 
-            <div className="location-panel" data-reveal>
-              <div className="map-frame">
-                <a className="map-fallback" href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" aria-label="Abrir a localização da sociedade no Google Maps">
-                  <span className="map-grid-lines" aria-hidden="true" />
-                  <span className="map-pin"><MapPin size={19} aria-hidden="true" /></span>
-                  <span className="map-fallback-copy">
-                    <strong>Bom Jesus</strong>
-                    <span>Salinópolis — PA</span>
-                  </span>
-                  <span className="map-open-label">Abrir no Google Maps <ArrowUpRight size={14} aria-hidden="true" /></span>
-                </a>
-              </div>
-              <div className="address-row">
-                <MapPin size={18} aria-hidden="true" />
-                <div>
-                  <strong>Onde estamos</strong>
-                  <address>Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus<br />Salinópolis — PA, 68721-000</address>
-                  <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="text-link">
-                    Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
-                  </a>
+            <div className="contact-main-grid">
+              <div className="contact-info-col" data-reveal>
+                <div className="contact-card-highlight">
+                  <div className="contact-guidance">
+                    <MessageCircle size={20} aria-hidden="true" />
+                    <span>
+                      <strong>Atendimento inicial pelo WhatsApp</strong>
+                      Uma conversa direta para indicar os primeiros passos e a documentação necessária.
+                    </span>
+                  </div>
+                  <div className="contact-actions">
+                    <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
+                      <MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp
+                    </SiteButton>
+                    <a className="phone-link" href={`tel:${PHONE_TEL}`}>
+                      <Phone size={16} aria-hidden="true" /> WhatsApp e telefone: {PHONE_DISPLAY}
+                    </a>
+                  </div>
                 </div>
+
+                <div className="contact-details-grid">
+                  <div className="contact-detail-item">
+                    <Clock size={18} className="contact-detail-icon" aria-hidden="true" />
+                    <div>
+                      <strong>Horário de atendimento</strong>
+                      <span>Segunda a sexta-feira, das 08:00 às 18:00</span>
+                    </div>
+                  </div>
+                  <div className="contact-detail-item">
+                    <Scale size={18} className="contact-detail-icon" aria-hidden="true" />
+                    <div>
+                      <strong>Atuação responsável</strong>
+                      <span>Presencial em Salinópolis e digital em todo o Brasil</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="location-panel">
+                  <div className="map-frame">
+                    <a className="map-fallback" href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" aria-label="Abrir a localização da sociedade no Google Maps">
+                      <span className="map-grid-lines" aria-hidden="true" />
+                      <span className="map-pin"><MapPin size={19} aria-hidden="true" /></span>
+                      <span className="map-fallback-copy">
+                        <strong>Bom Jesus</strong>
+                        <span>Salinópolis — PA</span>
+                      </span>
+                      <span className="map-open-label">Abrir no Google Maps <ArrowUpRight size={14} aria-hidden="true" /></span>
+                    </a>
+                  </div>
+                  <div className="address-row">
+                    <MapPin size={18} aria-hidden="true" />
+                    <div>
+                      <strong>Onde estamos</strong>
+                      <address>Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus<br />Salinópolis — PA, 68721-000</address>
+                      <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="text-link">
+                        Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="contact-form-col" data-reveal style={{ transitionDelay: "110ms" }}>
+                <ContactForm />
               </div>
             </div>
           </div>
