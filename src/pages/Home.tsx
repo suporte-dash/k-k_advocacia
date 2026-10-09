@@ -21,8 +21,18 @@ import {
   MapPin,
   MessageCircle,
   Phone,
+  Baby,
+  Anchor,
+  Clock,
+  ShieldAlert,
+  HeartPulse,
+  Scale,
+  Search,
+  X,
 } from "lucide-react";
 import { internalHref } from "@/lib/site-path";
+import BenefitScreener from "@/components/site/BenefitScreener";
+import ContactForm from "@/components/site/ContactForm";
 
 const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
 const HERO_SLIDES = [
@@ -75,36 +85,85 @@ const navItems = [
   { href: "#atendimento", label: "Atendimento" },
 ];
 
+const FAQ_CATEGORIES = [
+  { id: "todos", label: "Todas as dúvidas" },
+  { id: "aposentadoria", label: "Aposentadorias" },
+  { id: "maternidade", label: "Salário-maternidade" },
+  { id: "defeso", label: "Seguro-defeso" },
+  { id: "atendimento", label: "Atendimento & Documentos" },
+];
+
 const faqItems = [
   {
+    category: "aposentadoria",
     question: "Como saber qual tipo de aposentadoria ou benefício é o mais adequado para o meu caso?",
     answer: "A definição do benefício ideal exige uma análise individual do seu histórico de trabalho, das contribuições realizadas ao longo da vida e das regras vigentes. O escritório realiza essa triagem inicial para orientar com clareza sobre as possibilidades jurídicas cabíveis."
   },
   {
+    category: "maternidade",
     question: "O que é preciso para solicitar o salário-maternidade?",
     answer: "O salário-maternidade é devido à pessoa que se afasta da atividade por motivo de nascimento de filho, aborto não criminoso, adoção ou guarda judicial para fins de adoção. A análise verifica os requisitos de qualidade de segurada ou segurado no período do evento."
   },
   {
+    category: "defeso",
     question: "Quem tem direito ao seguro-defeso?",
     answer: "O seguro-defeso é destinado ao pescador artesanal que exerce a atividade de forma exclusiva e contínua, durante o período de defeso (paralisação da pesca para preservação das espécies). É necessária a comprovação documental do exercício da profissão e do registro ativo."
   },
   {
+    category: "atendimento",
     question: "Quais documentos são importantes para a análise de aposentadorias e pensões?",
     answer: "Os documentos fundamentais incluem carteira de trabalho (CTPS), carnês de contribuição (GPS), extrato do CNIS (Cadastro Nacional de Informações Sociais), documentos pessoais e certidões de estado civil. Documentos específicos podem ser solicitados conforme o tipo de atividade exercida."
   },
   {
+    category: "atendimento",
     question: "Como funciona o atendimento e qual é o primeiro passo para falar com o escritório?",
     answer: "O primeiro passo é entrar em contato por WhatsApp ou telefone para relatar brevemente a sua situação. A partir daí, o escritório orienta sobre a documentação necessária e os próximos passos para a condução responsável do seu caso."
   }
 ];
 
-const practiceAreas = [
-  "Salário-maternidade",
-  "Seguro defeso",
-  "Aposentadorias",
-  "Pensão por morte",
-  "Auxílio-doença",
-  "Outros serviços jurídicos",
+const practiceCardsData = [
+  {
+    title: "Salário-maternidade",
+    icon: Baby,
+    badge: "Maternidade & Adoção",
+    description: "Amparo para seguradas urbanas, rurais, pescadoras artesanais e MEI em casos de nascimento, guarda judicial ou adoção.",
+    whatsappText: "Olá! Gostaria de uma orientação jurídica sobre Salário-maternidade.",
+  },
+  {
+    title: "Seguro defeso",
+    icon: Anchor,
+    badge: "Pesca Artesanal",
+    description: "Garantia de renda ao pescador(a) artesanal profissional durante a paralisação da pesca na região e litoral paraense.",
+    whatsappText: "Olá! Gostaria de orientações sobre Seguro-defeso para pescador artesanal.",
+  },
+  {
+    title: "Aposentadorias",
+    icon: Clock,
+    badge: "Urbana, Rural & Especial",
+    description: "Planejamento e análise de tempo de serviço, regras de transição, insalubridade e atividade rural com checagem de CNIS.",
+    whatsappText: "Olá! Gostaria de uma análise para a minha Aposentadoria.",
+  },
+  {
+    title: "Pensão por morte",
+    icon: ShieldAlert,
+    badge: "Proteção Familiar",
+    description: "Orientação e suporte a viúvos(as), filhos e dependentes econômicos com foco em comprovação documental.",
+    whatsappText: "Olá! Preciso de orientação sobre Pensão por morte.",
+  },
+  {
+    title: "Auxílio-doença",
+    icon: HeartPulse,
+    badge: "Incapacidade",
+    description: "Suporte em benefícios por incapacidade temporária ou permanente, auxílio-acidente e laudos para perícias.",
+    whatsappText: "Olá! Gostaria de consultar sobre Auxílio por incapacidade/doença.",
+  },
+  {
+    title: "Outros serviços jurídicos",
+    icon: Scale,
+    badge: "BPC / LOAS & Revisões",
+    description: "Benefício assistencial para idosos ou PcD de baixa renda, além de recursos administrativos e revisão de cálculos.",
+    whatsappText: "Olá! Gostaria de orientações sobre BPC/LOAS ou revisão de benefício previdenciário.",
+  },
 ];
 
 function scrollToTop(event: React.MouseEvent<HTMLAnchorElement>) {
@@ -116,6 +175,17 @@ export default function Home() {
   const [heroCarouselApi, setHeroCarouselApi] = useState<CarouselApi>();
   const [activeHeroSlide, setActiveHeroSlide] = useState(0);
   const [heroAutoplayPaused, setHeroAutoplayPaused] = useState(false);
+  const [faqSearch, setFaqSearch] = useState("");
+  const [faqCategory, setFaqCategory] = useState("todos");
+
+  const filteredFaqItems = faqItems.filter((item) => {
+    const matchesCategory = faqCategory === "todos" || item.category === faqCategory;
+    const matchesSearch =
+      faqSearch.trim() === "" ||
+      item.question.toLowerCase().includes(faqSearch.toLowerCase()) ||
+      item.answer.toLowerCase().includes(faqSearch.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
 
   useEffect(() => {
     if (!heroCarouselApi) return;
@@ -354,14 +424,36 @@ export default function Home() {
                   </a>
                 </div>
               </div>
-              <ul className="practice-list" aria-label="Áreas de atuação informadas pelo escritório">
-                {practiceAreas.map((area, index) => (
-                  <li key={area}>
-                    <span>{String(index + 1).padStart(2, "0")}</span>
-                    <strong>{area}</strong>
-                  </li>
-                ))}
-              </ul>
+
+              <div className="practice-cards-grid" aria-label="Principais direitos e benefícios atendidos">
+                {practiceCardsData.map((card) => {
+                  const Icon = card.icon;
+                  const waUrl = `https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(card.whatsappText)}`;
+                  return (
+                    <article className="practice-card-item" key={card.title}>
+                      <div className="practice-card-top">
+                        <span className="practice-card-icon">
+                          <Icon size={20} aria-hidden="true" />
+                        </span>
+                        <span className="practice-card-tag">{card.badge}</span>
+                      </div>
+                      <h3 className="practice-card-title">{card.title}</h3>
+                      <p className="practice-card-desc">{card.description}</p>
+                      <a
+                        className="practice-card-action"
+                        href={waUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        title={`Conversar sobre ${card.title} no WhatsApp`}
+                      >
+                        Orientação sobre este benefício <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    </article>
+                  );
+                })}
+              </div>
+
+              <BenefitScreener />
             </div>
           </div>
         </section>
@@ -438,22 +530,76 @@ export default function Home() {
                 Respostas orientativas para ajudar você a compreender os conceitos fundamentais antes da orientação jurídica individual.
               </p>
             </div>
-            <div className="faq-accordion-wrap" data-reveal>
-              <Accordion type="single" collapsible className="faq-accordion">
-                {faqItems.map((item, index) => (
-                  <AccordionItem key={item.question} value={`item-${index}`} className="faq-item">
-                    <AccordionTrigger className="faq-question">
-                      <span>{item.question}</span>
-                    </AccordionTrigger>
-                    <AccordionContent className="faq-answer">
-                      <p>{item.answer}</p>
-                      <a className="faq-whatsapp-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                        <MessageCircle size={14} aria-hidden="true" /> Falar sobre a minha situação
-                      </a>
-                    </AccordionContent>
-                  </AccordionItem>
+
+            <div className="faq-filter-wrap" data-reveal>
+              <div className="faq-search-box">
+                <Search size={18} className="faq-search-icon" aria-hidden="true" />
+                <input
+                  type="text"
+                  placeholder="Pesquise por palavra-chave... (ex: aposentadoria, documentos, defeso)"
+                  value={faqSearch}
+                  onChange={(e) => setFaqSearch(e.target.value)}
+                  className="faq-search-input"
+                  aria-label="Pesquisar nas perguntas frequentes"
+                />
+                {faqSearch && (
+                  <button
+                    type="button"
+                    className="faq-search-clear"
+                    onClick={() => setFaqSearch("")}
+                    aria-label="Limpar pesquisa"
+                  >
+                    <X size={16} aria-hidden="true" />
+                  </button>
+                )}
+              </div>
+
+              <div className="faq-category-pills" role="tablist" aria-label="Filtrar por categoria">
+                {FAQ_CATEGORIES.map((cat) => (
+                  <button
+                    key={cat.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={faqCategory === cat.id}
+                    className={`faq-pill-btn ${faqCategory === cat.id ? "is-active" : ""}`}
+                    onClick={() => setFaqCategory(cat.id)}
+                  >
+                    {cat.label}
+                  </button>
                 ))}
-              </Accordion>
+              </div>
+            </div>
+
+            <div className="faq-accordion-wrap" data-reveal>
+              {filteredFaqItems.length > 0 ? (
+                <Accordion type="single" collapsible className="faq-accordion">
+                  {filteredFaqItems.map((item, index) => (
+                    <AccordionItem key={item.question} value={`item-${index}`} className="faq-item">
+                      <AccordionTrigger className="faq-question">
+                        <span>{item.question}</span>
+                      </AccordionTrigger>
+                      <AccordionContent className="faq-answer">
+                        <p>{item.answer}</p>
+                        <a className="faq-whatsapp-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                          <MessageCircle size={14} aria-hidden="true" /> Falar sobre a minha situação
+                        </a>
+                      </AccordionContent>
+                    </AccordionItem>
+                  ))}
+                </Accordion>
+              ) : (
+                <div className="faq-no-results">
+                  <p>Nenhuma dúvida encontrada com o termo "{faqSearch}".</p>
+                  <a
+                    className="button button-wine"
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <MessageCircle size={16} aria-hidden="true" /> Perguntar diretamente no WhatsApp
+                  </a>
+                </div>
+              )}
             </div>
           </div>
         </section>
@@ -479,6 +625,8 @@ export default function Home() {
                   <Phone size={16} aria-hidden="true" /> {PHONE_DISPLAY}
                 </a>
               </div>
+
+              <ContactForm />
             </div>
 
             <div className="location-panel" data-reveal>
@@ -516,6 +664,7 @@ export default function Home() {
         aria-label="Falar com as advogadas pelo WhatsApp"
         title="Falar com as advogadas pelo WhatsApp"
       >
+        <span className="whatsapp-float-pulse" aria-hidden="true" />
         <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
