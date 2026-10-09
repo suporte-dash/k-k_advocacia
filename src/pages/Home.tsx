@@ -419,9 +419,9 @@ export default function Home() {
         </section>
 
         <section id="atuacao" className="section section-paper practice-section-light">
-          <div className="site-container practice-grid">
-            <SectionMarker number="03" label="Área de atuação" />
-            <div className="practice-main" data-reveal>
+          <div className="site-container">
+            <div className="practice-header" data-reveal>
+              <SectionMarker number="03" label="Área de atuação" />
               <p className="section-kicker">Áreas atendidas pelo escritório</p>
               <h2>O direito previdenciário pede atenção aos detalhes da sua história.</h2>
               <p className="practice-intro-note">
@@ -434,54 +434,56 @@ export default function Home() {
                   <p>
                     O escritório presta orientação e suporte em benefícios e direitos previdenciários. Caso você não saiba qual medida se aplica ao seu caso, converse com o escritório para uma orientação inicial.
                   </p>
-                  <a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                    Conversar sobre o meu caso <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
-                  <a className="text-link practice-route-link" href={internalHref("/servicos-previdenciarios-salinopolis")}>
-                    Conhecer os serviços previdenciários <ArrowUpRight size={16} aria-hidden="true" />
-                  </a>
+                  <div className="practice-feature-links">
+                    <a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                      Conversar sobre o meu caso <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                    <a className="text-link practice-route-link" href={internalHref("/servicos-previdenciarios-salinopolis")}>
+                      Conhecer os serviços previdenciários <ArrowUpRight size={16} aria-hidden="true" />
+                    </a>
+                  </div>
                 </div>
               </div>
-
-              <div className="practice-cards-grid" aria-label="Principais direitos e benefícios atendidos">
-                {practiceCardsData.map((card) => {
-                  const Icon = card.icon;
-                  const waUrl = `https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(card.whatsappText)}`;
-                  return (
-                    <article className="practice-card-item" key={card.title}>
-                      <div className="practice-card-top">
-                        <span className="practice-card-icon">
-                          <Icon size={20} aria-hidden="true" />
-                        </span>
-                        <span className="practice-card-tag">{card.badge}</span>
-                      </div>
-                      <h3 className="practice-card-title">{card.title}</h3>
-                      <p className="practice-card-desc">{card.description}</p>
-                      <a
-                        className="practice-card-action"
-                        href={waUrl}
-                        target="_blank"
-                        rel="noreferrer"
-                        title={`Conversar sobre ${card.title} no WhatsApp`}
-                      >
-                        Orientação sobre este benefício <ArrowUpRight size={14} aria-hidden="true" />
-                      </a>
-                    </article>
-                  );
-                })}
-              </div>
-
-              <div className="practice-screener-divider" data-reveal>
-                <div className="practice-divider-line" />
-                <div className="practice-divider-badge">
-                  <span>Diagnóstico guiado</span>
-                  <small>Dúvida sobre qual é o seu caso?</small>
-                </div>
-                <div className="practice-divider-line" />
-              </div>
-
-              <BenefitScreener />
             </div>
+
+            <div className="practice-cards-grid" aria-label="Principais direitos e benefícios atendidos">
+              {practiceCardsData.map((card) => {
+                const Icon = card.icon;
+                const waUrl = `https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(card.whatsappText)}`;
+                return (
+                  <article className="practice-card-item" key={card.title}>
+                    <div className="practice-card-top">
+                      <span className="practice-card-icon">
+                        <Icon size={20} aria-hidden="true" />
+                      </span>
+                      <span className="practice-card-tag">{card.badge}</span>
+                    </div>
+                    <h3 className="practice-card-title">{card.title}</h3>
+                    <p className="practice-card-desc">{card.description}</p>
+                    <a
+                      className="practice-card-action"
+                      href={waUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      title={`Conversar sobre ${card.title} no WhatsApp`}
+                    >
+                      Orientação sobre este benefício <ArrowUpRight size={14} aria-hidden="true" />
+                    </a>
+                  </article>
+                );
+              })}
+            </div>
+
+            <div className="practice-screener-divider" data-reveal>
+              <div className="practice-divider-line" />
+              <div className="practice-divider-badge">
+                <span>Diagnóstico guiado</span>
+                <small>Dúvida sobre qual é o seu caso?</small>
+              </div>
+              <div className="practice-divider-line" />
+            </div>
+
+            <BenefitScreener />
           </div>
         </section>
 
