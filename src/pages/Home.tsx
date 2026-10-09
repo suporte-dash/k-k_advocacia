@@ -645,30 +645,12 @@ export default function Home() {
               <p className="section-kicker">A porta está aberta</p>
               <h2>Sua história merece uma orientação clara.</h2>
               <p className="contact-lead">
-                Para iniciar o atendimento, envie uma mensagem pelo WhatsApp ou preencha o formulário abaixo para adiantar o seu contato. Se preferir, fale por telefone ou visite nosso escritório em Salinópolis.
+                Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário ao lado. Atendimento presencial em Salinópolis e digital em todo o Brasil.
               </p>
             </div>
 
             <div className="contact-main-grid">
               <div className="contact-info-col" data-reveal>
-                <div className="contact-card-highlight">
-                  <div className="contact-guidance">
-                    <MessageCircle size={20} aria-hidden="true" />
-                    <span>
-                      <strong>Atendimento inicial pelo WhatsApp</strong>
-                      Uma conversa direta para indicar os primeiros passos e a documentação necessária.
-                    </span>
-                  </div>
-                  <div className="contact-actions">
-                    <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
-                      <MessageCircle size={17} aria-hidden="true" /> Falar pelo WhatsApp
-                    </SiteButton>
-                    <a className="phone-link" href={`tel:${PHONE_TEL}`}>
-                      <Phone size={16} aria-hidden="true" /> WhatsApp e telefone: {PHONE_DISPLAY}
-                    </a>
-                  </div>
-                </div>
-
                 <div className="contact-details-grid">
                   <div className="contact-detail-item">
                     <Clock size={18} className="contact-detail-icon" aria-hidden="true" />
@@ -678,10 +660,12 @@ export default function Home() {
                     </div>
                   </div>
                   <div className="contact-detail-item">
-                    <Scale size={18} className="contact-detail-icon" aria-hidden="true" />
+                    <Phone size={18} className="contact-detail-icon" aria-hidden="true" />
                     <div>
-                      <strong>Atuação responsável</strong>
-                      <span>Presencial em Salinópolis e digital em todo o Brasil</span>
+                      <strong>WhatsApp e telefone</strong>
+                      <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="contact-phone-link">
+                        {PHONE_DISPLAY}
+                      </a>
                     </div>
                   </div>
                 </div>
