@@ -16,12 +16,10 @@ const PAGE_URL = `${SITE_URL}${PAGE_PATH}`;
 const pageNavItems = [
   { href: internalHref("/"), label: "Início" },
   { href: internalHref("/#sobre"), label: "Sobre" },
-  { href: internalHref("/#atuacao"), label: "Atuação" },
   { href: "#servicos", label: "Serviços" },
   { href: internalHref("/#advogadas"), label: "Advogadas" },
-  { href: internalHref("/#compromissos"), label: "Compromissos" },
-  { href: internalHref("/#faq"), label: "FAQ" },
-  { href: "#atendimento", label: "Atendimento" },
+  { href: internalHref("/#faq"), label: "Dúvidas" },
+  { href: "#atendimento", label: "Contato" },
 ];
 
 const services = [

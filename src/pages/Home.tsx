@@ -82,11 +82,9 @@ const commitments = [
 const navItems = [
   { href: "#sobre", label: "Sobre" },
   { href: "#atuacao", label: "Atuação" },
-  { href: internalHref("/servicos-previdenciarios-salinopolis"), label: "Serviços" },
   { href: "#advogadas", label: "Advogadas" },
-  { href: "#compromissos", label: "Compromissos" },
-  { href: "#faq", label: "FAQ" },
-  { href: "#atendimento", label: "Atendimento" },
+  { href: "#faq", label: "Dúvidas" },
+  { href: "#atendimento", label: "Contato" },
 ];
 
 const FAQ_CATEGORIES = [
@@ -473,6 +471,15 @@ export default function Home() {
                 })}
               </div>
 
+              <div className="practice-screener-divider" data-reveal>
+                <div className="practice-divider-line" />
+                <div className="practice-divider-badge">
+                  <span>Diagnóstico guiado</span>
+                  <small>Dúvida sobre qual é o seu caso?</small>
+                </div>
+                <div className="practice-divider-line" />
+              </div>
+
               <BenefitScreener />
             </div>
           </div>
@@ -523,7 +530,7 @@ export default function Home() {
           <div className="site-container commitments-header" data-reveal>
             <SectionMarker number="05" label="Compromissos" />
             <div>
-              <p className="section-kicker">Compromissos institucionais</p>
+              <p className="section-kicker">Compromissos institucionais · Método de atendimento</p>
               <h2>Cuidado em cada etapa da orientação.</h2>
               <p>
                 Uma atuação que começa na escuta e segue com análise individual, comunicação clara e responsabilidade.
@@ -533,7 +540,10 @@ export default function Home() {
           <div className="site-container commitments-grid">
             {commitments.map((commitment, index) => (
               <article className="commitment-card" key={commitment.number} data-reveal style={{ transitionDelay: `${index * 55}ms` }}>
-                <span className="commitment-number">{commitment.number}</span>
+                <div className="commitment-card-top">
+                  <span className="commitment-number">{commitment.number}</span>
+                  <span className="commitment-step-tag">Etapa {commitment.number}</span>
+                </div>
                 <h3>{commitment.title}</h3>
                 <p>{commitment.description}</p>
                 <span className="commitment-mark"><Check size={13} aria-hidden="true" /></span>

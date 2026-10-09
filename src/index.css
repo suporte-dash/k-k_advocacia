@@ -1265,6 +1265,31 @@ a:focus-visible {
   transition: border-color 220ms ease, transform 220ms var(--ease-out);
 }
 
+.commitment-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.commitment-step-tag {
+  display: inline-flex;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(226, 189, 137, 0.12);
+  border: 1px solid rgba(226, 189, 137, 0.35);
+  color: var(--gold-light);
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  transition: all 220ms ease;
+}
+
+.commitments-section .commitment-card:hover .commitment-step-tag {
+  background: rgba(226, 189, 137, 0.25);
+  border-color: var(--gold-light);
+}
+
 .commitment-card:hover {
   border-color: var(--gold);
   transform: translateY(-5px);
@@ -1840,7 +1865,7 @@ a:focus-visible {
   }
 
   .section {
-    padding: 85px 0;
+    padding: clamp(56px, 9vw, 76px) 0;
   }
 
   .about-grid,
@@ -1850,11 +1875,11 @@ a:focus-visible {
   }
 
   .section-marker {
-    margin-bottom: 45px;
+    margin-bottom: 34px;
   }
 
   .section h2 {
-    font-size: clamp(2.7rem, 13vw, 4rem);
+    font-size: clamp(2.5rem, 12vw, 3.8rem);
   }
 
   .about-columns {
@@ -2645,10 +2670,55 @@ a:focus-visible {
 }
 
 /* ==========================================================================
+   Practice to Screener Transition
+   ========================================================================== */
+.practice-screener-divider {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin: 56px 0 28px;
+}
+
+.practice-divider-line {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+
+.practice-divider-badge {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 22px;
+  border-radius: 999px;
+  background: var(--ivory);
+  border: 1px solid rgba(163, 126, 75, 0.45);
+  box-shadow: 0 4px 16px rgba(91, 31, 42, 0.05);
+}
+
+.practice-divider-badge span {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--wine);
+  line-height: 1.1;
+}
+
+.practice-divider-badge small {
+  font-family: "Manrope", sans-serif;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+}
+
+/* ==========================================================================
    2. Interactive Benefit Screener (Triagem Previdenciária)
    ========================================================================== */
 .screener-card {
-  margin-top: 48px;
+  margin-top: 0;
   border: 1px solid var(--line);
   background: var(--ivory);
   padding: clamp(28px, 4vw, 44px);
