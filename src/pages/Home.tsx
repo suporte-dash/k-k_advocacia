@@ -300,16 +300,11 @@ export default function Home() {
                         <button
                           key={slide.id}
                           type="button"
-                          className={`hero-carousel-bar ${activeHeroSlide === index ? "is-active" : ""}`}
+                          className={`hero-carousel-dot ${activeHeroSlide === index ? "is-active" : ""}`}
                           aria-label={`Mostrar foto ${index + 1}: ${slide.caption}`}
                           aria-current={activeHeroSlide === index ? "true" : undefined}
                           onClick={() => heroCarouselApi?.scrollTo(index)}
-                        >
-                          <span className="hero-bar-track">
-                            <span className="hero-bar-fill" />
-                          </span>
-                          <span className="hero-bar-label">{slide.caption}</span>
-                        </button>
+                        />
                       ))}
                     </div>
                   </div>
