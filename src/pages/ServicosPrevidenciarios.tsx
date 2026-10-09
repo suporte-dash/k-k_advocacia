@@ -127,7 +127,7 @@ export default function ServicosPrevidenciarios() {
           </div>
           <div className="site-container services-hero-grid">
             <div className="services-hero-copy">
-              <h1 id="services-title">Orientação previdenciária que começa pela sua história.</h1>
+              <h1 id="services-title">Orientação previdenciária que começa pela <em>sua história</em>.</h1>
               <p>Orientação jurídica previdenciária com análise individual e linguagem clara.</p>
               <div className="services-hero-actions">
                 <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
@@ -140,7 +140,7 @@ export default function ServicosPrevidenciarios() {
               <p className="services-phone-note"><Phone size={14} aria-hidden="true" /> WhatsApp e telefone: {PHONE_DISPLAY}</p>
             </div>
             <aside className="services-hero-card" aria-label="Principais frentes de atendimento">
-              <h2>Converse sobre o seu caso.</h2>
+              <h2>Converse sobre o <em>seu caso</em>.</h2>
               <p>Uma orientação inicial ajuda a organizar a história, os documentos e os próximos passos.</p>
               <div className="services-hero-card-list">
                 <span><Check size={14} aria-hidden="true" /> Aposentadorias e pensões</span>
@@ -166,7 +166,7 @@ export default function ServicosPrevidenciarios() {
 
             <div>
               <p className="section-kicker">Serviços previdenciários</p>
-              <h2 id="services-list-title">Áreas em que atuamos.</h2>
+              <h2 id="services-list-title">Áreas em que <em>atuamos</em>.</h2>
               <p className="services-section-lead">Cada orientação começa pela compreensão do seu histórico e pela análise dos documentos disponíveis. Conheça as principais frentes de atendimento da sociedade.</p>
             </div>
           </div>

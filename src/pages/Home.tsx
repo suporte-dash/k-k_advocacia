@@ -330,7 +330,7 @@ export default function Home() {
             <div className="proof-header" data-reveal>
               <SectionMarker number="01" label="Presença em números" />
               <p className="section-kicker">Uma orientação que começa pela escuta</p>
-              <h2 id="proof-title">Clareza para o próximo passo.</h2>
+              <h2 id="proof-title">Clareza para o <em>próximo passo</em>.</h2>
             </div>
             <div className="proof-stats" data-reveal>
               <article>
@@ -354,7 +354,7 @@ export default function Home() {
             <div className="about-header" data-reveal>
               <SectionMarker number="02" label="Sobre" />
               <p className="section-kicker">Uma nova casa para uma advocacia próxima</p>
-              <h2>Presença para ouvir. Clareza para orientar.</h2>
+              <h2>Presença para <em>ouvir</em>. Clareza para <em>orientar</em>.</h2>
               <div className="about-columns">
                 <p>
                   A Karlla Pinheiro e Keyteler Leite Sociedade de Advogadas atua na orientação de
@@ -424,7 +424,7 @@ export default function Home() {
             <div className="practice-header" data-reveal>
               <SectionMarker number="03" label="Área de atuação" />
               <p className="section-kicker">Áreas atendidas pelo escritório</p>
-              <h2>O direito previdenciário pede atenção aos detalhes da sua história.</h2>
+              <h2>O direito previdenciário pede atenção aos <em>detalhes da sua história</em>.</h2>
               <p className="practice-intro-note">
                 A atuação é definida a partir da análise individual de cada situação, considerando documentos, histórico e o contexto de cada beneficiário.
               </p>
@@ -493,7 +493,7 @@ export default function Home() {
             <div className="team-intro" data-reveal>
               <SectionMarker light number="04" label="Advogadas" />
               <p className="section-kicker">Duas histórias, um propósito em comum</p>
-              <h2>Uma sociedade feita de presença.</h2>
+              <h2>Uma sociedade feita de <em>presença</em>.</h2>
               <p className="team-description">
                 Karlla Pinheiro e Keyteler Leite são as duas advogadas à frente da sociedade. O
                 trabalho começa com uma conversa responsável e atenta à pessoa que chega.
@@ -534,7 +534,7 @@ export default function Home() {
             <SectionMarker number="05" label="Compromissos" />
             <div>
               <p className="section-kicker">Compromissos institucionais · Método de atendimento</p>
-              <h2>Cuidado em cada etapa da orientação.</h2>
+              <h2>Cuidado em cada etapa da <em>orientação</em>.</h2>
               <p>
                 Uma atuação que começa na escuta e segue com análise individual, comunicação clara e responsabilidade.
               </p>
@@ -560,7 +560,7 @@ export default function Home() {
             <SectionMarker light number="06" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
               <p className="section-kicker">Esclarecimentos essenciais</p>
-              <h2>Perguntas frequentes sobre direito previdenciário</h2>
+              <h2>Perguntas frequentes sobre <em>direito previdenciário</em></h2>
               <p className="faq-subtitle">
                 Respostas orientativas para ajudar você a compreender os conceitos fundamentais antes da orientação jurídica individual.
               </p>
@@ -646,7 +646,7 @@ export default function Home() {
             <div className="contact-header" data-reveal>
               <SectionMarker number="07" label="Atendimento" />
               <p className="section-kicker">A porta está aberta</p>
-              <h2>Sua história merece uma orientação clara.</h2>
+              <h2>Sua história merece uma <em>orientação clara</em>.</h2>
               <p className="contact-lead">
                 Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário ao lado. Atendimento presencial em Salinópolis e digital em todo o Brasil.
               </p>
