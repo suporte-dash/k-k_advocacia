@@ -426,24 +426,15 @@ export default function Home() {
               <p className="section-kicker">Áreas atendidas pelo escritório</p>
               <h2>O direito previdenciário pede atenção aos <em>detalhes da sua história</em>.</h2>
               <p className="practice-intro-note">
-                A atuação é definida a partir da análise individual de cada situação, considerando documentos, histórico e o contexto de cada beneficiário.
+                O escritório presta orientação e suporte em benefícios e direitos previdenciários. Caso você não saiba qual medida se aplica ao seu caso, converse com o escritório para uma orientação inicial.
               </p>
-              <div className="practice-feature">
-                <span className="practice-number">01</span>
-                <div>
-                  <h3>Advocacia previdenciária</h3>
-                  <p>
-                    O escritório presta orientação e suporte em benefícios e direitos previdenciários. Caso você não saiba qual medida se aplica ao seu caso, converse com o escritório para uma orientação inicial.
-                  </p>
-                  <div className="practice-feature-links">
-                    <a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                      Conversar sobre o meu caso <ArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                    <a className="text-link practice-route-link" href={internalHref("/servicos-previdenciarios-salinopolis")}>
-                      Conhecer os serviços previdenciários <ArrowUpRight size={16} aria-hidden="true" />
-                    </a>
-                  </div>
-                </div>
+              <div className="practice-header-actions">
+                <a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
+                  Conversar sobre o meu caso <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+                <a className="text-link practice-route-link" href={internalHref("/servicos-previdenciarios-salinopolis")}>
+                  Conhecer os serviços previdenciários <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
               </div>
             </div>
 
@@ -484,7 +475,7 @@ export default function Home() {
               <div className="practice-divider-line" />
             </div>
 
-            <BenefitScreener />
+            <BenefitScreener layout="main" />
           </div>
         </section>
 

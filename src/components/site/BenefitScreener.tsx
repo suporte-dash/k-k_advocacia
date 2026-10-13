@@ -13,6 +13,7 @@ import {
   MessageCircle,
   CheckCircle2,
   Sparkles,
+  FileText,
 } from "lucide-react";
 import { PHONE_TEL } from "./site-config";
 
@@ -68,6 +69,57 @@ const BENEFIT_OPTIONS: ScreenerOption[] = [
   },
 ];
 
+const BENEFIT_OPTIONS_MAIN: ScreenerOption[] = [
+  {
+    id: "aposentadoria",
+    title: "Aposentadorias",
+    subtitle: "Por idade, tempo de contribuição, especial ou rural.",
+    icon: Clock,
+  },
+  {
+    id: "salario-maternidade",
+    title: "Salário-maternidade",
+    subtitle: "Para mães urbanas, rurais, pescadoras artesanais ou MEI.",
+    icon: Baby,
+  },
+  {
+    id: "seguro-defeso",
+    title: "Seguro-defeso",
+    subtitle: "Para pescadores e pescadoras artesanais profissionais.",
+    icon: Anchor,
+  },
+  {
+    id: "bpc-loas",
+    title: "BPC / LOAS",
+    subtitle: "Idosos (65+) ou pessoas com deficiência de baixa renda.",
+    icon: HeartPulse,
+  },
+  {
+    id: "pensao-morte",
+    title: "Pensão por morte",
+    subtitle: "Para dependentes de segurados falecidos.",
+    icon: ShieldAlert,
+  },
+  {
+    id: "auxilio-incapacidade",
+    title: "Auxílio por incapacidade",
+    subtitle: "Afastamento por doença, acidente ou incapacidade temporária.",
+    icon: Scale,
+  },
+  {
+    id: "planejamento",
+    title: "Planejamento previdenciário",
+    subtitle: "Contagem de tempo, simulação e acerto de CNIS.",
+    icon: FileText,
+  },
+  {
+    id: "recurso-negado",
+    title: "Recurso / Pedido negado",
+    subtitle: "Benefício indeferido, cessado ou revisão no INSS.",
+    icon: RotateCcw,
+  },
+];
+
 const STAGE_OPTIONS: ScreenerOption[] = [
   {
     id: "planejamento",
@@ -114,13 +166,20 @@ const WORKER_OPTIONS: ScreenerOption[] = [
   },
 ];
 
-export default function BenefitScreener() {
+interface BenefitScreenerProps {
+  layout?: "default" | "main";
+}
+
+export default function BenefitScreener({ layout = "default" }: BenefitScreenerProps) {
   const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
   const [selectedBenefit, setSelectedBenefit] = useState<string>("");
   const [selectedStage, setSelectedStage] = useState<string>("");
   const [selectedWorker, setSelectedWorker] = useState<string>("");
 
-  const benefitObj = BENEFIT_OPTIONS.find((b) => b.id === selectedBenefit);
+  const isMain = layout === "main";
+  const benefitOptions = isMain ? BENEFIT_OPTIONS_MAIN : BENEFIT_OPTIONS;
+
+  const benefitObj = benefitOptions.find((b) => b.id === selectedBenefit);
   const stageObj = STAGE_OPTIONS.find((s) => s.id === selectedStage);
   const workerObj = WORKER_OPTIONS.find((w) => w.id === selectedWorker);
 
@@ -170,8 +229,8 @@ Gostaria de uma orientação jurídica preliminar sobre o meu caso.`;
               <span className="screener-step-num">Passo 1 de 3</span>
               Qual benefício ou assunto você deseja consultar?
             </legend>
-            <div className="screener-grid">
-              {BENEFIT_OPTIONS.map((item) => {
+            <div className={isMain ? "screener-grid screener-grid-4col" : "screener-grid"}>
+              {benefitOptions.map((item) => {
                 const Icon = item.icon || HelpCircle;
                 const isSelected = selectedBenefit === item.id;
                 return (
@@ -204,7 +263,7 @@ Gostaria de uma orientação jurídica preliminar sobre o meu caso.`;
               <span className="screener-step-num">Passo 2 de 3</span>
               Em que estágio se encontra o seu pedido?
             </legend>
-            <div className="screener-grid">
+            <div className={isMain ? "screener-grid screener-grid-4col" : "screener-grid"}>
               {STAGE_OPTIONS.map((item) => {
                 const isSelected = selectedStage === item.id;
                 return (
@@ -243,7 +302,7 @@ Gostaria de uma orientação jurídica preliminar sobre o meu caso.`;
               <span className="screener-step-num">Passo 3 de 3</span>
               Qual é a sua principal categoria ou atividade de trabalho?
             </legend>
-            <div className="screener-grid">
+            <div className={isMain ? "screener-grid screener-grid-4col" : "screener-grid"}>
               {WORKER_OPTIONS.map((item) => {
                 const isSelected = selectedWorker === item.id;
                 return (

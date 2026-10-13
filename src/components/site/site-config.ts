@@ -5,5 +5,6 @@ export const PHONE_TEL = "+559191620280";
 export const INSTAGRAM_URL = "https://www.instagram.com/karllaekeyteleradvogadas/";
 export const GOOGLE_MAPS_URL = "https://maps.app.goo.gl/nYM61PbWSiUUTxLa6";
 export const BRAND_LOGO = `${import.meta.env.BASE_URL}assets/logo-oficial.png`;
+export const INSTAGRAM_AVATAR = `${import.meta.env.BASE_URL}assets/instagram-avatar.png`;
 export const ASSET_BASE = `${import.meta.env.BASE_URL}assets/`;
 
