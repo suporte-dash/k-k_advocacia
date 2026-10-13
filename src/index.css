@@ -553,12 +553,14 @@ a:focus-visible {
   color: var(--gold-dark);
 }
 
+.section.section-wine h2,
 .section-wine h2,
 .commitments-section h2,
 .quote-section h2 {
   color: var(--ivory);
 }
 
+.section.section-wine h2 em,
 .section-wine h2 em,
 .commitments-section h2 em,
 .quote-section em {
@@ -1350,15 +1352,22 @@ a:focus-visible {
   align-items: end;
 }
 
-.commitments-header h2 {
+.commitments-header h2,
+.commitments-section h2 {
+  color: var(--ivory);
   max-width: 610px;
   margin-top: 12px;
+}
+
+.commitments-header h2 em,
+.commitments-section h2 em {
+  color: var(--gold-light);
 }
 
 .commitments-header > div:last-child > p:last-child {
   max-width: 580px;
   margin: 22px 0 0;
-  color: var(--slate);
+  color: rgba(255, 250, 243, 0.74);
 }
 
 .commitments-grid {
