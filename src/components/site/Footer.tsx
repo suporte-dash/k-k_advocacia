@@ -20,7 +20,7 @@ export default function Footer({ homeHref, onHomeClick }: FooterProps) {
             <small>Sociedade de Advogadas</small>
           </span>
         </a>
-        <p className="eyebrow footer-eyebrow">Responsabilidade, cuidado e compromisso em cada conversa</p>
+        <p className="eyebrow footer-eyebrow">Ética, precisão técnica e defesa responsável dos seus direitos previdenciários</p>
         <a className="footer-cta" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
           Fale conosco <ArrowUpRight size={16} aria-hidden="true" />
         </a>

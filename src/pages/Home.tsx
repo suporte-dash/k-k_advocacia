@@ -3,7 +3,7 @@
  * Use editorial contrast, asymmetry, wine/ivory/graphite, quiet gold rules and direct human language.
  * Avoid invented legal claims, generic stock imagery and decorative effects that dilute the brand.
  */
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/site/Header";
@@ -17,6 +17,8 @@ import {
   ArrowRight,
   ArrowUpRight,
   Check,
+  ChevronLeft,
+  ChevronRight,
   Instagram,
   MapPin,
   MessageCircle,
@@ -31,12 +33,15 @@ import {
   X,
   HeartHandshake,
   Users,
+  FileText,
+  FileCheck,
 } from "lucide-react";
-import { internalHref } from "@/lib/site-path";
 import BenefitScreener from "@/components/site/BenefitScreener";
 import ContactForm from "@/components/site/ContactForm";
 import InstagramShowcase from "@/components/site/InstagramShowcase";
 import BackToTop from "@/components/site/BackToTop";
+import ServiceDetailDrawer from "@/components/site/ServiceDetailDrawer";
+import { ALL_DETAILED_SERVICES, type DetailedService } from "@/data/servicesData";
 
 const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
 const HERO_SLIDES = [
@@ -56,31 +61,8 @@ const HERO_SLIDES = [
   },
 ] as const;
 
-const commitments = [
-  {
-    number: "01",
-    title: "Escuta atenta",
-    description: "Cada conversa começa pela compreensão do histórico, dos documentos e das necessidades de quem nos procura.",
-  },
-  {
-    number: "02",
-    title: "Análise individual",
-    description: "A orientação considera os fatos apresentados, as regras vigentes e o contexto específico de cada situação.",
-  },
-  {
-    number: "03",
-    title: "Comunicação clara",
-    description: "Explicamos possibilidades e próximos passos com linguagem acessível, responsabilidade e transparência.",
-  },
-  {
-    number: "04",
-    title: "Atuação responsável",
-    description: "O trabalho é conduzido com organização, respeito e compromisso em cada etapa do atendimento jurídico.",
-  },
-];
-
 const navItems = [
-  { href: "#sobre", label: "Sobre" },
+  { href: "#sobre", label: "Quem somos" },
   { href: "#atuacao", label: "Atuação" },
   { href: "#advogadas", label: "Advogadas" },
   { href: "#faq", label: "Dúvidas" },
@@ -125,6 +107,7 @@ const faqItems = [
 
 const practiceCardsData = [
   {
+    serviceId: "salario-maternidade",
     title: "Salário-maternidade",
     icon: Baby,
     badge: "Maternidade & Adoção",
@@ -132,6 +115,7 @@ const practiceCardsData = [
     whatsappText: "Olá! Gostaria de uma orientação jurídica sobre Salário-maternidade.",
   },
   {
+    serviceId: "seguro-defeso",
     title: "Seguro defeso",
     icon: Anchor,
     badge: "Pesca Artesanal",
@@ -139,6 +123,7 @@ const practiceCardsData = [
     whatsappText: "Olá! Gostaria de orientações sobre Seguro-defeso para pescador artesanal.",
   },
   {
+    serviceId: "aposentadorias",
     title: "Aposentadorias",
     icon: Clock,
     badge: "Urbana, Rural & Especial",
@@ -146,6 +131,7 @@ const practiceCardsData = [
     whatsappText: "Olá! Gostaria de uma análise para a minha Aposentadoria.",
   },
   {
+    serviceId: "pensao-morte",
     title: "Pensão por morte",
     icon: ShieldAlert,
     badge: "Proteção Familiar",
@@ -153,6 +139,7 @@ const practiceCardsData = [
     whatsappText: "Olá! Preciso de orientação sobre Pensão por morte.",
   },
   {
+    serviceId: "auxilio-incapacidade",
     title: "Auxílio-doença",
     icon: HeartPulse,
     badge: "Incapacidade",
@@ -160,6 +147,7 @@ const practiceCardsData = [
     whatsappText: "Olá! Gostaria de consultar sobre Auxílio por incapacidade/doença.",
   },
   {
+    serviceId: "bpc-loas",
     title: "Outros serviços jurídicos",
     icon: Scale,
     badge: "BPC / LOAS & Revisões",
@@ -179,6 +167,66 @@ export default function Home() {
   const [heroAutoplayPaused, setHeroAutoplayPaused] = useState(false);
   const [faqSearch, setFaqSearch] = useState("");
   const [faqCategory, setFaqCategory] = useState("todos");
+  const [activePracticeIndex, setActivePracticeIndex] = useState(0);
+  const [selectedService, setSelectedService] = useState<DetailedService | null>(null);
+  const practiceCarouselRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToPracticeSlide = (index: number) => {
+    const clampedIndex = Math.max(0, Math.min(practiceCardsData.length - 1, index));
+    const container = practiceCarouselRef.current;
+    if (container) {
+      const cards = container.querySelectorAll<HTMLElement>(".practice-card-item");
+      if (cards[clampedIndex]) {
+        cards[clampedIndex].scrollIntoView({
+          behavior: "smooth",
+          inline: "center",
+          block: "nearest",
+        });
+      }
+    }
+    setActivePracticeIndex(clampedIndex);
+  };
+
+  const handlePracticeNavigate = (direction: -1 | 1) => {
+    scrollToPracticeSlide(activePracticeIndex + direction);
+  };
+
+  useEffect(() => {
+    const container = practiceCarouselRef.current;
+    if (!container) return;
+
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const handleScroll = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const cards = container.querySelectorAll<HTMLElement>(".practice-card-item");
+        if (!cards.length) return;
+
+        const containerRect = container.getBoundingClientRect();
+        const containerCenter = containerRect.left + containerRect.width / 2;
+        let closestIdx = 0;
+        let minDiff = Infinity;
+
+        cards.forEach((card, idx) => {
+          const cardRect = card.getBoundingClientRect();
+          const cardCenter = cardRect.left + cardRect.width / 2;
+          const diff = Math.abs(cardCenter - containerCenter);
+          if (diff < minDiff) {
+            minDiff = diff;
+            closestIdx = idx;
+          }
+        });
+
+        setActivePracticeIndex(closestIdx);
+      }, 50);
+    };
+
+    container.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      container.removeEventListener("scroll", handleScroll);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const filteredFaqItems = faqItems.filter((item) => {
     const matchesCategory = faqCategory === "todos" || item.category === faqCategory;
@@ -249,7 +297,7 @@ export default function Home() {
                 Direitos bem orientados começam com <em>escuta.</em>
               </h1>
               <p className="hero-lead hero-lead-national">
-                <span>Orientação jurídica previdenciária com atendimento próximo, linguagem clara e análise cuidadosa de cada história. Atendimento em Salinópolis e atuação nacional.</span>
+                <span>Orientação jurídica especializada, linguagem acessível e rigor técnico para proteger o seu benefício. Atendimento presencial em Salinópolis e consultoria em todo o Brasil.</span>
               </p>
               <div className="hero-actions">
                 <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
@@ -326,35 +374,58 @@ export default function Home() {
             className="section section-ivory proof-section"
             aria-labelledby="proof-title"
           >
-          <div className="site-container">
-            <div className="proof-header" data-reveal>
-              <SectionMarker number="01" label="Presença em números" />
-              <p className="section-kicker">Uma orientação que começa pela escuta</p>
-              <h2 id="proof-title">Clareza para o <em>próximo passo</em>.</h2>
+            <div className="site-container">
+              <div className="proof-header" data-reveal>
+                <SectionMarker number="01" label="Presença em números" />
+                <p className="section-kicker">Nossa atuação em perspectiva</p>
+                <h2 id="proof-title">Rigor técnico e presença que constroem <em>segurança jurídica</em>.</h2>
+              </div>
+              <div className="proof-stats" data-reveal>
+                <article className="proof-card">
+                  <div className="proof-card-header">
+                    <span className="proof-card-icon-wrap">
+                      <Users size={20} aria-hidden="true" />
+                    </span>
+                    <span className="proof-card-tag">Sócias Titulares</span>
+                  </div>
+                  <strong className="proof-card-value">02</strong>
+                  <span className="proof-card-label">Advogadas à frente de cada caso</span>
+                  <p className="proof-card-desc">Atuação direta das sócias Karlla Pinheiro e Keyteler Leite, garantindo acompanhamento próximo e responsável.</p>
+                </article>
+
+                <article className="proof-card">
+                  <div className="proof-card-header">
+                    <span className="proof-card-icon-wrap">
+                      <FileCheck size={20} aria-hidden="true" />
+                    </span>
+                    <span className="proof-card-tag">Rigor Documental</span>
+                  </div>
+                  <strong className="proof-card-value">100%</strong>
+                  <span className="proof-card-label">Análise minuciosa e artesanal</span>
+                  <p className="proof-card-desc">Exame detalhado de vínculos, contribuições e laudos para orientar com transparência as chances reais do benefício.</p>
+                </article>
+
+                <article className="proof-card">
+                  <div className="proof-card-header">
+                    <span className="proof-card-icon-wrap">
+                      <MapPin size={20} aria-hidden="true" />
+                    </span>
+                    <span className="proof-card-tag">Presença & Alcance</span>
+                  </div>
+                  <strong className="proof-card-value">PA + Brasil</strong>
+                  <span className="proof-card-label">Salinópolis e consultoria nacional</span>
+                  <p className="proof-card-desc">Sede física acolhedora no Bom Jesus em Salinas e estrutura digital completa para atender segurados em todo o país.</p>
+                </article>
+              </div>
             </div>
-            <div className="proof-stats" data-reveal>
-              <article>
-                <strong>02</strong>
-                <span>advogadas à frente da sociedade</span>
-              </article>
-              <article>
-                <strong>1:1</strong>
-                <span>análise individual de cada história</span>
-              </article>
-              <article>
-                <strong>PA + Brasil</strong>
-                <span>atendimento em Salinópolis e atuação nacional</span>
-              </article>
-            </div>
-          </div>
-        </section>
+          </section>
 
           <section id="sobre" className="section section-ivory about-section">
           <div className="site-container">
             <div className="about-header" data-reveal>
-              <SectionMarker number="02" label="Sobre" />
-              <p className="section-kicker">Uma nova casa para uma advocacia próxima</p>
-              <h2>Presença para <em>ouvir</em>. Clareza para <em>orientar</em>.</h2>
+              <SectionMarker number="02" label="Quem somos" />
+              <p className="section-kicker">A Sociedade de Advogadas · Identidade & Propósito</p>
+              <h2>Uma advocacia construída para <em>humanizar</em> o direito previdenciário.</h2>
               <div className="about-columns">
                 <p>
                   A Karlla Pinheiro e Keyteler Leite Sociedade de Advogadas atua na orientação de
@@ -375,33 +446,41 @@ export default function Home() {
               <div className="value-item">
                 <div className="value-header">
                   <span className="value-index">01</span>
-                  <Scale size={16} className="value-icon" aria-hidden="true" />
+                  <span className="value-icon-wrap">
+                    <Scale size={19} className="value-icon" aria-hidden="true" />
+                  </span>
                 </div>
-                <strong>Responsabilidade</strong>
+                <strong className="value-title">Responsabilidade</strong>
                 <p className="value-desc">Condução técnica, ética e minuciosa em cada pedido administrativo e judicial.</p>
               </div>
               <div className="value-item">
                 <div className="value-header">
                   <span className="value-index">02</span>
-                  <HeartHandshake size={16} className="value-icon" aria-hidden="true" />
+                  <span className="value-icon-wrap">
+                    <HeartHandshake size={19} className="value-icon" aria-hidden="true" />
+                  </span>
                 </div>
-                <strong>Cuidado</strong>
-                <p className="value-desc">Atenção humana a cada detalhe documental da história de cada segurado.</p>
+                <strong className="value-title">Cuidado</strong>
+                <p className="value-desc">Atenção humana e minuciosa a cada detalhe do histórico contributivo e dos documentos de cada segurado.</p>
               </div>
               <div className="value-item">
                 <div className="value-header">
                   <span className="value-index">03</span>
-                  <Check size={16} className="value-icon" aria-hidden="true" />
+                  <span className="value-icon-wrap">
+                    <Check size={19} className="value-icon" aria-hidden="true" />
+                  </span>
                 </div>
-                <strong>Compromisso</strong>
+                <strong className="value-title">Compromisso</strong>
                 <p className="value-desc">Atuação presente, comunicação transparente e respeito em cada etapa do atendimento.</p>
               </div>
               <div className="value-item">
                 <div className="value-header">
                   <span className="value-index">04</span>
-                  <Users size={16} className="value-icon" aria-hidden="true" />
+                  <span className="value-icon-wrap">
+                    <Users size={19} className="value-icon" aria-hidden="true" />
+                  </span>
                 </div>
-                <strong>Proximidade</strong>
+                <strong className="value-title">Proximidade</strong>
                 <p className="value-desc">Diálogo direto com as advogadas, escuta acolhedora e linguagem clara sem barreiras.</p>
               </div>
             </div>
@@ -412,10 +491,9 @@ export default function Home() {
           <div className="site-container quote-inner" data-reveal>
             <span className="quote-mark">“</span>
             <blockquote>
-              Atendimento próximo, humano e personalizado para compreender sua história e buscar os
-              melhores caminhos para o seu direito.
+              A previdência não é um favor do Estado: é o patrimônio conquistado por uma vida inteira de trabalho e dedicação.
             </blockquote>
-            <span className="quote-source">— Posicionamento público da sociedade</span>
+            <span className="quote-source">— Dra. Karlla Pinheiro e Dra. Keyteler Leite</span>
           </div>
         </section>
 
@@ -423,27 +501,40 @@ export default function Home() {
           <div className="site-container">
             <div className="practice-header" data-reveal>
               <SectionMarker number="03" label="Área de atuação" />
-              <p className="section-kicker">Áreas atendidas pelo escritório</p>
-              <h2>O direito previdenciário pede atenção aos <em>detalhes da sua história</em>.</h2>
+              <p className="section-kicker">Especialidades e direitos atendidos</p>
+              <h2>O direito previdenciário exige <em>rigor técnico</em> em cada etapa.</h2>
               <p className="practice-intro-note">
-                O escritório presta orientação e suporte em benefícios e direitos previdenciários. Caso você não saiba qual medida se aplica ao seu caso, converse com o escritório para uma orientação inicial.
+                O escritório presta suporte jurídico minucioso na concessão, restabelecimento e revisão de benefícios. Se você tem dúvidas sobre os requisitos do seu benefício, consulte nossa equipe para uma avaliação inicial.
               </p>
-              <div className="practice-header-actions">
-                <a className="text-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                  Conversar sobre o meu caso <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
-                <a className="text-link practice-route-link" href={internalHref("/servicos-previdenciarios-salinopolis")}>
-                  Conhecer os serviços previdenciários <ArrowUpRight size={16} aria-hidden="true" />
-                </a>
-              </div>
             </div>
 
-            <div className="practice-cards-grid" aria-label="Principais direitos e benefícios atendidos">
+            <div
+              className="practice-cards-grid practice-carousel-track"
+              ref={practiceCarouselRef}
+              aria-label="Principais direitos e benefícios atendidos"
+            >
               {practiceCardsData.map((card) => {
                 const Icon = card.icon;
                 const waUrl = `https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(card.whatsappText)}`;
+                const matchedService = ALL_DETAILED_SERVICES.find((s) => s.id === card.serviceId);
+
                 return (
-                  <article className="practice-card-item" key={card.title}>
+                  <article
+                    className="practice-card-item is-interactive"
+                    key={card.title}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`Ver detalhes e requisitos de ${card.title}`}
+                    onClick={() => {
+                      if (matchedService) setSelectedService(matchedService);
+                    }}
+                    onKeyDown={(e) => {
+                      if ((e.key === "Enter" || e.key === " ") && matchedService) {
+                        e.preventDefault();
+                        setSelectedService(matchedService);
+                      }
+                    }}
+                  >
                     <div className="practice-card-top">
                       <span className="practice-card-icon">
                         <Icon size={20} aria-hidden="true" />
@@ -452,18 +543,81 @@ export default function Home() {
                     </div>
                     <h3 className="practice-card-title">{card.title}</h3>
                     <p className="practice-card-desc">{card.description}</p>
-                    <a
-                      className="practice-card-action"
-                      href={waUrl}
-                      target="_blank"
-                      rel="noreferrer"
-                      title={`Conversar sobre ${card.title} no WhatsApp`}
-                    >
-                      Orientação sobre este benefício <ArrowUpRight size={14} aria-hidden="true" />
-                    </a>
+                    
+                    <div className="practice-card-footer-actions">
+                      <button
+                        type="button"
+                        className="practice-card-detail-trigger"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (matchedService) setSelectedService(matchedService);
+                        }}
+                        aria-label={`Abrir detalhes de ${card.title}`}
+                      >
+                        <FileText size={14} aria-hidden="true" />
+                        <span>Ver detalhes e requisitos</span>
+                        <ArrowUpRight size={13} aria-hidden="true" />
+                      </button>
+
+                      <a
+                        className="practice-card-action"
+                        href={waUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        title={`Conversar sobre ${card.title} no WhatsApp`}
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Consultar meu direito neste benefício <ArrowUpRight size={14} aria-hidden="true" />
+                      </a>
+                    </div>
                   </article>
                 );
               })}
+            </div>
+
+            {/* Controles do Carrossel (Visíveis exclusivamente no Mobile) */}
+            <div className="practice-carousel-controls" aria-label="Navegação dos Serviços Previdenciários">
+              <div className="practice-carousel-nav">
+                <button
+                  type="button"
+                  className="practice-carousel-arrow"
+                  onClick={() => handlePracticeNavigate(-1)}
+                  disabled={activePracticeIndex === 0}
+                  aria-label="Ver serviço anterior"
+                >
+                  <ChevronLeft size={20} aria-hidden="true" />
+                </button>
+
+                <div className="practice-carousel-dots" role="tablist" aria-label="Indicadores dos serviços">
+                  {practiceCardsData.map((card, idx) => (
+                    <button
+                      key={card.title}
+                      type="button"
+                      role="tab"
+                      aria-selected={activePracticeIndex === idx}
+                      aria-label={`Ir para o serviço ${idx + 1} de ${practiceCardsData.length}: ${card.title}`}
+                      className={`practice-carousel-dot ${activePracticeIndex === idx ? "is-active" : ""}`}
+                      onClick={() => scrollToPracticeSlide(idx)}
+                    />
+                  ))}
+                </div>
+
+                <button
+                  type="button"
+                  className="practice-carousel-arrow"
+                  onClick={() => handlePracticeNavigate(1)}
+                  disabled={activePracticeIndex === practiceCardsData.length - 1}
+                  aria-label="Ver próximo serviço"
+                >
+                  <ChevronRight size={20} aria-hidden="true" />
+                </button>
+              </div>
+
+              <div className="practice-carousel-counter">
+                <span>{activePracticeIndex + 1} de {practiceCardsData.length}</span>
+                <span className="practice-carousel-counter-sep">·</span>
+                <span>Deslize para ver todos</span>
+              </div>
             </div>
 
             <div className="practice-screener-divider" data-reveal>
@@ -480,75 +634,90 @@ export default function Home() {
         </section>
 
         <section id="advogadas" className="section section-paper team-section">
-          <div className="site-container team-grid">
-            <div className="team-intro" data-reveal>
-              <SectionMarker light number="04" label="Advogadas" />
-              <p className="section-kicker">Duas histórias, um propósito em comum</p>
-              <h2>Uma sociedade feita de <em>presença</em>.</h2>
-              <p className="team-description">
-                Karlla Pinheiro e Keyteler Leite são as duas advogadas à frente da sociedade. O
-                trabalho começa com uma conversa responsável e atenta à pessoa que chega.
-              </p>
-              <a className="button button-outline-team" href={INSTAGRAM_URL} target="_blank" rel="noreferrer">
-                <Instagram size={16} aria-hidden="true" /> Ver no Instagram
-              </a>
-            </div>
-
-            <div className="team-portrait" data-reveal>
-              <img src={TEAM_PHOTO} alt="Karlla Pinheiro e Keyteler Leite em retrato institucional" width="1122" height="1402" loading="lazy" decoding="async" />
-            </div>
-
-            <div className="team-names" data-reveal>
-              <div className="team-name-row">
-                <span>01</span>
-                <div className="team-name-copy">
-                  <strong>Karlla Pinheiro</strong>
-                  <small>OAB/PA 40.209</small>
-                  <p className="team-bio-text">Advogada com atuação focada em Direito Previdenciário, planejamento contributivo e condução técnica de benefícios do INSS.</p>
-                </div>
-              </div>
-              <div className="team-name-row">
-                <span>02</span>
-                <div className="team-name-copy">
-                  <strong>Keyteler Leite</strong>
-                  <small>OAB/PA 40.642</small>
-                  <p className="team-bio-text">Advogada com dedicação especial ao amparo de segurados do INSS, trabalhadores rurais e pesca artesanal.</p>
-                </div>
-              </div>
-              <p>Sociedade de Advogadas</p>
-            </div>
-          </div>
-        </section>
-
-        <section id="compromissos" className="section section-wine commitments-section">
-          <div className="site-container commitments-header" data-reveal>
-            <SectionMarker number="05" label="Compromissos" />
-            <div>
-              <p className="section-kicker">Compromissos institucionais · Método de atendimento</p>
-              <h2>Cuidado em cada etapa da <em>orientação</em>.</h2>
-              <p>
-                Uma atuação que começa na escuta e segue com análise individual, comunicação clara e responsabilidade.
-              </p>
-            </div>
-          </div>
-          <div className="site-container commitments-grid">
-            {commitments.map((commitment, index) => (
-              <article className="commitment-card" key={commitment.number} data-reveal style={{ transitionDelay: `${index * 55}ms` }}>
-                <div className="commitment-card-top">
-                  <span className="commitment-number">{commitment.number}</span>
-                  <span className="commitment-step-tag">Etapa {commitment.number}</span>
-                </div>
-                <h3>{commitment.title}</h3>
-                <p>{commitment.description}</p>
-                <span className="commitment-mark"><Check size={13} aria-hidden="true" /></span>
-              </article>
-            ))}
-          </div>
-        </section>
-
-          <section id="faq" className="section section-paper faq-section">
           <div className="site-container">
-            <SectionMarker light number="06" label="Perguntas frequentes" />
+            <div className="team-header" data-reveal>
+              <SectionMarker light number="04" label="Advogadas" />
+              <p className="section-kicker">Duas trajetórias, um compromisso com a justiça</p>
+              <h2>Uma sociedade feita de <em>compromisso real</em>.</h2>
+              <p className="team-description">
+                Karlla Pinheiro e Keyteler Leite lideram a sociedade combinando análise documental aprofundada, diálogo transparente e defesa combativa dos direitos dos segurados.
+              </p>
+            </div>
+
+            <div className="team-grid">
+              <div className="team-portrait-column" data-reveal>
+                <div className="team-portrait-frame">
+                  <img
+                    src={TEAM_PHOTO}
+                    alt="Dra. Karlla Pinheiro e Dra. Keyteler Leite em retrato institucional"
+                    width="1122"
+                    height="1402"
+                    loading="lazy"
+                    decoding="async"
+                    className="team-portrait-img"
+                  />
+                </div>
+                <div className="team-portrait-caption">
+                  <p className="team-caption-title">Retrato Institucional das Sócias</p>
+                  <p className="team-caption-sub">Dra. Karlla Pinheiro &amp; Dra. Keyteler Leite · Sede Salinópolis / PA</p>
+                </div>
+              </div>
+
+              <div className="team-content-column" data-reveal>
+                <div className="team-profiles">
+                  <article className="team-profile-card">
+                    <div className="team-profile-header">
+                      <span className="team-profile-num">01</span>
+                      <div className="team-profile-title-group">
+                        <strong className="team-profile-name">Karlla Pinheiro</strong>
+                        <span className="team-profile-oab">OAB/PA 40.209</span>
+                      </div>
+                      <span className="team-profile-focus-tag">Estratégia &amp; CNIS</span>
+                    </div>
+                    <p className="team-profile-bio">
+                      Advogada com atuação focada em Direito Previdenciário, planejamento contributivo e condução técnica de benefícios do INSS.
+                    </p>
+                  </article>
+
+                  <article className="team-profile-card">
+                    <div className="team-profile-header">
+                      <span className="team-profile-num">02</span>
+                      <div className="team-profile-title-group">
+                        <strong className="team-profile-name">Keyteler Leite</strong>
+                        <span className="team-profile-oab">OAB/PA 40.642</span>
+                      </div>
+                      <span className="team-profile-focus-tag">Rural &amp; Pesca Artesanal</span>
+                    </div>
+                    <p className="team-profile-bio">
+                      Advogada com dedicação especial ao amparo de segurados do INSS, trabalhadores rurais e pesca artesanal.
+                    </p>
+                  </article>
+                </div>
+
+                <div className="team-actions-block">
+                  <a
+                    className="team-whatsapp-cta"
+                    href={`https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent("Olá, Dra. Karlla e Dra. Keyteler! Gostaria de conversar sobre uma orientação jurídica previdenciária.")}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="Falar diretamente com as advogadas pelo WhatsApp"
+                  >
+                    <MessageCircle size={18} aria-hidden="true" />
+                    <span>Falar diretamente com as advogadas</span>
+                    <ArrowUpRight size={15} aria-hidden="true" />
+                  </a>
+                  <span className="team-actions-guarantee">
+                    Atendimento conduzido pelas titulares · Sigilo profissional e ético garantido
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" className="section section-wine faq-section">
+          <div className="site-container">
+            <SectionMarker number="05" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
               <p className="section-kicker">Esclarecimentos essenciais</p>
               <h2>Perguntas frequentes sobre <em>direito previdenciário</em></h2>
@@ -635,9 +804,9 @@ export default function Home() {
         <section id="atendimento" className="section section-paper contact-section">
           <div className="site-container">
             <div className="contact-header" data-reveal>
-              <SectionMarker number="07" label="Atendimento" />
-              <p className="section-kicker">A porta está aberta</p>
-              <h2>Sua história merece uma <em>orientação clara</em>.</h2>
+              <SectionMarker number="06" label="Atendimento" />
+              <p className="section-kicker">Primeiro contato · Sem compromisso</p>
+              <h2>Vamos analisar o seu caso com a <em>atenção que ele exige</em>.</h2>
               <p className="contact-lead">
                 Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário ao lado. Atendimento presencial em Salinópolis e digital em todo o Brasil.
               </p>
@@ -647,15 +816,19 @@ export default function Home() {
               <div className="contact-info-col" data-reveal>
                 <div className="contact-details-grid">
                   <div className="contact-detail-item">
-                    <Clock size={18} className="contact-detail-icon" aria-hidden="true" />
-                    <div>
+                    <span className="contact-detail-icon" aria-hidden="true">
+                      <Clock size={18} />
+                    </span>
+                    <div className="contact-detail-body">
                       <strong>Horário de atendimento</strong>
                       <span>Segunda a sexta-feira, das 08:00 às 18:00</span>
                     </div>
                   </div>
                   <div className="contact-detail-item">
-                    <Phone size={18} className="contact-detail-icon" aria-hidden="true" />
-                    <div>
+                    <span className="contact-detail-icon" aria-hidden="true">
+                      <Phone size={18} />
+                    </span>
+                    <div className="contact-detail-body">
                       <strong>WhatsApp e telefone</strong>
                       <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="contact-phone-link">
                         {PHONE_DISPLAY}
@@ -668,12 +841,18 @@ export default function Home() {
                   <div className="map-frame">
                     <a className="map-fallback" href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" aria-label="Abrir a localização da sociedade no Google Maps">
                       <span className="map-grid-lines" aria-hidden="true" />
-                      <span className="map-pin"><MapPin size={19} aria-hidden="true" /></span>
+                      <span className="map-pin">
+                        <span className="map-pin-pulse" aria-hidden="true" />
+                        <MapPin size={20} aria-hidden="true" />
+                      </span>
                       <span className="map-fallback-copy">
                         <strong>Bom Jesus</strong>
                         <span>Salinópolis — PA</span>
                       </span>
-                      <span className="map-open-label">Abrir no Google Maps <ArrowUpRight size={14} aria-hidden="true" /></span>
+                      <span className="map-badge-tag" aria-hidden="true">Sede física</span>
+                      <span className="map-hover-hint" aria-hidden="true">
+                        Ver no mapa <ArrowUpRight size={13} />
+                      </span>
                     </a>
                   </div>
                   <div className="address-row">
@@ -681,7 +860,7 @@ export default function Home() {
                     <div>
                       <strong>Onde estamos</strong>
                       <address>Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus<br />Salinópolis — PA, 68721-000</address>
-                      <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="text-link">
+                      <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="map-action-link">
                         Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
                       </a>
                     </div>
@@ -711,6 +890,13 @@ export default function Home() {
       </a>
 
       <BackToTop />
+
+      <ServiceDetailDrawer
+        service={selectedService}
+        allServices={ALL_DETAILED_SERVICES}
+        onClose={() => setSelectedService(null)}
+        onSelectService={(service) => setSelectedService(service)}
+      />
 
       <Footer homeHref="#inicio" onHomeClick={scrollToTop} />
     </div>

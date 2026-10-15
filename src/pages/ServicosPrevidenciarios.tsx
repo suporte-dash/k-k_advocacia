@@ -51,11 +51,11 @@ const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
 const CONTACT_PHONE_CONFIRMED = "+559191620280";
 
 const pageNavItems = [
-  { href: internalHref("/"), label: "Página Principal" },
-  { href: "#servicos-detalhados", label: "Serviços Detalhados" },
-  { href: "#triagem", label: "Triagem Guiada" },
-  { href: "#duvidas", label: "Dúvidas Frequentes" },
-  { href: "#atendimento", label: "Contato & Local" },
+  { href: internalHref("/"), label: "Início" },
+  { href: "#servicos-detalhados", label: "Serviços" },
+  { href: "#triagem", label: "Triagem" },
+  { href: "#duvidas", label: "Dúvidas" },
+  { href: "#atendimento", label: "Contato" },
 ];
 
 type ServiceCategory = "todos" | "aposentadorias" | "maternidade" | "defeso" | "incapacidade" | "planejamento";
@@ -433,15 +433,15 @@ export default function ServicosPrevidenciarios() {
           <div className="hero-texture" aria-hidden="true" />
           <div className="site-container hero-grid">
             <div className="hero-copy" data-reveal>
-              <p className="eyebrow">Catálogo de Atuação Previdenciária · SALINÓPOLIS - PA</p>
+              <p className="eyebrow">Advocacia Previdenciária Especializada · Salinópolis & Atuação Nacional</p>
               <h1>
-                Serviços previdenciários em <em>detalhe.</em>
+                Serviços previdenciários com <em>rigor técnico</em> e clareza.
               </h1>
               <p className="hero-lead hero-lead-national">
                 <span>
-                  Serviços previdenciários em Salinópolis, PA com atendimento próximo e análise
-                  aprofundada de cada benefício do INSS. Conheça as regras, requisitos e documentos
-                  necessários para cada categoria.
+                  Serviços previdenciários em Salinópolis, PA com análise minuciosa de cada benefício do INSS,
+                  requisitos legais e documentação necessária. Atendimento presencial e consultoria
+                  em todo o Brasil para proteger o seu direito.
                 </span>
               </p>
               <div className="hero-actions">
@@ -451,7 +451,8 @@ export default function ServicosPrevidenciarios() {
                   rel="noreferrer"
                   variant="primary"
                 >
-                  <MessageCircle size={17} aria-hidden="true" /> Falar com as advogadas
+                  <MessageCircle size={18} aria-hidden="true" /> Tirar dúvida no WhatsApp
+                  <ArrowUpRight size={15} aria-hidden="true" />
                 </SiteButton>
                 <a className="text-link text-link-light" href="#servicos-detalhados">
                   Explorar os serviços <ArrowDownRight size={16} aria-hidden="true" />
@@ -538,7 +539,7 @@ export default function ServicosPrevidenciarios() {
                 )}`;
 
                 return (
-                  <article className="service-detail-card" key={service.id} data-reveal>
+                  <article className="service-detail-card" key={service.id}>
                     <div className="service-detail-top">
                       <span className="service-detail-icon-wrap" aria-hidden="true">
                         <Icon size={21} />
@@ -592,7 +593,9 @@ export default function ServicosPrevidenciarios() {
                         rel="noreferrer"
                         aria-label={`Orientação sobre ${service.title}`}
                       >
-                        Orientação sobre este benefício <ArrowUpRight size={15} aria-hidden="true" />
+                        <MessageCircle size={16} aria-hidden="true" />
+                        <span>Consultar meu direito neste benefício</span>
+                        <ArrowUpRight size={15} aria-hidden="true" />
                       </a>
                     </div>
                   </article>
@@ -617,11 +620,11 @@ export default function ServicosPrevidenciarios() {
         {/* =========================================================================
             Perguntas Frequentes sobre os Serviços Previdenciários
             ========================================================================= */}
-        <section id="duvidas" className="section section-paper faq-section" style={{ borderTop: "1px solid var(--line)" }}>
+        <section id="duvidas" className="section section-wine faq-section">
           <div className="site-container">
-            <SectionMarker light number="02" label="Perguntas Frequentes" />
+            <SectionMarker light number="02" label="Dúvidas frequentes" />
             <div className="faq-header" data-reveal>
-              <p className="section-kicker">Esclarecimentos sobre os serviços</p>
+              <p className="section-kicker">Respostas diretas · Procedimentos & Atendimento</p>
               <h2>
                 Dúvidas comuns sobre <em>atendimento e procedimentos</em>
               </h2>
@@ -646,7 +649,9 @@ export default function ServicosPrevidenciarios() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <MessageCircle size={14} aria-hidden="true" /> Falar sobre a minha situação
+                        <MessageCircle size={14} aria-hidden="true" />
+                        <span>Falar sobre a minha situação</span>
+                        <ArrowUpRight size={13} aria-hidden="true" />
                       </a>
                     </AccordionContent>
                   </AccordionItem>
@@ -663,14 +668,12 @@ export default function ServicosPrevidenciarios() {
           <div className="site-container">
             <div className="contact-header" data-reveal>
               <SectionMarker number="03" label="Atendimento" />
-              <p className="section-kicker">Canais de Contato e Localização</p>
+              <p className="section-kicker">Primeiro contato · Sem compromisso</p>
               <h2>
-                Inicie sua orientação com <em>atendimento responsável</em>.
+                Vamos analisar o seu caso com a <em>atenção que ele exige</em>.
               </h2>
               <p className="contact-lead">
-                Fale diretamente com o escritório pelo WhatsApp para uma escuta atenta do seu histórico,
-                ou envie suas informações através do formulário abaixo. Atendimento presencial em Salinópolis
-                e digital para todo o Brasil.
+                Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário abaixo. Atendimento presencial em Salinópolis e consultoria em todo o Brasil.
               </p>
             </div>
 
@@ -678,15 +681,19 @@ export default function ServicosPrevidenciarios() {
               <div className="contact-info-col" data-reveal>
                 <div className="contact-details-grid">
                   <div className="contact-detail-item">
-                    <Clock size={18} className="contact-detail-icon" aria-hidden="true" />
-                    <div>
+                    <span className="contact-detail-icon" aria-hidden="true">
+                      <Clock size={18} />
+                    </span>
+                    <div className="contact-detail-body">
                       <strong>Horário de atendimento</strong>
                       <span>Segunda a sexta-feira, das 08:00 às 18:00</span>
                     </div>
                   </div>
                   <div className="contact-detail-item">
-                    <Phone size={18} className="contact-detail-icon" aria-hidden="true" />
-                    <div>
+                    <span className="contact-detail-icon" aria-hidden="true">
+                      <Phone size={18} />
+                    </span>
+                    <div className="contact-detail-body">
                       <strong>WhatsApp e telefone</strong>
                       <a
                         href={WHATSAPP_URL}
@@ -711,14 +718,16 @@ export default function ServicosPrevidenciarios() {
                     >
                       <span className="map-grid-lines" aria-hidden="true" />
                       <span className="map-pin">
-                        <MapPin size={19} aria-hidden="true" />
+                        <span className="map-pin-pulse" aria-hidden="true" />
+                        <MapPin size={20} aria-hidden="true" />
                       </span>
                       <span className="map-fallback-copy">
                         <strong>Bom Jesus</strong>
                         <span>Salinópolis — PA</span>
                       </span>
-                      <span className="map-open-label">
-                        Abrir no Google Maps <ArrowUpRight size={14} aria-hidden="true" />
+                      <span className="map-badge-tag" aria-hidden="true">Sede física</span>
+                      <span className="map-hover-hint" aria-hidden="true">
+                        Ver no mapa <ArrowUpRight size={13} />
                       </span>
                     </a>
                   </div>
@@ -735,7 +744,7 @@ export default function ServicosPrevidenciarios() {
                         href={GOOGLE_MAPS_URL}
                         target="_blank"
                         rel="noreferrer"
-                        className="text-link"
+                        className="map-action-link"
                       >
                         Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
                       </a>

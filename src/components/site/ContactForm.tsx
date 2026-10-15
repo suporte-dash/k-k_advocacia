@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MessageCircle, Copy, Check, Send, Sparkles } from "lucide-react";
+import { MessageCircle, Copy, Check, Sparkles, ShieldCheck, ChevronDown, ArrowUpRight } from "lucide-react";
 import { PHONE_TEL } from "./site-config";
 
 export default function ContactForm() {
@@ -76,21 +76,24 @@ export default function ContactForm() {
 
         <div className="contact-form-field">
           <label htmlFor="contact-subject">Assunto ou benefício</label>
-          <select
-            id="contact-subject"
-            value={subject}
-            onChange={(e) => setSubject(e.target.value)}
-            className="contact-select"
-          >
-            <option value="Aposentadorias">Aposentadorias (Idade, Tempo, Rural, Especial)</option>
-            <option value="Salário-maternidade">Salário-maternidade (Urbano, Rural, Pescadora)</option>
-            <option value="Seguro-defeso">Seguro-defeso (Pescador artesanal)</option>
-            <option value="BPC / LOAS">BPC / LOAS (Idoso 65+ ou Deficiência)</option>
-            <option value="Pensão por morte">Pensão por morte</option>
-            <option value="Auxílio por incapacidade">Auxílio por incapacidade / Doença</option>
-            <option value="Revisão ou Planejamento">Revisão ou Planejamento Previdenciário</option>
-            <option value="Outro assunto jurídico">Outro assunto ou dúvida geral</option>
-          </select>
+          <div className="contact-select-wrap">
+            <select
+              id="contact-subject"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+              className="contact-select"
+            >
+              <option value="Aposentadorias">Aposentadorias (Idade, Tempo, Rural, Especial)</option>
+              <option value="Salário-maternidade">Salário-maternidade (Urbano, Rural, Pescadora)</option>
+              <option value="Seguro-defeso">Seguro-defeso (Pescador artesanal)</option>
+              <option value="BPC / LOAS">BPC / LOAS (Idoso 65+ ou Deficiência)</option>
+              <option value="Pensão por morte">Pensão por morte</option>
+              <option value="Auxílio por incapacidade">Auxílio por incapacidade / Doença</option>
+              <option value="Revisão ou Planejamento">Revisão ou Planejamento Previdenciário</option>
+              <option value="Outro assunto jurídico">Outro assunto ou dúvida geral</option>
+            </select>
+            <ChevronDown size={16} className="contact-select-arrow" aria-hidden="true" />
+          </div>
         </div>
 
         <div className="contact-form-field">
@@ -107,9 +110,9 @@ export default function ContactForm() {
 
         <div className="contact-form-actions">
           <button type="submit" className="button button-wine contact-submit-btn">
-            <MessageCircle size={17} aria-hidden="true" />
+            <MessageCircle size={18} aria-hidden="true" />
             <span>Enviar pelo WhatsApp</span>
-            <Send size={15} aria-hidden="true" />
+            <ArrowUpRight size={15} aria-hidden="true" className="contact-submit-arrow" />
           </button>
 
           <button
@@ -130,6 +133,11 @@ export default function ContactForm() {
               </>
             )}
           </button>
+        </div>
+
+        <div className="contact-security-note">
+          <ShieldCheck size={14} className="contact-security-icon" aria-hidden="true" />
+          <span>Seus dados são protegidos pelo sigilo profissional da advocacia.</span>
         </div>
 
         {submitted && (

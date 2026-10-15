@@ -4,3 +4,4 @@ dist/
 node_modules/.vite-image-cache/
 .DS_Store
 *.log
+.backup-reels/

@@ -24,4 +24,11 @@ describe("página local de serviços previdenciários", () => {
     expect(pageSource).not.toContain("aggregateRating");
     expect(pageSource).not.toContain("garantia");
   });
+
+  it("mantém harmonia editorial com CTAs de alta autoridade e alternância vinho/papel", () => {
+    expect(pageSource).toContain("Consultar meu direito neste benefício");
+    expect(pageSource).toContain('className="section section-wine faq-section"');
+    expect(pageSource).toContain("Vamos analisar o seu caso com a <em>atenção que ele exige</em>.");
+    expect(pageSource).toContain("Primeiro contato · Sem compromisso");
+  });
 });
