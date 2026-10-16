@@ -12,6 +12,7 @@ import SectionMarker from "@/components/site/SectionMarker";
 import SiteButton from "@/components/site/SiteButton";
 import { ASSET_BASE, GOOGLE_MAPS_URL, INSTAGRAM_URL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL } from "@/components/site/site-config";
 import {
+  ArrowDown,
   ArrowDownRight,
   ArrowLeft,
   ArrowRight,
@@ -31,6 +32,7 @@ import {
   Scale,
   Search,
   X,
+  HelpCircle,
   HeartHandshake,
   Users,
   FileText,
@@ -71,37 +73,53 @@ const navItems = [
 
 const FAQ_CATEGORIES = [
   { id: "todos", label: "Todas as dúvidas" },
-  { id: "aposentadoria", label: "Aposentadorias" },
+  { id: "aposentadoria", label: "Aposentadorias & Transição" },
   { id: "maternidade", label: "Salário-maternidade" },
-  { id: "defeso", label: "Seguro-defeso" },
-  { id: "atendimento", label: "Atendimento & Documentos" },
+  { id: "defeso", label: "Seguro-defeso & Rural" },
+  { id: "incapacidade", label: "Incapacidade & BPC/LOAS" },
+  { id: "atendimento", label: "Negativas & Atendimento" },
 ];
 
 const faqItems = [
   {
     category: "aposentadoria",
-    question: "Como saber qual tipo de aposentadoria ou benefício é o mais adequado para o meu caso?",
-    answer: "A definição do benefício ideal exige uma análise individual do seu histórico de trabalho, das contribuições realizadas ao longo da vida e das regras vigentes. O escritório realiza essa triagem inicial para orientar com clareza sobre as possibilidades jurídicas cabíveis."
+    question: "Como saber qual regra de aposentadoria é a mais vantajosa após a Reforma?",
+    answer: "A Reforma da Previdência (EC 103/2019) estabeleceu regras de transição diversas (pedágio de 50%, pedágio de 100%, idade mínima progressiva e pontos). O momento e a regra ideais variam para cada segurado. Realizamos uma análise minuciosa do CNIS e o planejamento previdenciário para calcular o cenário financeiro mais vantajoso, prevenindo concessões precipitadas com valores reduzidos."
   },
   {
-    category: "maternidade",
-    question: "O que é preciso para solicitar o salário-maternidade?",
-    answer: "O salário-maternidade é devido à pessoa que se afasta da atividade por motivo de nascimento de filho, aborto não criminoso, adoção ou guarda judicial para fins de adoção. A análise verifica os requisitos de qualidade de segurada ou segurado no período do evento."
+    category: "atendimento",
+    question: "O que fazer se o meu benefício foi indeferido ou negado pelo INSS?",
+    answer: "A negativa no INSS não encerra os seus direitos. O primeiro passo é obter a cópia integral do processo administrativo no Meu INSS para identificar o fundamento exato do indeferimento (como erro no CNIS, divergência de carência ou discordância médica). Com essa análise técnica em mãos, verificamos se o caminho mais célere e seguro é o recurso administrativo ou o ajuizamento na Justiça Federal."
   },
   {
     category: "defeso",
-    question: "Quem tem direito ao seguro-defeso?",
-    answer: "O seguro-defeso é destinado ao pescador artesanal que exerce a atividade de forma exclusiva e contínua, durante o período de defeso (paralisação da pesca para preservação das espécies). É necessária a comprovação documental do exercício da profissão e do registro ativo."
+    question: "Quem tem direito ao seguro-defeso e como comprovar a atividade pesqueira?",
+    answer: "O seguro-defeso é devido ao pescador e pescadora artesanal que exerce a atividade de maneira exclusiva e contínua, durante o período de paralisação da pesca para preservação das espécies. A comprovação documental requer Registro Geral da Atividade Pesqueira (RGP) ativo, notas de comercialização do pescado, declarações sindicais e residência na comunidade pesqueira."
+  },
+  {
+    category: "maternidade",
+    question: "Quem tem direito ao salário-maternidade e em quais situações ele é concedido?",
+    answer: "O salário-maternidade ampara seguradas urbanas, trabalhadoras rurais, pescadoras artesanais, contribuintes individuais (MEI e autônomas) e empregadas formais em casos de parto, adoção, guarda judicial ou aborto não criminoso. Mesmo seguradas desempregadas podem manter o direito caso estejam dentro do período de graça do INSS na data do evento."
+  },
+  {
+    category: "incapacidade",
+    question: "Tive o auxílio por incapacidade (auxílio-doença) negado na perícia médica. É possível reverter?",
+    answer: "Sim. A conclusão da perícia administrativa do INSS pode ser revisada perante a Justiça Federal, onde a avaliação é realizada por médico perito especialista neutro nomeado pelo juiz. Para uma atuação combativa, é indispensável reunir prontuários, laudos médicos detalhados com CID descritivo, exames atualizados e receitas que atestem o impedimento para o trabalho."
+  },
+  {
+    category: "incapacidade",
+    question: "Quem tem direito ao BPC/LOAS e qual a diferença em relação à aposentadoria?",
+    answer: "O Benefício de Prestação Continuada (BPC/LOAS) é uma garantia assistencial destinada a pessoas idosas (65 anos ou mais) ou pessoas com deficiência de qualquer idade que comprovem vulnerabilidade social e baixa renda familiar. Diferente da aposentadoria, não exige contribuições prévias ao INSS, mas não gera gratificação natalina (13º salário) nem pensão por morte aos dependentes."
+  },
+  {
+    category: "defeso",
+    question: "Como trabalhadores rurais e pescadores comprovam o tempo de serviço para aposentadoria?",
+    answer: "Segurados especiais comprovam o trabalho no campo ou na pesca artesanal por meio de início de prova material contemporânea aos fatos: certidões de estado civil antigas com menção à profissão, notas de produtor rural ou de venda de pescado, contratos agrários, histórico escolar em área rural e declarações de sindicatos ou colônias de pescadores."
   },
   {
     category: "atendimento",
-    question: "Quais documentos são importantes para a análise de aposentadorias e pensões?",
-    answer: "Os documentos fundamentais incluem carteira de trabalho (CTPS), carnês de contribuição (GPS), extrato do CNIS (Cadastro Nacional de Informações Sociais), documentos pessoais e certidões de estado civil. Documentos específicos podem ser solicitados conforme o tipo de atividade exercida."
-  },
-  {
-    category: "atendimento",
-    question: "Como funciona o atendimento e qual é o primeiro passo para falar com o escritório?",
-    answer: "O primeiro passo é entrar em contato por WhatsApp ou telefone para relatar brevemente a sua situação. A partir daí, o escritório orienta sobre a documentação necessária e os próximos passos para a condução responsável do seu caso."
+    question: "Como funciona o atendimento com o escritório e quais documentos devo preparar?",
+    answer: "O primeiro contato pode ser realizado diretamente pelo WhatsApp ou presencialmente em nossa sede física em Salinópolis/PA. Para a triagem preliminar, recomendamos ter em mãos: documento de identidade com foto (RG/CNH), CPF, Carteira de Trabalho (CTPS física ou digital), extrato atualizado do CNIS e a carta de indeferimento do INSS, caso já tenha havido pedido anterior."
   }
 ];
 
@@ -378,7 +396,7 @@ export default function Home() {
               <div className="proof-header" data-reveal>
                 <SectionMarker number="01" label="Presença em números" />
                 <p className="section-kicker">Nossa atuação em perspectiva</p>
-                <h2 id="proof-title">Rigor técnico e presença que constroem <em>segurança jurídica</em>.</h2>
+                <h2 id="proof-title">Presença e técnica para a sua <em>segurança jurídica</em>.</h2>
               </div>
               <div className="proof-stats" data-reveal>
                 <article className="proof-card">
@@ -438,7 +456,7 @@ export default function Home() {
                 </p>
               </div>
               <a className="text-link" href="#atendimento">
-                Encontrar a sociedade <ArrowUpRight size={16} aria-hidden="true" />
+                Encontrar a sociedade <ArrowDown size={15} aria-hidden="true" />
               </a>
             </div>
 
@@ -502,7 +520,7 @@ export default function Home() {
             <div className="practice-header" data-reveal>
               <SectionMarker number="03" label="Área de atuação" />
               <p className="section-kicker">Especialidades e direitos atendidos</p>
-              <h2>O direito previdenciário exige <em>rigor técnico</em> em cada etapa.</h2>
+              <h2>Rigor técnico em cada etapa do seu <em>benefício</em>.</h2>
               <p className="practice-intro-note">
                 O escritório presta suporte jurídico minucioso na concessão, restabelecimento e revisão de benefícios. Se você tem dúvidas sobre os requisitos do seu benefício, consulte nossa equipe para uma avaliação inicial.
               </p>
@@ -513,14 +531,14 @@ export default function Home() {
               ref={practiceCarouselRef}
               aria-label="Principais direitos e benefícios atendidos"
             >
-              {practiceCardsData.map((card) => {
+              {practiceCardsData.map((card, idx) => {
                 const Icon = card.icon;
                 const waUrl = `https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(card.whatsappText)}`;
                 const matchedService = ALL_DETAILED_SERVICES.find((s) => s.id === card.serviceId);
 
                 return (
                   <article
-                    className="practice-card-item is-interactive"
+                    className={`practice-card-item is-interactive ${activePracticeIndex === idx ? "is-active" : ""}`}
                     key={card.title}
                     tabIndex={0}
                     role="button"
@@ -613,10 +631,13 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="practice-carousel-counter">
-                <span>{activePracticeIndex + 1} de {practiceCardsData.length}</span>
-                <span className="practice-carousel-counter-sep">·</span>
-                <span>Deslize para ver todos</span>
+              <div className="practice-carousel-info">
+                <span className="practice-carousel-counter">
+                  Serviço <strong>{activePracticeIndex + 1}</strong> de {practiceCardsData.length}
+                </span>
+                <span className="practice-carousel-swipe-hint">
+                  ⇄ Deslize para navegar
+                </span>
               </div>
             </div>
 
@@ -717,12 +738,12 @@ export default function Home() {
 
         <section id="faq" className="section section-wine faq-section">
           <div className="site-container">
-            <SectionMarker number="05" label="Perguntas frequentes" />
+            <SectionMarker light number="05" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
-              <p className="section-kicker">Esclarecimentos essenciais</p>
-              <h2>Perguntas frequentes sobre <em>direito previdenciário</em></h2>
+              <p className="section-kicker">Direito Previdenciário Explicado · Análise &amp; Segurança Jurídica</p>
+              <h2>Respostas claras sobre os seus <em>direitos previdenciários</em>.</h2>
               <p className="faq-subtitle">
-                Respostas orientativas para ajudar você a compreender os conceitos fundamentais antes da orientação jurídica individual.
+                Orientações técnicas sobre regras de concessão, documentação comprobatória e soluções jurídicas para pedidos no INSS.
               </p>
             </div>
 
@@ -731,7 +752,7 @@ export default function Home() {
                 <Search size={18} className="faq-search-icon" aria-hidden="true" />
                 <input
                   type="text"
-                  placeholder="Pesquise por palavra-chave... (ex: aposentadoria, documentos, defeso)"
+                  placeholder="Pesquise por palavra-chave... (ex: negativa, defeso, aposentadoria, documentos, BPC)"
                   value={faqSearch}
                   onChange={(e) => setFaqSearch(e.target.value)}
                   className="faq-search-input"
@@ -771,12 +792,25 @@ export default function Home() {
                   {filteredFaqItems.map((item, index) => (
                     <AccordionItem key={item.question} value={`item-${index}`} className="faq-item">
                       <AccordionTrigger className="faq-question">
-                        <span>{item.question}</span>
+                        <div className="faq-question-inner">
+                          <span className="faq-question-num" aria-hidden="true">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <span className="faq-question-text">{item.question}</span>
+                        </div>
                       </AccordionTrigger>
                       <AccordionContent className="faq-answer">
-                        <p>{item.answer}</p>
-                        <a className="faq-whatsapp-link" href={WHATSAPP_URL} target="_blank" rel="noreferrer">
-                          <MessageCircle size={14} aria-hidden="true" /> Falar sobre a minha situação
+                        <p className="faq-answer-text">{item.answer}</p>
+                        <a
+                          className="faq-whatsapp-link"
+                          href={`https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(`Olá, Dra. Karlla e Dra. Keyteler! Li no site a dúvida sobre "${item.question}" e gostaria de uma orientação jurídica para o meu caso.`)}`}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label={`Tirar dúvida no WhatsApp sobre: ${item.question}`}
+                        >
+                          <MessageCircle size={15} aria-hidden="true" />
+                          <span>Tirar dúvida sobre este tema</span>
+                          <ArrowUpRight size={14} aria-hidden="true" />
                         </a>
                       </AccordionContent>
                     </AccordionItem>
@@ -784,14 +818,24 @@ export default function Home() {
                 </Accordion>
               ) : (
                 <div className="faq-no-results">
-                  <p>Nenhuma dúvida encontrada com o termo "{faqSearch}".</p>
+                  <div className="faq-no-results-icon" aria-hidden="true">
+                    <HelpCircle size={28} />
+                  </div>
+                  <div className="faq-no-results-content">
+                    <p className="faq-no-results-title">Não encontrou a resposta para a sua dúvida?</p>
+                    <p className="faq-no-results-desc">
+                      Nenhum resultado com o termo "{faqSearch}". Cada caso previdenciário possui especificidades únicas. Fale diretamente com nossas advogadas.
+                    </p>
+                  </div>
                   <a
-                    className="button button-wine"
-                    href={WHATSAPP_URL}
+                    className="faq-no-results-cta"
+                    href={`https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent(`Olá, Dra. Karlla e Dra. Keyteler! Pesquisei no site por "${faqSearch}" e gostaria de uma orientação para o meu caso.`)}`}
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <MessageCircle size={16} aria-hidden="true" /> Perguntar diretamente no WhatsApp
+                    <MessageCircle size={16} aria-hidden="true" />
+                    <span>Perguntar diretamente no WhatsApp</span>
+                    <ArrowUpRight size={14} aria-hidden="true" />
                   </a>
                 </div>
               )}
@@ -806,7 +850,7 @@ export default function Home() {
             <div className="contact-header" data-reveal>
               <SectionMarker number="06" label="Atendimento" />
               <p className="section-kicker">Primeiro contato · Sem compromisso</p>
-              <h2>Vamos analisar o seu caso com a <em>atenção que ele exige</em>.</h2>
+              <h2>Análise dedicada para o seu <em>caso específico</em>.</h2>
               <p className="contact-lead">
                 Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário ao lado. Atendimento presencial em Salinópolis e digital em todo o Brasil.
               </p>
@@ -833,6 +877,7 @@ export default function Home() {
                       <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="contact-phone-link">
                         {PHONE_DISPLAY}
                       </a>
+                      <span className="contact-phone-sub">Atendimento direto pelas advogadas</span>
                     </div>
                   </div>
                 </div>
@@ -856,12 +901,15 @@ export default function Home() {
                     </a>
                   </div>
                   <div className="address-row">
-                    <MapPin size={18} aria-hidden="true" />
-                    <div>
+                    <div className="address-icon-wrap" aria-hidden="true">
+                      <MapPin size={18} />
+                    </div>
+                    <div className="address-content">
                       <strong>Onde estamos</strong>
                       <address>Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus<br />Salinópolis — PA, 68721-000</address>
                       <a href={GOOGLE_MAPS_URL} target="_blank" rel="noreferrer" className="map-action-link">
-                        Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
+                        <span>Abrir no Google Maps</span>
+                        <ArrowUpRight size={14} aria-hidden="true" />
                       </a>
                     </div>
                   </div>

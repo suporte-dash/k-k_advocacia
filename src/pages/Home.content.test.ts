@@ -16,7 +16,7 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).toContain('<SectionMarker number="02" label="Quem somos" />');
     expect(homeSource).toContain('<SectionMarker number="03" label="Área de atuação" />');
     expect(homeSource).toContain('<SectionMarker light number="04" label="Advogadas" />');
-    expect(homeSource).toContain('<SectionMarker number="05" label="Perguntas frequentes" />');
+    expect(homeSource).toContain('<SectionMarker light number="05" label="Perguntas frequentes" />');
     expect(homeSource).toContain('<section id="faq" className="section section-wine faq-section">');
     expect(homeSource).toContain('<SectionMarker number="06" label="Atendimento" />');
     expect(homeSource).not.toContain('SectionMarker number="00"');
@@ -73,6 +73,18 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).toContain("Rural &amp; Pesca Artesanal");
     expect(homeSource).toContain("team-whatsapp-cta");
     expect(homeSource).toContain("Falar diretamente com as advogadas");
+  });
+
+  it("apresenta a Seção 05 de FAQ com numeração editorial, 6 categorias e CTAs contextuais", () => {
+    expect(homeSource).toContain("faq-question-num");
+    expect(homeSource).toContain("faq-question-text");
+    expect(homeSource).toContain("faq-answer-text");
+    expect(homeSource).toContain("faq-no-results-cta");
+    expect(homeSource).toContain("Aposentadorias & Transição");
+    expect(homeSource).toContain("Seguro-defeso & Rural");
+    expect(homeSource).toContain("Incapacidade & BPC/LOAS");
+    expect(homeSource).toContain("Negativas & Atendimento");
+    expect(homeSource).toContain("Tirar dúvida sobre este tema");
   });
 });
 

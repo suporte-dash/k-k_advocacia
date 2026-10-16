@@ -732,8 +732,10 @@ export default function ServicosPrevidenciarios() {
                     </a>
                   </div>
                   <div className="address-row">
-                    <MapPin size={18} aria-hidden="true" />
-                    <div>
+                    <div className="address-icon-wrap" aria-hidden="true">
+                      <MapPin size={18} />
+                    </div>
+                    <div className="address-content">
                       <strong>Onde estamos</strong>
                       <address>
                         Avenida Modesto da Encarnação Rodrigues, 756 — Bom Jesus
@@ -746,7 +748,8 @@ export default function ServicosPrevidenciarios() {
                         rel="noreferrer"
                         className="map-action-link"
                       >
-                        Abrir no Google Maps <ArrowUpRight size={15} aria-hidden="true" />
+                        <span>Abrir no Google Maps</span>
+                        <ArrowUpRight size={14} aria-hidden="true" />
                       </a>
                     </div>
                   </div>

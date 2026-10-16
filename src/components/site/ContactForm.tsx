@@ -84,12 +84,13 @@ export default function ContactForm() {
               className="contact-select"
             >
               <option value="Aposentadorias">Aposentadorias (Idade, Tempo, Rural, Especial)</option>
-              <option value="Salário-maternidade">Salário-maternidade (Urbano, Rural, Pescadora)</option>
-              <option value="Seguro-defeso">Seguro-defeso (Pescador artesanal)</option>
-              <option value="BPC / LOAS">BPC / LOAS (Idoso 65+ ou Deficiência)</option>
-              <option value="Pensão por morte">Pensão por morte</option>
-              <option value="Auxílio por incapacidade">Auxílio por incapacidade / Doença</option>
-              <option value="Revisão ou Planejamento">Revisão ou Planejamento Previdenciário</option>
+              <option value="Salário-maternidade">Salário-maternidade (Urbano, Rural, Pescadora, MEI)</option>
+              <option value="Seguro-defeso">Seguro-defeso (Pescador artesanal profissional)</option>
+              <option value="BPC / LOAS">BPC / LOAS (Idoso 65+ ou Pessoa com Deficiência)</option>
+              <option value="Auxílio por incapacidade">Benefício por incapacidade / Perícia médica</option>
+              <option value="Pensão por morte">Pensão por morte &amp; Amparo a dependentes</option>
+              <option value="Planejamento e CNIS">Planejamento Previdenciário &amp; Acerto de CNIS</option>
+              <option value="Recurso e Negativa">Benefício negado no INSS / Recurso</option>
               <option value="Outro assunto jurídico">Outro assunto ou dúvida geral</option>
             </select>
             <ChevronDown size={16} className="contact-select-arrow" aria-hidden="true" />
@@ -136,8 +137,8 @@ export default function ContactForm() {
         </div>
 
         <div className="contact-security-note">
-          <ShieldCheck size={14} className="contact-security-icon" aria-hidden="true" />
-          <span>Seus dados são protegidos pelo sigilo profissional da advocacia.</span>
+          <ShieldCheck size={15} className="contact-security-icon" aria-hidden="true" />
+          <span>Atendimento ético e estritamente sigiloso · Dados protegidos conforme as normas da OAB e LGPD.</span>
         </div>
 
         {submitted && (

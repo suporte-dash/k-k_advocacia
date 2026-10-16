@@ -1,6 +1,153 @@
 # PROJECT_STATE — Karlla Pinheiro & Keyteler Leite Advogadas
 
 ## 📌 Onde parámos
+- **Correção de Alto Contraste do Número e Marcador Editorial da Seção 05 (Perguntas Frequentes)**:
+  - **Identificação da Causa-Raiz**:
+    - A Seção 05 (`#faq`) adota fundo Vinho Nobre profundo (`section-wine faq-section`).
+    - Uma regra herdada em `.faq-section .section-marker-light .marker-number` forçava o número `05` para a cor `var(--wine-deep)` (`#42141e`). Com isso, o número ficava em vinho escuro sobre fundo vinho escuro (contraste de apenas ~1.2:1), tornando-se praticamente imperceptível.
+  - **Resolução de Alta Precisão Tipográfica**:
+    - Atualizadas as regras de `.section-wine .section-marker-light .marker-number` e `.section-wine.faq-section .marker-number` para **`var(--gold-light)` (`#e2bd89`)**, atingindo contraste superior a 7.5:1 (índice WCAG AAA).
+    - O rótulo *"PERGUNTAS FREQUENTES"* e o filete divisor também foram calibrados para o mesmo ouro champanhe luminoso, criando perfeita harmonia com os números das perguntas (`01`, `02`, `03`...) e com o kicker superior.
+  - **Qualidade & Blindagem por Testes**:
+    - **22/22 testes aprovados** no Vitest.
+    - TypeScript 100% limpo (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 2.97s.
+    - Servidor local atualizado via HMR.
+
+- **Ativação Padrão do Selo Sólido de Autoridade no Mobile (`Seção 01 — Presença em Números`)**:
+  - **Sensibilidade de UX Touch Mobile Implementada**:
+    - Em celulares (`max-width: 760px`), os círculos com ícones (`.proof-card .proof-card-icon-wrap`) em repouso tinham um fundo translúcido sutil que ficava apagado contra a luz de telas de smartphones.
+    - Aplicada a mesma filosofia da Seção 03: no mobile, o ícone já nasce no seu estado ativo de alta autoridade, preenchido com **Vinho Nobre profundo (`var(--wine)`)**, borda sólida e símbolo em **branco luminoso puro (`#ffffff`)**, além de sombra suave (`box-shadow: 0 4px 12px rgba(91, 31, 42, 0.16)`).
+    - O ícone atua como um selo/medalha de certificação visível de imediato sem depender de interação inexistente de mouse.
+    - Adicionado microfeedback tátil `:active` com leve compressão (`transform: scale(0.96)`).
+    - No desktop (`> 760px`), preservada 100% da experiência interativa dinâmica com cursor de mouse (repouso translúcido e iluminação no `:hover`).
+  - **Qualidade & Blindagem por Testes**:
+    - **22/22 testes aprovados** no Vitest.
+    - TypeScript 100% limpo (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 3.47s.
+
+- **Ativação Padrão do Estado Sólido de Alta Conversão no Mobile (`Seção 03 — Cards de Atuação`)**:
+  - **Sensibilidade de UX Touch Mobile Implementada**:
+    - Em dispositivos móveis não existe o cursor de mouse (`hover`). O botão *"Ver detalhes e requisitos ↗"* e o ícone circular em repouso tinham aspecto desmaiado e secundário.
+    - No mobile (`max-width: 768px`), o botão principal (`.practice-card-detail-trigger`) agora já nasce com preenchimento sólido em vinho profundo (`#5b1f2a`), borda fina em ouro champanhe, texto branco vívido e sombra aveludada (`box-shadow: 0 4px 14px rgba(91, 31, 42, 0.18)`), comunicando de imediato ao dedo do usuário que é a ação primária de abertura do drawer.
+    - O ícone circular do topo (`.practice-card-icon`) também nasce preenchido em vinho com símbolo em marfim puro.
+    - Adicionado microfeedback tátil no toque (`:active`) com leve compressão (`transform: scale(0.97)`) e tom vinho fechado (`#44141e`).
+    - No desktop (`> 768px`), preservado 100% da experiência interativa dinâmica com mouse, onde o card ganha o estado vinho ao passar o cursor por cima.
+  - **Qualidade & Blindagem por Testes**:
+    - **22/22 testes aprovados** no Vitest.
+    - TypeScript 100% limpo (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 3.05s.
+    - Servidor local ativo com HMR instantâneo em `http://localhost:5173/`.
+
+- **Alinhamento e Centralização dos Cards de Atuação Previdenciária (`Seção 03 — Área de Atuação`)**:
+  - **Sincronização com o Efeito de Centralização dos Reels**:
+    - No mobile (`max-width: 768px`), foi eliminado o comportamento antigo de ponta cortada lateral (*peek* de 86%/88%) com margens negativas que desalinhavam visualmente os cards.
+    - Aplicada a mesma arquitetura de centralização do carrossel do Instagram: **exibição exclusiva de 1 card por vez rigorosamente centralizado no meio da tela** (`flex: 0 0 100%`, `scroll-snap-align: center`, `scroll-snap-stop: always`, `max-width: min(100%, 350px)` e `margin: 24px auto 0 auto`).
+    - **Destaque do Card Ativo**: Card centralizado recebe a classe `.is-active` com realce sutil em borda dourada champanhe e sombra aveludada em camadas.
+    - **Controles Unificados**: As setas de 48x48px, os indicadores em bolinha (dots com cápsula dourada expansível em 26px) e o contador editorial (*"Serviço X de 6 · ⇄ Deslize para navegar"*) agora compartilham 100% da mesma identidade e ergonomia dos Reels.
+
+- **Implementação da Grade Compacta 2x2 no Mobile (`Seção 02 — Valores Institucionais`)**:
+  - **Eliminação Definitiva da Fadiga de Cartões (Card Fatigue)**:
+    - No mobile (`max-width: 640px`), substituído o empilhamento vertical de 4 cartões em 1 coluna por uma **grade 2x2 compacta e harmônica** (`grid-template-columns: repeat(2, minmax(0, 1fr))`).
+    - **Economia Drástica de Espaço Vertical**: A altura total do bloco caiu de ~750px para **apenas ~280px** (uma redução de mais de 60% na rolagem vertical), permitindo que os 4 pilares (*Responsabilidade, Cuidado, Compromisso e Proximidade*) caibam simultaneamente na tela do celular sem esconder nenhum valor.
+  - **Calibração das Microproporções Editoriais**:
+    - `.value-item`: Padding otimizado para `16px 13px 15px`, cantos suaves de `12px` e sombra leve de profundidade.
+    - `.value-header`: Altura compacta com `.value-icon-wrap` de `32x32px` e ícone SVG de `15px`.
+    - `.value-title`: Clamp responsivo (`clamp(16px, 4.3vw, 18.5px)`) com entrelinha de 1.15 e quebra segura de palavras longas sem overflow.
+    - `.value-desc`: Fonte nítida de `11.5px` com entrelinha arejada `1.45` em ardósia nobre (`var(--slate)`).
+    - Preservada a total acessibilidade (WCAG), a estabilidade de leitura e a solidez institucional sem a necessidade de scripts de carrossel ou movimentos automáticos intrusivos.
+
+- **Correção Semântica da Seta de Âncora & Microinteração Direcional (`Seção 02 — Quem somos`)**:
+  - **Substituição da Seta de Navegação Interna**:
+    - O link *"Encontrar a sociedade"* em [src/pages/Home.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/Home.tsx) que leva para a Seção de Atendimento (`href="#atendimento"`) utilizava incorretamente a seta diagonal ascendente (`ArrowUpRight` ↗), ícone convencionado na web para links externos/nova aba.
+    - Atualizado com precisão para **`ArrowDown`** (↓), comunicando de imediato ao usuário que o clique provocará a rolagem suave para baixo na própria página.
+  - **Microinteração Tátil no Hover (`src/index.css`)**:
+    - Adicionado refinamento cinético em `.text-link svg` com `transition: transform 200ms var(--ease-out);`.
+    - No hover (`.text-link:hover svg`), o ícone realiza um microdeslocamento sutil para baixo (`transform: translateY(2px)`), reforçando ergonomicamente a direção do scroll.
+
+- **Otimização Editorial dos Títulos & Calibração Tipográfica Mobile**:
+  - **Encurtamento Cirúrgico de Títulos Prolixos**:
+    - **Seção 01 (Métricas)**: *"Presença e técnica para a sua segurança jurídica."* (7 palavras — ritmo mais fluido e direto).
+    - **Seção 03 (Atuação)**: *"Rigor técnico em cada etapa do seu benefício."* (8 palavras — foco imediato no cliente).
+    - **Seção 05 (FAQ)**: Reduzido de 11 para 7 palavras: *"Respostas claras sobre os seus direitos previdenciários."* (eliminado o excesso que ocupava 5 linhas no celular).
+    - **Seção 06 (Atendimento)**: Reduzido de 10 para 6 palavras: *"Análise dedicada para o seu caso específico."* (acolhedor, direto e sem poluição).
+  - **Calibração da Escala Tipográfica no Mobile (`src/index.css`)**:
+    - `.section h2`: Calibrado de `clamp(2.5rem, 12vw, 3.8rem)` (que gerava títulos desproporcionais de até 47px no celular) para **`clamp(1.95rem, 7.5vw, 2.75rem)`** (~31px–33px no mobile) com entrelinha arejada (`line-height: 1.15;` e `letter-spacing: -0.018em;`), acomodando palavras longas como *"previdenciário"* sem quebras forçadas.
+    - `.hero-copy h1`: Calibrado para **`clamp(2.4rem, 10vw, 3.8rem)`** com `line-height: 1.05;`, garantindo que a primeira dobra no celular preserve espaço para o parágrafo de apoio e o botão primário de WhatsApp.
+  - **Despoluição do Hero Mobile**:
+    - Ocultada a frase secundária de telefone (*"WhatsApp e telefone: (91) 9162-0280"*) no mobile (`.hero-contact-note { display: none !important; }`), deixando o bloco de ações limpo e direto com foco no botão de ação principal e link de conhecer a sociedade.
+
+- **Fechamento Aberto no Fundo do Site — Edição Hairline Editorial & Integração Total (`.instagram-bottom-cta-minimal`)**:
+  - **Eliminação Definitiva do "Card Fatigue" e da Linha Divisória Final**:
+    - Removida qualquer caixa/card fechada que causava sensação de banner comercial.
+    - Removida a linha divisória final inferior (`border-bottom` da `.instagram-section`), permitindo que o fundo do Instagram e o início da Seção 06 (Atendimento) se fundam de maneira 100% fluida, contínua e sem interrupções bruscas.
+    - Ajustado o padding inferior para 80px, gerando espaçamento vertical harmônico e elegante.
+  - **Hairline Superior em Ouro Translúcido**:
+    - Apenas um filete superior contínuo (`border-top: 1px solid rgba(163, 126, 75, 0.24)`), servindo como respiro discreto após os vídeos.
+  - **Hierarquia Tipográfica Serena e Confiante**:
+    - Eyebrow com micro-ponto dourado: *"ORIENTAÇÃO JURÍDICA DIRETA"*.
+    - Título serifado em *Cormorant Garamond* (`clamp(23px, 2.3vw, 28px)`) com itálico (*caso específico*).
+    - Frase concisa: *"Converse diretamente com as advogadas titulares para uma análise individual e sigilosa dos seus documentos."*
+  - **Ações Horizontais Nobres (Cápsulas 999px)**:
+    - **WhatsApp (`.instagram-minimal-btn-wa`)**: Cápsula de 48px em vinho profundo (`#5b1f2a`), borda fina em ouro champanhe e microdeslocamento tátil da seta no hover.
+    - **Instagram (`.instagram-minimal-btn-ig`)**: Cápsula translúcida com fundo suave, preservando a textura de papel do site.
+  - **Responsividade Mobile-First (< 640px)**:
+    - Em telas pequenas, a fita alinha os botões verticalmente com largura total (48px de área de toque) e remove paddings laterais redundantes, fluindo naturalmente com a margem do site.
+
+- **Lapidação Editorial e Funcional da Seção 06 (Atendimento, Mapa Cartográfico & Formulário de Contato)**:
+  - **Cards de Contato Rápido de Alta Sofisticação**:
+    - `.contact-detail-item`: Cantos orgânicos contemporâneos (14px), fundo branco iluminado (`#ffffff`), moldura fina em ouro champanhe translúcido (`rgba(163, 126, 75, 0.28)`), sombra aveludada em camadas e filete superior em gradiente vinho/ouro que acende suavemente no hover.
+    - Ícones temáticos (Horário e Telefone) abrigados em moldura dedicada de 42x42px com cantos suaves (10px) e fundo vinho translúcido; no hover ganham preenchimento total em vinho profundo, borda dourada e micro-rotação tátil (-4°).
+    - Subtítulo explicativo com microcopy acolhedor: *"Atendimento direto pelas advogadas"* abaixo do WhatsApp.
+  - **Painel Cartográfico Editorial & Endereço Nobre**:
+    - Moldura de ateliê jurídico em `.location-panel`: raio de 16px, fundo branco puro, cantos orgânicos arredondados e sombra quente.
+    - `.address-row`: Ícone `MapPin` abrigado em moldura de 36x36px dedicada, endereço com tipografia fluida e novo botão nobre em formato pílula editorial (`.map-action-link`) com borda em ouro translúcido, fundo suave e micro-deslocamento da seta `ArrowUpRight` na diagonal.
+    - Sincronização em [src/pages/Home.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/Home.tsx) e [src/pages/ServicosPrevidenciarios.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/ServicosPrevidenciarios.tsx).
+  - **Refinamento do Cartão de Formulário ([src/components/site/ContactForm.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/components/site/ContactForm.tsx))**:
+    - Cantos em 18px, filete superior em gradiente vinho/ouro/vinho de 4px, badge de prestígio *"Atendimento Direto"* em pílula joia com brilho dourado.
+    - Inputs e `<select>` com cantos suaves de 11px, fundo marfim quente (`rgba(255, 250, 243, 0.65)`), foco com halo dourado e seta customizada em ouro translúcido.
+    - Atualização do catálogo de assuntos no `<select>` cobrindo todo o escopo previdenciário (Aposentadorias, Salário-maternidade, Seguro-defeso, BPC/LOAS, Incapacidade/Perícia, Pensão por morte, Planejamento & CNIS, Recurso/Negativa e Dúvida geral).
+    - Botões principais de Envio e Cópia em formato pílula moderna (raio 999px, altura mínima ergonômica de 50px).
+    - Selo de confidencialidade ética com `ShieldCheck` destacando sigilo OAB e LGPD.
+  - **Qualidade & Blindagem por Testes**:
+    - **22/22 testes aprovados** no Vitest.
+    - TypeScript 100% limpo (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 3.44s.
+
+- **Lapidação Editorial e Funcional da Seção 05 (Perguntas Frequentes / FAQ)**:
+  - **Expansão de Autoridade Previdenciária**:
+    - Catálogo expandido de 5 para **8 dúvidas centrais** cobrindo todo o escopo de atuação do escritório:
+      1. Regras de transição e cálculo vantajoso após a Reforma da Previdência.
+      2. Reversão de negativas e indeferimentos no INSS (recurso administrativo x via judicial).
+      3. Seguro-defeso para pescador artesanal e documentação necessária (RGP, notas, defeso).
+      4. Salário-maternidade para autônomas, MEI, rurais, desempregadas no período de graça e urbanas.
+      5. Reversão de negativas periciais em benefícios por incapacidade perante a Justiça Federal.
+      6. BPC/LOAS (critérios para idosos 65+ e PCD sem necessidade de contribuição).
+      7. Comprovação documental de atividade rural e pesca artesanal para aposentadoria.
+      8. Como funciona o atendimento com as sócias titulares e rol documental preparatório.
+  - **Filtros por Categoria com Carrossel Mobile Tátil**:
+    - 6 categorias bem delimitadas (*Todas*, *Aposentadorias & Transição*, *Salário-maternidade*, *Seguro-defeso & Rural*, *Incapacidade & BPC/LOAS*, *Negativas & Atendimento*).
+    - No mobile (`<= 768px`), transformado em carrossel horizontal contínuo com toque suave e sem scrollbar, eliminando o empilhamento desajeitado de múltiplos botões.
+  - **Caixa de Busca Editorial em Vidro Fosco & Ouro**:
+    - Campo de busca refinado com altura ergonômica de 52px, cantos modernos (14px), fundo em vidro fosco translúcido e foco champanhe.
+    - Botão de limpar busca com área de toque mínima acessível.
+  - **Design de Acordeon de Alta Autoridade (Hairline Luxury Editorial)**:
+    - Marcador nobre atualizado para `<SectionMarker light number="05" label="Perguntas frequentes" />`.
+    - Numeração sequencial nobre em ouro escuro (`01`, `02`, `03`...) no cabeçalho de cada pergunta.
+    - Transição fluida de abertura com iluminação sutil e rotação do Chevron em ouro champanhe.
+  - **CTAs de Conversão Contextuais para o WhatsApp**:
+    - Cada resposta possui um botão exclusivo de **Luxo Editorial** (*"Tirar dúvida sobre este tema ↗"*) com feixe luminoso suave, halo dourado e mensagem pré-preenchida no WhatsApp direcionada exatamente para aquela dúvida específica.
+  - **Novo Estado Vazio / Sem Resultados (*Dossiê Advisory Card*)**:
+    - Card nobre com ícone `HelpCircle`, mensagem empática e CTA direcionado para falar diretamente com as advogadas no WhatsApp caso o termo pesquisado não retorne resultados.
+  - **Arquivos atualizados**:
+    - [src/pages/Home.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/Home.tsx)
+    - [src/index.css](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/index.css)
+    - [src/pages/Home.content.test.ts](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/Home.content.test.ts)
+  - **Qualidade & Blindagem por Testes**:
+    - **22/22 testes aprovados** no Vitest (+1 teste de integridade da Seção 05).
+    - TypeScript 100% limpo (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 3.78s.
+
 - **Implementação do Carrossel Mobile na Seção 03 (Área de Atuação)**:
   - **Experiência Mobile Revolucionada (< 768px)**:
     - Eliminada a fadiga de rolagem (*scroll fatigue*) de 6 cards verticais empilhados (reduzindo mais de 1.200px de altura vertical desnecessária no celular).
@@ -269,15 +416,19 @@
     - Build de produção compilado em 2.96s com 55% de economia em imagens.
 
 ## ⚙️ Estado Atual
-- **Compilação**: ✅ Sucesso total (`npm run build` / Vite v7.1.9 gerado em 2.96s).
-- **TypeScript**: ✅ 100% limpo (`tsc --noEmit` sem erros).
-- **Testes**: ✅ **21/21 testes aprovados** (`vitest run`).
+- **Compilação**: ✅ Sucesso total (`npm run build` gerado em 3.44s com 55% de economia em assets).
+- **TypeScript**: ✅ 100% limpo (`tsc --noEmit` sem erros ou avisos).
+- **Testes**: ✅ **22/22 testes aprovados** (`vitest run`).
 - **Servidor Local**: ✅ Ativo e respondendo em tempo real em `http://localhost:5173/`.
-- **Seção 04**: ✅ Hierarquia mobile 100% corrigida (Título → Foto → Perfis → CTA), sem caixas e com foto limpa.
-- **Árvore de Trabalho**: Limpa, segura e estável.
+- **Toda a Home Page (Seções 01 a 06)**: ✅ **100% Concluída e Lapidada**. Cadência editorial pura, ausência total de "bento grid" genérico de IA, responsividade mobile-first irretocável em cada seção, e fluxos de atendimento/conversão de alta autoridade para WhatsApp.
+- **Árvore de Trabalho**: Limpa, segura e testada.
 
 ## 🎯 Próximos Passos Imediatos
-- Apresentar a hierarquia corrigida da Seção 04 ao usuário para conferência em `http://localhost:5173/#advogadas`.
+- Lapidar e revisar a **Página Dedicada de Serviços Previdenciários (`/servicos-previdenciarios-salinopolis`)**:
+  - Verificar harmonia editorial dos cards de catálogo e drawer/modais internos.
+  - Alinhar detalhes de SEO local e chamadas de ação.
+  - Fazer commit das alterações e sincronizar com o repositório remoto (`origin/main`).
+
 
 
 

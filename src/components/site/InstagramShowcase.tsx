@@ -11,10 +11,8 @@ import { useState, useRef, useEffect } from "react";
 import {
   Instagram,
   ArrowUpRight,
-  Sparkles,
   MessageCircle,
   CheckCircle2,
-  Check,
   Play,
   Pause,
   Volume2,
@@ -862,60 +860,39 @@ export default function InstagramShowcase() {
           </div>
         </div>
 
-        {/* Barra de Fechamento Integrada ao WhatsApp — Edição Editorial de Luxo */}
-        <div className="instagram-bottom-cta" data-reveal>
-          <div className="instagram-bottom-badge-column">
-            <div className="instagram-bottom-icon-badge" aria-hidden="true">
-              <Sparkles size={22} className="instagram-sparkle-icon" />
-            </div>
-          </div>
-
-          <div className="instagram-bottom-copy">
-            <div className="instagram-bottom-kicker">
-              <span>Orientação Jurídica Direta</span>
-            </div>
-            <h3 className="instagram-bottom-title">
+        {/* Barra de Fechamento Integrada — Edição Minimalista Editorial */}
+        <div className="instagram-bottom-cta instagram-bottom-cta-minimal" data-reveal>
+          <div className="instagram-minimal-copy">
+            <h3 className="instagram-minimal-title">
               Dúvidas sobre o seu <em>caso específico</em>?
             </h3>
-            <p>
-              Além das orientações em vídeo no feed, você pode conversar diretamente com as advogadas para uma análise individual, transparente e sigilosa dos seus documentos.
+            <p className="instagram-minimal-desc">
+              Converse diretamente com as advogadas titulares para uma análise individual e sigilosa dos seus documentos.
             </p>
-            <div className="instagram-bottom-perks">
-              <span className="instagram-perk-item">
-                <Check size={13} className="instagram-perk-icon" aria-hidden="true" />
-                <span>Atendimento direto com as advogadas</span>
-              </span>
-              <span className="instagram-perk-item">
-                <Check size={13} className="instagram-perk-icon" aria-hidden="true" />
-                <span>Análise documental sigilosa</span>
-              </span>
-              <span className="instagram-perk-item">
-                <Check size={13} className="instagram-perk-icon" aria-hidden="true" />
-                <span>Salinópolis & Atuação Nacional</span>
-              </span>
-            </div>
           </div>
 
-          <div className="instagram-bottom-buttons">
+          <div className="instagram-minimal-actions">
             <a
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="button button-wine instagram-cta-btn-wa"
+              className="instagram-minimal-btn-wa"
+              aria-label="Tirar dúvida sobre o seu caso pelo WhatsApp"
             >
               <MessageCircle size={16} aria-hidden="true" />
-              <span>Tirar dúvida no WhatsApp</span>
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <span>Conversar no WhatsApp</span>
+              <ArrowUpRight size={13} aria-hidden="true" />
             </a>
             <a
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noreferrer"
-              className="button button-outline-team instagram-cta-btn-ig"
+              className="instagram-minimal-btn-ig"
+              aria-label="Acessar o perfil oficial no Instagram"
             >
-              <Instagram size={16} aria-hidden="true" />
-              <span>Acessar perfil no Instagram</span>
-              <ArrowUpRight size={14} aria-hidden="true" />
+              <Instagram size={15} aria-hidden="true" />
+              <span>Ver perfil no Instagram</span>
+              <ArrowUpRight size={12} aria-hidden="true" />
             </a>
           </div>
         </div>
