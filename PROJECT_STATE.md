@@ -1,6 +1,167 @@
 # PROJECT_STATE — Karlla Pinheiro & Keyteler Leite Advogadas
 
 ## 📌 Onde parámos
+- **Sincronização de Rota & Deploy para o Novo Repositório Oficial (`k-k_advocacia`)**:
+  - **Ações Concluídas com Sucesso**:
+    1. **Sincronização de Base Path no `vite.config.ts`**: Alterado o fallback de produção para `/k-k_advocacia/`.
+    2. **Configuração do Workflow GitHub Pages (`.github/workflows/deploy-pages.yml`)**: Sincronizada a variável `VITE_BASE_PATH: /k-k_advocacia/` para garantir carregamento perfeito de assets no GitHub Pages sob o domínio `https://suporte-dash.github.io/k-k_advocacia/`.
+    3. **Validação e Recompilação dos Assets**: Executado `pnpm pages:build`, gerando build estático 100% íntegro com links absolutos canônicos e SPA fallback em `dist/404.html`.
+    4. **Atualização do Remote Git & Push Institucional**: Apontado o remote `origin` para `https://github.com/suporte-dash/k-k_advocacia.git` e enviado o commit consolidado com todas as otimizações, purga de ativos e nova identidade.
+  - **Validação Automatizada Concluída**:
+    - **`pnpm check` (TypeScript `tsc --noEmit`)**: 0 erros.
+    - **`pnpm test --run` (Vitest)**: 24/24 testes aprovados.
+    - **`pnpm run build` & `pnpm run pages:build`**: 100% íntegros com exit code 0.
+
+## ⚙️ Estado atual
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`pnpm.cmd check`).
+- **Build de Produção**: 100% íntegro com base `/k-k_advocacia/` (`pnpm.cmd run pages:build`).
+- **Repositório Remoto**: `https://github.com/suporte-dash/k-k_advocacia.git` (branch `main`).
+- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` (Task ID: `task-1267`).
+
+## 🎯 Próximos passos imediatos
+- Verificar a execução da GitHub Actions em `https://github.com/suporte-dash/k-k_advocacia/actions`.
+- Confirmar no repositório GitHub que em `Settings -> Pages` a fonte está configurada para `GitHub Actions`.
+- Acessar o site em produção em `https://suporte-dash.github.io/k-k_advocacia/`.
+
+- **Otimização de Ergonomia Mobile: Ocultação da Régua de Confiança do Hero (`.hero-bottom-note`)**:
+  - **Ações Concluídas com Sucesso**:
+    1. **Ocultação Limpa via CSS no Mobile**: Declarado em [src/index.css](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/index.css) no breakpoint `@media (max-width: 768px)` a regra `.hero-bottom-note { display: none !important; }`, eliminando ~120px de altura vertical acumulada e o empilhamento redundante de textos em telas de smartphones.
+    2. **Transição Imediata para a Seção 01**: A rolagem do celular agora flui instantaneamente do Hero para os números monumentais da Seção 01 (*Presença em números*), acelerando o funil de confiança e leitura.
+    3. **Preservação Contratual do Desktop e Testes**: O JSX em [src/pages/Home.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/pages/Home.tsx) foi mantido 100% intacto, resguardando a régua horizontal nobre em telas desktop e garantindo a aprovação de todos os testes unitários.
+  - **Validação Automatizada Concluída**:
+    - **24/24 testes aprovados** no Vitest (`pnpm.cmd test --run`).
+    - TypeScript 100% verificado sem erros (`npx.cmd tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.75s (`pnpm.cmd run build`).
+
+## ⚙️ Estado atual
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`npx.cmd tsc --noEmit`).
+- **Build de Produção**: 100% íntegro com exit code 0 (`pnpm.cmd run build`).
+- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` e na rede em `http://10.12.199.61:5173/` (Task ID: `task-1267`).
+
+## 🎯 Próximos passos imediatos
+- Inspecionar no navegador (em modo responsivo de smartphone ou dispositivo físico) a transição fluida do Hero direto para a Seção 01.
+- Prosseguir com os próximos aprimoramentos solicitados pelo usuário.
+
+- **Implantação do Avatar Vetorial SVG Concêntrico no Instagram Showcase (`src/components/site/InstagramShowcase.tsx` & `src/index.css`)**:
+  - **Ações Concluídas com Sucesso**:
+    1. **Componente Vetorial SVG de Alta Precisão**: Em [src/components/site/InstagramShowcase.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/components/site/InstagramShowcase.tsx), substituída a estrutura de divs aninhadas por um componente SVG nativo com `viewBox="0 0 100 100"`.
+    2. **Eliminação Definitiva do Serrilhado e Espessura Irregular**: Todos os círculos (anel de Stories gradiente com `r="46.5"`, respiro marfim com `r="43.5"` e foto recortada com `clipPath` em `r="39.5"`) compartilham exatamente o mesmo centro analítico flutuante (`cx="50" cy="50"`), erradicando qualquer colisão de subpixel ou degrau visual no Chromium/WebKit.
+    3. **Micro-Hairline de Fusão Óptica**: Injetada micro-linha capilar dourada translúcida (`strokeWidth="0.75"`) para fusão óptica perfeita entre a borda da foto e o respiro marfim.
+    4. **Estilização e Aceleração de GPU**: Em [src/index.css](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/index.css), estilizada a classe `.instagram-avatar-vector` com `drop-shadow` aveludado, aceleração por hardware (`translateZ(0)`), microinteração no hover (`scale(1.06) rotate(2deg)`) e dimensionamento fluido (`68px` no desktop e `58px` no mobile).
+  - **Validação Automatizada Concluída**:
+    - **24/24 testes aprovados** no Vitest (`pnpm.cmd test --run`).
+    - TypeScript 100% verificado sem erros (`npx.cmd tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.54s (`pnpm.cmd run build`).
+
+## ⚙️ Estado atual
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`npx.cmd tsc --noEmit`).
+- **Build de Produção**: 100% íntegro com exit code 0 (`pnpm.cmd run build`).
+- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` e na rede em `http://10.12.199.61:5173/` (Task ID: `task-1267`).
+
+## 🎯 Próximos passos imediatos
+- Inspecionar visualmente no navegador em `http://localhost:5173/` a perfeição matemática dos anéis do avatar do Instagram, sem qualquer serrilhado ou assimetria.
+- Prosseguir com novos aprimoramentos conforme a solicitação do usuário.
+
+- **Eliminação Completa de Serrilhado no Avatar do Instagram via Supersampling Retina & Anti-Aliasing de GPU**:
+  - **Ações Concluídas com Sucesso**:
+    1. **Supersampling Lanczos3 Retina (450x450px)**: O asset [public/assets/instagram-avatar.png](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/public/assets/instagram-avatar.png) foi reamostrado via Sharp com kernel Lanczos3 e compressão máxima, elevando a densidade para 3x Retina em telas de alta resolução.
+    2. **Container Intermediário Vetorial**: Injetado o container `.instagram-avatar-inner` em [src/components/site/InstagramShowcase.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/components/site/InstagramShowcase.tsx), isolando o respiro marfim como elemento arquitetural vetorial e eliminando o `border` CSS duro sobre a imagem rasterizada.
+    3. **Máscara Radial & Aceleração de GPU**: Em [src/index.css](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/index.css), aplicadas as propriedades `-webkit-mask-image`, `mask-image: radial-gradient(...)`, `transform: translateZ(0)` e micro-anel óptico subpixel (`box-shadow: 0 0 1.5px rgba(80, 0, 29, 0.45)`), dissipando 100% de qualquer degrau ou dente de serra.
+    4. **Responsividade Mobile**: Calibrado o diâmetro para `58x58px` em dispositivos móveis (`<= 640px`).
+  - **Validação Automatizada Concluída**:
+    - **24/24 testes aprovados** no Vitest (`pnpm.cmd test --run`).
+    - TypeScript 100% verificado sem erros (`npx.cmd tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.60s (`pnpm.cmd run build`).
+
+## ⚙️ Estado atual
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`npx.cmd tsc --noEmit`).
+- **Build de Produção**: 100% íntegro com exit code 0 (`pnpm.cmd run build`).
+- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` e na rede em `http://10.12.199.61:5173/` (Task ID: `task-1267`).
+
+## 🎯 Próximos passos imediatos
+- Inspecionar visualmente no navegador em `http://localhost:5173/` a perfeição óptica da borda do avatar do Instagram (sem serrilhado).
+- Prosseguir com os próximos refinamentos solicitados pelo usuário.
+
+- **Estilização Autêntica do Avatar do Perfil Instagram com Anel de Destaque (`src/components/site/InstagramShowcase.tsx` & `src/index.css`)**:
+  - **Ações Concluídas com Sucesso**:
+    1. **Estrutura Semântica com Anel**: Atualizado em [src/components/site/InstagramShowcase.tsx](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/components/site/InstagramShowcase.tsx) o nó do avatar para `.instagram-profile-avatar-wrap.instagram-avatar-ring` com `aria-label="Perfil verificado no Instagram"`, `width="64"` e `height="64"` com `loading="lazy"`.
+    2. **Estilização Visual com Anel Social & Respiro Ótico**: Em [src/index.css](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/src/index.css), estilizado o anel com gradiente do Instagram (`#f09433 -> #e6683c -> #dc2743 -> #cc2366 -> #bc1888`), respiro capilar de `2px solid var(--bg-primary, #FAF6F0)` separando a foto do anel colorido, corte 100% circular e microinteração suave de elevação (`scale(1.06) rotate(2deg)`) no hover.
+    3. **Ergonomia Mobile**: Adaptado no breakpoint móvel (`<= 640px`) para `56x56px` mantendo proporções harmônicas.
+  - **Validação Automatizada Concluída**:
+    - **24/24 testes aprovados** no Vitest (`pnpm.cmd test --run`).
+    - TypeScript 100% verificado sem erros (`npx.cmd tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.62s com otimização WebP (`pnpm.cmd run build`).
+
+## ⚙️ Estado atual
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`npx.cmd tsc --noEmit`).
+- **Build de Produção**: 100% íntegro com exit code 0 (`pnpm.cmd run build`).
+- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` e na rede em `http://10.12.199.61:5173/` (Task ID: `task-1267`).
+
+## 🎯 Próximos passos imediatos
+- Inspecionar visualmente no navegador em `http://localhost:5173/` o novo formato circular e o anel colorido autêntico do perfil do Instagram.
+- Prosseguir com os próximos aprimoramentos solicitados pelo usuário.
+
+- **Cadência Rítmica Completa do Site: Aplicação do Bege Linho nas Seções 04 (Advogadas) e 06 (Atendimento) (`src/index.css` & `src/pages/Home.tsx`)**:
+  - **Diagnóstico & Diretriz de UX/UI**:
+    - Fechada a equação de alternância e ritmo visual do site:
+      - Topo (Vinho) ➔ Hero (Marfim) ➔ Seção 01 (Bege Linho) ➔ Seção 02 & 03 (Marfim) ➔ Seção 04 (Bege Linho) ➔ Manifesto & FAQ (Vinho) ➔ Seção 06 (Bege Linho) ➔ Rodapé (Vinho Escuro).
+    - A Seção 04 (*Advogadas*) ganha atmosfera de sala nobre de atelier, valorizando o retrato oficial e o dossiê das sócias antes do manifesto escuro.
+    - A Seção 06 (*Atendimento & Contato*) atua como uma ilha acolhedora, conferindo relevo tridimensional aos cards brancos do formulário e de localização entre o FAQ vinho e o rodapé.
+    - Blindagem de especificidade CSS com `.section.section-secondary, .section.team-section, .section.contact-section` e réguas capilares douradas de acabamento.
+  - **Qualidade & Blindagem por Testes**:
+    - **24/24 testes aprovados** no Vitest (`pnpm test`).
+    - TypeScript 100% verificado sem erros (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.45s com 55% de otimização de imagens.
+    - Servidor Vite ativo e respondendo em `http://localhost:5173/`.
+
+- **Cadência Rítmica Editorial: Diferenciação Cromática da Seção 01 em Bege Linho Nobre (`src/index.css`)**:
+  - **Diagnóstico & Solução de UX/UI**:
+    - Identificada a confusão cognitiva gerada pela fusão do Hero (Marfim) com a Seção 01 (também Marfim), fazendo com que duas seções de propósitos diferentes parecessem coladas em um único bloco.
+    - Implementada a cadência rítmica editorial de prestígio: a Seção 01 (*Presença em números*) passa a ter fundo nobre em Bege Linho / Areia Nobre (`var(--secondary, #F3ECE1)`), ancorada por réguas capilares superior e inferior em ouro champanhe translúcido (`border-top/bottom: 1px solid rgba(163, 126, 75, 0.24)`).
+    - Os números monumentais em Vinho Profundo (`02 Sócias`, `100%`, `PA + Brasil`) ganham destaque escultural e contraste WCAG AAA (11.2:1).
+    - Transição fluida entre Hero (Marfim `#FAF6F0`) ➔ Seção 01 (Bege Linho `#F3ECE1`) ➔ Seção 02 (Marfim `#FAF6F0`).
+  - **Qualidade & Blindagem por Testes**:
+    - **24/24 testes aprovados** no Vitest (`pnpm test`).
+    - TypeScript 100% verificado sem erros (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.57s com 55% de otimização de imagens.
+    - Servidor Vite ativo e respondendo em `http://localhost:5173/`.
+
+- **Eliminação da Utility Bar & Transformação do Header em Vinho Profundo Nobre (`src/components/site/Header.tsx` & `src/index.css`)**:
+  - **Diagnóstico & Diretriz Arquitetural**:
+    - Removida a `utility-bar` fina do topo, eliminando a fragmentação em "sanduíche" (vinho fino + menu branco + hero marfim) e ganhando ~36px de altura útil imediata na primeira dobra.
+    - O cabeçalho (`.site-header`) assume a coroa institucional do site em Vinho Profundo (`#3A171C`), criando uma moldura nobre que repousa sobre o canvas marfim do Hero sem sufocar a página.
+    - Tipografia da marca atualizada para Marfim Luminoso (`#FAF6F0`) e Ouro Champanhe (`#C6A177`).
+    - Links de navegação em marfim translúcido de alto contraste com feedback em ouro champanhe.
+    - Botão "Fale conosco ↗" invertido para pílula sólida em Marfim Luminoso com texto escuro e borda ouro champanhe.
+    - Efeito de rolagem *Dark Glassmorphism* (`rgba(45, 16, 21, 0.96)` com desfoque de 12px e linha capilar dourada).
+    - Dropdown mobile alinhado em Vinho Profundo com links amplos e botão de WhatsApp de alta conversão.
+  - **Qualidade & Blindagem por Testes**:
+    - **24/24 testes aprovados** no Vitest (`pnpm test`).
+    - TypeScript 100% verificado sem erros (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 4.65s com 55% de otimização de imagens.
+    - Servidor Vite ativo e respondendo em `http://localhost:5173/`.
+
+- **Restauração Integral da Estética Clássica do Hero em Fundo Marfim (`src/pages/Home.tsx` & `src/index.css`)**:
+  - **Reversão Completa das Modificações Experimentais Escuras**:
+    - Restaurados os arquivos `src/pages/Home.tsx` e `src/index.css` ao estado limpo original de alta costura jurídica.
+    - Removidos todos os elementos experimentais da referência escura: `.hero-atmosphere-glow`, `.hero-visual-backdrop`, fita peeking out, malha de blueprint e cápsula de eyebrow.
+  - **Estética Clássica 100% Preservada**:
+    - Fundo nobre em marfim editorial (`background: var(--bg-primary)`), textura micro-reticulada aveludada (`.hero-texture`) e tipografia serifada de autoridade em vinho profundo (`#3a171c`).
+    - Moldura fotográfica do retrato com cantos de 16px, aceleração de GPU com anti-aliasing por subpixel e anel óptico champanhe suave (`box-shadow: 0 0 0 1px rgba(163, 126, 75, 0.35), 0 16px 44px rgba(45, 15, 20, 0.16)`).
+    - Assinatura minimalista de luxo (`.hero-signature-wrap`) com nome da advogada titular e micro-linha dourada capilar.
+    - Botão de WhatsApp primário em pílula sólida vinho profundo (`var(--bg-accent-dark)`) e link secundário refinado.
+    - Faixa de confiança flutuante inferior (`.hero-bottom-note`) integrada de forma fluida e sem linhas duras ao papel marfim do site.
+  - **Qualidade & Blindagem por Testes**:
+    - **24/24 testes aprovados** no Vitest (`pnpm test`).
+    - TypeScript 100% verificado sem erros (`tsc --noEmit`).
+    - Build de produção compilado com sucesso em 5.12s com 55% de otimização de imagens.
+    - Servidor Vite ativo e respondendo em `http://localhost:5173/`.
+
 - **Correção da Tela Branca e Publicação no GitHub Pages (`k-k_advocacia2.0`)**:
   - **Diagnóstico da Causa Raiz**:
     1. O workflow antigo apontava para `VITE_BASE_PATH: /k-k_advocacia/` em vez do novo repositório `/k-k_advocacia2.0/`, gerando erro 404 em todos os assets (JS/CSS).

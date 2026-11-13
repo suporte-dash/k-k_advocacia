@@ -42,7 +42,7 @@ jobs:
       - name: Build site for GitHub Pages
         run: pnpm pages:build
         env:
-          VITE_BASE_PATH: /k-k_advocacia2.0/
+          VITE_BASE_PATH: /k-k_advocacia/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

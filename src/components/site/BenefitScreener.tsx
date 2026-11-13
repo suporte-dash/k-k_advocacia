@@ -10,7 +10,6 @@ import {
   ArrowRight,
   ArrowLeft,
   RotateCcw,
-  MessageCircle,
   CheckCircle2,
   Sparkles,
   FileText,
@@ -22,6 +21,7 @@ import {
   Check,
 } from "lucide-react";
 import { PHONE_TEL } from "./site-config";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 interface ScreenerOption {
   id: string;
@@ -476,7 +476,7 @@ Gostaria de uma orientação jurídica sobre o meu caso.`;
                 rel="noreferrer"
                 className="screener-submit-btn"
               >
-                <MessageCircle size={18} aria-hidden="true" />
+                <WhatsAppIcon size={18} aria-hidden="true" />
                 <span>Enviar diagnóstico para o WhatsApp das advogadas</span>
                 <ArrowRight size={16} aria-hidden="true" />
               </a>

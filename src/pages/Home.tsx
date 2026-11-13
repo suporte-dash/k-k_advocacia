@@ -4,7 +4,6 @@
  * Avoid invented legal claims, generic stock imagery and decorative effects that dilute the brand.
  */
 import { useEffect, useState, useRef } from "react";
-import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import Header from "@/components/site/Header";
 import Footer from "@/components/site/Footer";
@@ -22,7 +21,6 @@ import {
   ChevronRight,
   Instagram,
   MapPin,
-  MessageCircle,
   Phone,
   Baby,
   Anchor,
@@ -44,33 +42,8 @@ import ContactForm from "@/components/site/ContactForm";
 import InstagramShowcase from "@/components/site/InstagramShowcase";
 import BackToTop from "@/components/site/BackToTop";
 import ServiceDetailDrawer from "@/components/site/ServiceDetailDrawer";
+import WhatsAppIcon from "@/components/site/WhatsAppIcon";
 import { ALL_DETAILED_SERVICES, type DetailedService } from "@/data/servicesData";
-
-const TEAM_PHOTO = `${ASSET_BASE}foto-oficial-advogadas.webp`;
-const HERO_SLIDES = [
-  {
-    id: "karlla",
-    image: `${ASSET_BASE}karlla-pinheiro-hero.webp`,
-    fallback: `${ASSET_BASE}karlla-pinheiro-hero.jpg`,
-    alt: "Retrato institucional da Dra. Karlla Pinheiro, em composição vinho e dourado.",
-    name: "Dra. Karlla Pinheiro",
-    role: "Sócia Fundadora",
-    oab: "OAB/PA 40.209",
-    specialty: "Estratégia Previdenciária & Planejamento de CNIS",
-    caption: "Dra. Karlla Pinheiro",
-  },
-  {
-    id: "keyteler",
-    image: `${ASSET_BASE}keyteler-leite-hero.webp`,
-    fallback: `${ASSET_BASE}keyteler-leite-hero.jpg`,
-    alt: "Retrato institucional da Dra. Keyteler Leite, em composição vinho e dourado.",
-    name: "Dra. Keyteler Leite",
-    role: "Sócia Titular",
-    oab: "OAB/PA 40.642",
-    specialty: "Atuação Rural & Pesca Artesanal",
-    caption: "Dra. Keyteler Leite",
-  },
-] as const;
 
 const navItems = [
   { href: "#sobre", label: "Quem somos" },
@@ -210,15 +183,31 @@ function highlightSearchMatch(text: string, query: string): React.ReactNode {
 }
 
 export default function Home() {
-  const [heroCarouselApi, setHeroCarouselApi] = useState<CarouselApi>();
-  const [activeHeroSlide, setActiveHeroSlide] = useState(0);
-  const [heroAutoplayPaused, setHeroAutoplayPaused] = useState(false);
+  const [activePartner, setActivePartner] = useState<0 | 1>(0);
+  const [isHeroPaused, setIsHeroPaused] = useState(false);
   const [faqSearch, setFaqSearch] = useState("");
   const [faqCategory, setFaqCategory] = useState("todos");
   const [activePracticeIndex, setActivePracticeIndex] = useState(0);
   const [selectedService, setSelectedService] = useState<DetailedService | null>(null);
   const [showFloatGreeting, setShowFloatGreeting] = useState(false);
   const practiceCarouselRef = useRef<HTMLDivElement | null>(null);
+
+  // Timer de alternância automática suave das fotos das sócias a cada 6.5 segundos
+  useEffect(() => {
+    if (isHeroPaused) return;
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reducedMotion) return;
+
+    const timer = window.setInterval(() => {
+      setActivePartner((prev) => (prev === 0 ? 1 : 0));
+    }, 6500);
+
+    return () => window.clearInterval(timer);
+  }, [isHeroPaused]);
+
+  const handleSwapPartner = () => {
+    setActivePartner((prev) => (prev === 0 ? 1 : 0));
+  };
 
   useEffect(() => {
     try {
@@ -313,27 +302,6 @@ export default function Home() {
   });
 
   useEffect(() => {
-    if (!heroCarouselApi) return;
-
-    const handleSelect = () => setActiveHeroSlide(heroCarouselApi.selectedScrollSnap());
-    handleSelect();
-    heroCarouselApi.on("select", handleSelect);
-
-    return () => {
-      heroCarouselApi.off("select", handleSelect);
-    };
-  }, [heroCarouselApi]);
-
-  useEffect(() => {
-    if (!heroCarouselApi || heroAutoplayPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      return;
-    }
-
-    const timer = window.setInterval(() => heroCarouselApi.scrollNext(), 7000);
-    return () => window.clearInterval(timer);
-  }, [heroCarouselApi, heroAutoplayPaused]);
-
-  useEffect(() => {
     const revealNodes = document.querySelectorAll<HTMLElement>("[data-reveal]");
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -363,85 +331,131 @@ export default function Home() {
       <Header items={navItems} brandHref="#inicio" onBrandClick={scrollToTop} />
 
       <main>
-        <section id="inicio" className="hero-section">
+        <section id="inicio" className="hero-section" aria-label="Apresentação institucional">
           <div className="hero-texture" aria-hidden="true" />
           <div className="site-container hero-grid">
             <div className="hero-copy" data-reveal>
               <p className="eyebrow">Advocacia Previdenciária · Salinópolis &amp; Brasil</p>
               <h1>
-                Direitos bem orientados começam com <em>escuta.</em>
+                Segurança jurídica e excelência na <em>defesa dos seus direitos</em>.
               </h1>
               <p className="hero-lead hero-lead-national">
-                <span>Orientação jurídica especializada, linguagem acessível e rigor técnico na defesa do seu benefício perante o INSS e a Justiça Federal.</span>
+                <span>Orientação jurídica especializada, linguagem acessível e rigor técnico na conquista e proteção do seu benefício perante o INSS e a Justiça Federal.</span>
               </p>
               <div className="hero-actions">
                 <SiteButton href={WHATSAPP_URL} target="_blank" rel="noreferrer" variant="primary">
-                  <MessageCircle size={17} aria-hidden="true" /> Falar com as advogadas
+                  <WhatsAppIcon size={17} aria-hidden="true" /> Falar com as advogadas
                 </SiteButton>
-                <a className="text-link text-link-light" href="#sobre">
-                  Conhecer a sociedade <ArrowDownRight size={16} aria-hidden="true" />
+                <a className="text-link text-link-light" href="#atuacao">
+                  Conhecer os serviços <ArrowDownRight size={16} aria-hidden="true" />
                 </a>
               </div>
             </div>
 
-            <div className="hero-visual" data-reveal style={{ transitionDelay: "140ms" }}>
-              <div
-                className="hero-image-wrap"
-                onMouseEnter={() => setHeroAutoplayPaused(true)}
-                onMouseLeave={() => setHeroAutoplayPaused(false)}
-                onFocusCapture={() => setHeroAutoplayPaused(true)}
-                onBlurCapture={(event) => {
-                  if (!event.currentTarget.contains(event.relatedTarget as Node | null)) {
-                    setHeroAutoplayPaused(false);
+                        <div
+              className="hero-visual"
+              data-reveal
+              style={{ transitionDelay: "140ms" }}
+              onMouseEnter={() => setIsHeroPaused(true)}
+              onMouseLeave={() => setIsHeroPaused(false)}
+              onFocusCapture={() => setIsHeroPaused(true)}
+              onBlurCapture={() => setIsHeroPaused(false)}
+            >
+              <div 
+                className="hero-atelier-stage"
+                onClick={handleSwapPartner}
+                role="button"
+                tabIndex={0}
+                aria-label="Alternar retrato das sócias titulares"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleSwapPartner();
                   }
                 }}
               >
-                <Carousel
-                  className="hero-carousel"
-                  opts={{ loop: true }}
-                  setApi={setHeroCarouselApi}
-                  aria-label="Retratos das advogadas"
-                >
-                  <CarouselContent className="hero-carousel-track">
-                    {HERO_SLIDES.map((slide, index) => (
-                      <CarouselItem className="hero-carousel-item" key={slide.id}>
-                        <picture>
-                          <source srcSet={slide.image} type="image/webp" />
-                          <img
-                            className="hero-image"
-                            src={slide.fallback}
-                            alt={slide.alt}
-                            width="1122"
-                            height="1402"
-                            decoding="async"
-                            fetchPriority={index === 0 ? "high" : "low"}
-                            loading={index === 0 ? "eager" : "lazy"}
-                          />
-                        </picture>
-                      </CarouselItem>
-                    ))}
-                  </CarouselContent>
-                  <div className="hero-carousel-controls" aria-label="Indicadores de slides">
-                    <div className="hero-carousel-dots">
-                      {HERO_SLIDES.map((slide, index) => (
-                        <button
-                          key={slide.id}
-                          type="button"
-                          className={`hero-carousel-dot ${activeHeroSlide === index ? "is-active" : ""}`}
-                          aria-label={`Mostrar foto ${index + 1}: ${slide.caption}`}
-                          aria-current={activeHeroSlide === index ? "true" : undefined}
-                          onClick={() => heroCarouselApi?.scrollTo(index)}
-                        />
-                      ))}
-                    </div>
+                {/* 1. Halo Sutil de Galeria de Fundo */}
+                <div className="hero-frame-offset-backdrop" aria-hidden="true" />
+
+                {/* 2. Carta de Trás (Sempre exibe a outra sócia com foto real de estúdio) */}
+                <div className="hero-portrait-frame-back" aria-hidden="true">
+                  {/* Foto da Dra. Karlla na retaguarda (visível quando Dra. Keyteler está na frente) */}
+                  <div className={`hero-back-slide ${activePartner === 1 ? "is-visible" : "is-hidden"}`}>
+                    <picture>
+                      <source srcSet={`${import.meta.env.BASE_URL}assets/karlla-pinheiro-hero.webp`} type="image/webp" />
+                      <img
+                        src={`${import.meta.env.BASE_URL}assets/karlla-pinheiro-hero.webp`}
+                        alt=""
+                        width="1122"
+                        height="1402"
+                        className="hero-portrait-img"
+                      />
+                    </picture>
                   </div>
-                </Carousel>
+
+                  {/* Foto da Dra. Keyteler na retaguarda (visível quando Dra. Karlla está na frente) */}
+                  <div className={`hero-back-slide ${activePartner === 0 ? "is-visible" : "is-hidden"}`}>
+                    <picture>
+                      <source srcSet={`${import.meta.env.BASE_URL}assets/keyteler-leite-hero.webp`} type="image/webp" />
+                      <img
+                        src={`${import.meta.env.BASE_URL}assets/keyteler-leite-hero.webp`}
+                        alt=""
+                        width="1122"
+                        height="1402"
+                        className="hero-portrait-img"
+                      />
+                    </picture>
+                  </div>
+
+                  {/* Véu aveludado de profundidade na carta de trás */}
+                  <div className="hero-card-depth-overlay" />
+                  <div className="hero-portrait-vignette" />
+                </div>
+
+                {/* 3. Carta da Frente (Exibe a sócia titular ativa com foco total e crossfade) */}
+                <div className="hero-portrait-frame-front">
+                  {/* Foto 01: Dra. Karlla Pinheiro */}
+                  <div className={`hero-deck-card ${activePartner === 0 ? "is-active" : "is-inactive"}`}>
+                    <picture>
+                      <source srcSet={`${import.meta.env.BASE_URL}assets/karlla-pinheiro-hero.webp`} type="image/webp" />
+                      <img
+                        src={`${import.meta.env.BASE_URL}assets/karlla-pinheiro-hero.webp`}
+                        alt="Dra. Karlla Pinheiro — Sócia Fundadora"
+                        width="1122"
+                        height="1402"
+                        decoding="async"
+                        fetchPriority="high"
+                        loading="eager"
+                        className="hero-portrait-img"
+                      />
+                    </picture>
+                    <div className="hero-portrait-vignette" aria-hidden="true" />
+                  </div>
+
+                  {/* Foto 02: Dra. Keyteler Leite */}
+                  <div className={`hero-deck-card ${activePartner === 1 ? "is-active" : "is-inactive"}`}>
+                    <picture>
+                      <source srcSet={`${import.meta.env.BASE_URL}assets/keyteler-leite-hero.webp`} type="image/webp" />
+                      <img
+                        src={`${import.meta.env.BASE_URL}assets/keyteler-leite-hero.webp`}
+                        alt="Dra. Keyteler Leite — Sócia Titular"
+                        width="1122"
+                        height="1402"
+                        decoding="async"
+                        fetchPriority="low"
+                        loading="lazy"
+                        className="hero-portrait-img"
+                      />
+                    </picture>
+                    <div className="hero-portrait-vignette" aria-hidden="true" />
+                  </div>
+                </div>
               </div>
 
-              {/* Assinatura Minimalista de Luxo: Apenas o Nome com Micro-Linha Ouro */}
+              {/* 3. Assinatura Minimalista de Luxo: Apenas o Nome com Micro-Linha Dourada */}
               <div className="hero-signature-wrap" aria-live="polite">
                 <p className="hero-signature-name">
-                  {HERO_SLIDES[activeHeroSlide]?.caption ?? HERO_SLIDES[0].name}
+                  {activePartner === 0 ? "Dra. Karlla Pinheiro" : "Dra. Keyteler Leite"}
                 </p>
                 <span className="hero-signature-line" aria-hidden="true" />
               </div>
@@ -467,14 +481,12 @@ export default function Home() {
 
 
           <section
-            className="section section-ivory proof-section"
+            className="section section-secondary proof-section"
             aria-labelledby="proof-title"
           >
             <div className="site-container">
-              <div className="proof-header" data-reveal>
-                <SectionMarker number="01" label="Presença em números" />
-                <p className="section-kicker">Nossa atuação em perspectiva</p>
-                <h2 id="proof-title">Presença e técnica para a sua <em>segurança jurídica</em>.</h2>
+              <div className="proof-header proof-header-centered" data-reveal>
+                <h2 id="proof-title">Presença e técnica para a sua segurança jurídica.</h2>
               </div>
               <div className="proof-stats" data-reveal>
                 <article className="proof-card">
@@ -519,9 +531,8 @@ export default function Home() {
           <section id="sobre" className="section section-ivory about-section">
           <div className="site-container">
             <div className="about-header" data-reveal>
-              <SectionMarker number="02" label="Quem somos" />
-              <p className="section-kicker">A Sociedade de Advogadas · Identidade & Propósito</p>
-              <h2>Uma advocacia construída para <em>humanizar</em> o direito previdenciário.</h2>
+              <SectionMarker number="01" label="Quem somos" />
+              <h2>Uma advocacia construída para humanizar o direito previdenciário.</h2>
               <div className="about-columns">
                 <p>
                   A Karlla Pinheiro e Keyteler Leite Sociedade de Advogadas atua na orientação de
@@ -596,9 +607,8 @@ export default function Home() {
         <section id="atuacao" className="section section-paper practice-section-light">
           <div className="site-container">
             <div className="practice-header" data-reveal>
-              <SectionMarker number="03" label="Área de atuação" />
-              <p className="section-kicker">Especialidades e direitos atendidos</p>
-              <h2>Rigor técnico em cada etapa do seu <em>benefício</em>.</h2>
+              <SectionMarker number="02" label="Área de atuação" />
+              <h2>Rigor técnico em cada etapa do seu benefício.</h2>
               <p className="practice-intro-note">
                 O escritório presta suporte jurídico minucioso na concessão, restabelecimento e revisão de benefícios. Se você tem dúvidas sobre os requisitos do seu benefício, consulte nossa equipe para uma avaliação inicial.
               </p>
@@ -649,7 +659,7 @@ export default function Home() {
                         title={`Conversar sobre ${card.title} no WhatsApp`}
                         onClick={(e) => e.stopPropagation()}
                       >
-                        <MessageCircle size={15} aria-hidden="true" />
+                        <WhatsAppIcon size={15} aria-hidden="true" />
                         <span>Consultar meu direito neste benefício</span>
                         <ArrowUpRight size={13} aria-hidden="true" />
                       </a>
@@ -734,90 +744,96 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="advogadas" className="section section-paper team-section">
+        <section id="advogadas" className="section section-secondary team-section">
           <div className="site-container">
-            <div className="team-header" data-reveal>
-              <SectionMarker light number="04" label="Advogadas" />
-              <p className="section-kicker">Duas trajetórias, um compromisso com a justiça</p>
-              <h2>Uma sociedade feita de <em>compromisso real</em>.</h2>
+            <div className="team-header team-header-centered" data-reveal>
+              <SectionMarker light number="03" label="Advogadas" />
+              <h2>Presença direta e compromisso real na defesa dos seus direitos.</h2>
               <p className="team-description">
                 Karlla Pinheiro e Keyteler Leite lideram a sociedade combinando análise documental aprofundada, diálogo transparente e defesa combativa dos direitos dos segurados.
               </p>
             </div>
 
-            <div className="team-grid">
-              <div className="team-portrait-column" data-reveal>
-                <div className="team-portrait-frame">
-                  <img
-                    src={TEAM_PHOTO}
-                    alt="Dra. Karlla Pinheiro e Dra. Keyteler Leite em retrato institucional"
-                    width="1122"
-                    height="1402"
-                    loading="lazy"
-                    decoding="async"
-                    className="team-portrait-img"
-                  />
-                </div>
-              </div>
+            <div className="team-diptych-grid" data-reveal>
+              {/* Portal 01: Dra. Karlla Pinheiro */}
+              <article className="team-diptych-card team-portrait-column">
+                <div className="team-arch-stage team-portrait-frame">
+                  {/* Lettering Lateral Rotacionado de Grife */}
+                  <span className="team-lateral-name" aria-hidden="true">DRA. KARLLA PINHEIRO</span>
 
-              <div className="team-content-column" data-reveal>
-                <div className="team-profiles">
-                  <article className="team-profile-card">
-                    <div className="team-profile-header">
-                      <span className="team-profile-num">01</span>
-                      <div className="team-profile-title-group">
-                        <strong className="team-profile-name">Karlla Pinheiro</strong>
-                        <span className="team-profile-oab">OAB/PA 40.209</span>
-                      </div>
+                  <div className="team-arch-canvas">
+                    <picture>
+                      <source srcSet={`${ASSET_BASE}karlla-pinheiro-office.webp`} type="image/webp" />
+                      <img
+                        src={`${ASSET_BASE}karlla-pinheiro-office.webp`}
+                        alt="Dra. Karlla Pinheiro — Sócia Fundadora"
+                        width="818"
+                        height="1024"
+                        loading="lazy"
+                        decoding="async"
+                        className="team-arch-portrait"
+                      />
+                    </picture>
+                  </div>
+
+                  {/* Dossiê Dra. Karlla Pinheiro */}
+                  <div className="team-dossier-card team-profile-card">
+                    <div className="team-dossier-top">
+                      <span className="team-profile-oab">OAB/PA 40.209</span>
                       <span className="team-profile-focus-tag">Estratégia &amp; CNIS</span>
                     </div>
+                    <h3 className="team-profile-name">Dra. Karlla Pinheiro</h3>
                     <p className="team-profile-bio">
                       Advogada com atuação focada em Direito Previdenciário, planejamento contributivo e condução técnica de benefícios do INSS.
                     </p>
-                  </article>
+                  </div>
+                </div>
+              </article>
 
-                  <article className="team-profile-card">
-                    <div className="team-profile-header">
-                      <span className="team-profile-num">02</span>
-                      <div className="team-profile-title-group">
-                        <strong className="team-profile-name">Keyteler Leite</strong>
-                        <span className="team-profile-oab">OAB/PA 40.642</span>
-                      </div>
+              {/* Portal 02: Dra. Keyteler Leite */}
+              <article className="team-diptych-card team-portrait-column">
+                <div className="team-arch-stage team-portrait-frame">
+                  {/* Lettering Lateral Rotacionado de Grife */}
+                  <span className="team-lateral-name" aria-hidden="true">DRA. KEYTELER LEITE</span>
+
+                  <div className="team-arch-canvas">
+                    <picture>
+                      <source srcSet={`${ASSET_BASE}keyteler-leite-office.webp`} type="image/webp" />
+                      <img
+                        src={`${ASSET_BASE}keyteler-leite-office.webp`}
+                        alt="Dra. Keyteler Leite — Sócia Titular"
+                        width="818"
+                        height="1024"
+                        loading="lazy"
+                        decoding="async"
+                        className="team-arch-portrait"
+                      />
+                    </picture>
+                  </div>
+
+                  {/* Dossiê Dra. Keyteler Leite */}
+                  <div className="team-dossier-card team-profile-card">
+                    <div className="team-dossier-top">
+                      <span className="team-profile-oab">OAB/PA 40.642</span>
                       <span className="team-profile-focus-tag">Rural &amp; Pesca Artesanal</span>
                     </div>
+                    <h3 className="team-profile-name">Dra. Keyteler Leite</h3>
                     <p className="team-profile-bio">
                       Advogada com dedicação especial ao amparo de segurados do INSS, trabalhadores rurais e pesca artesanal.
                     </p>
-                  </article>
+                  </div>
                 </div>
-
-                <div className="team-actions-block">
-                  <a
-                    className="team-whatsapp-cta"
-                    href={`https://wa.me/${PHONE_TEL.replace(/\D/g, "")}?text=${encodeURIComponent("Olá, Dra. Karlla e Dra. Keyteler! Gostaria de conversar sobre uma orientação jurídica previdenciária.")}`}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="Falar diretamente com as advogadas pelo WhatsApp"
-                  >
-                    <MessageCircle size={18} aria-hidden="true" />
-                    <span>Falar diretamente com as advogadas</span>
-                    <ArrowUpRight size={15} aria-hidden="true" />
-                  </a>
-                  <span className="team-actions-guarantee">
-                    Atendimento conduzido pelas titulares · Sigilo profissional e ético garantido
-                  </span>
-                </div>
-              </div>
+              </article>
             </div>
+
           </div>
         </section>
 
         <section id="faq" className="section section-wine faq-section">
           <div className="site-container">
-            <SectionMarker light number="05" label="Perguntas frequentes" />
+            <SectionMarker light number="04" label="Perguntas frequentes" />
             <div className="faq-header" data-reveal>
-              <p className="section-kicker">Direito Previdenciário Explicado · Análise &amp; Segurança Jurídica</p>
-              <h2>Respostas claras sobre os seus <em>direitos previdenciários</em>.</h2>
+              <h2>Respostas claras sobre os seus direitos previdenciários.</h2>
               <p className="faq-subtitle">
                 Orientações técnicas sobre regras de concessão, documentação comprobatória e soluções jurídicas para pedidos no INSS.
               </p>
@@ -884,7 +900,7 @@ export default function Home() {
                           rel="noreferrer"
                           aria-label={`Tirar dúvida no WhatsApp sobre: ${item.question}`}
                         >
-                          <MessageCircle size={15} aria-hidden="true" />
+                          <WhatsAppIcon size={15} aria-hidden="true" />
                           <span>Tirar dúvida sobre este tema</span>
                           <ArrowUpRight size={14} aria-hidden="true" />
                         </a>
@@ -909,7 +925,7 @@ export default function Home() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <MessageCircle size={16} aria-hidden="true" />
+                    <WhatsAppIcon size={16} aria-hidden="true" />
                     <span>Perguntar diretamente no WhatsApp</span>
                     <ArrowUpRight size={14} aria-hidden="true" />
                   </a>
@@ -921,12 +937,11 @@ export default function Home() {
 
         <InstagramShowcase />
 
-        <section id="atendimento" className="section section-paper contact-section">
+        <section id="atendimento" className="section section-secondary contact-section">
           <div className="site-container">
             <div className="contact-header" data-reveal>
-              <SectionMarker number="06" label="Atendimento" />
-              <p className="section-kicker">Primeiro contato · Sem compromisso</p>
-              <h2>Análise dedicada para o seu <em>caso específico</em>.</h2>
+              <SectionMarker number="05" label="Atendimento" />
+              <h2>Análise dedicada para o seu caso específico.</h2>
               <p className="contact-lead">
                 Atendimento inicial pelo WhatsApp com análise responsável do seu caso, ou envie sua mensagem pelo formulário ao lado. Atendimento presencial em Salinópolis e digital em todo o Brasil.
               </p>
@@ -1034,7 +1049,7 @@ export default function Home() {
         title="Falar com as advogadas pelo WhatsApp"
       >
         <span className="whatsapp-float-pulse" aria-hidden="true" />
-        <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
+        <WhatsAppIcon size={21} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
 

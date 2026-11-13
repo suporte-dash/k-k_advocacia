@@ -13,13 +13,14 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).toContain("Atendimento inicial pelo WhatsApp");
     expect(homeSource).toContain("WhatsApp e telefone");
     expect(homeSource).not.toContain("hero-contact-note");
-    expect(homeSource).toContain('<SectionMarker number="01" label="Presença em números" />');
-    expect(homeSource).toContain('<SectionMarker number="02" label="Quem somos" />');
-    expect(homeSource).toContain('<SectionMarker number="03" label="Área de atuação" />');
-    expect(homeSource).toContain('<SectionMarker light number="04" label="Advogadas" />');
-    expect(homeSource).toContain('<SectionMarker light number="05" label="Perguntas frequentes" />');
+    expect(homeSource).not.toContain('label="Presença em números"');
+    expect(homeSource).toContain('<SectionMarker number="01" label="Quem somos" />');
+    expect(homeSource).toContain('<SectionMarker number="02" label="Área de atuação" />');
+    expect(homeSource).toContain('<SectionMarker light number="03" label="Advogadas" />');
+    expect(homeSource).toContain('<SectionMarker light number="04" label="Perguntas frequentes" />');
     expect(homeSource).toContain('<section id="faq" className="section section-wine faq-section">');
-    expect(homeSource).toContain('<SectionMarker number="06" label="Atendimento" />');
+    expect(homeSource).toContain('<SectionMarker number="05" label="Atendimento" />');
+    expect(homeSource).not.toContain('SectionMarker number="06"');
     expect(homeSource).not.toContain('SectionMarker number="00"');
     expect(homeSource).not.toContain('label="Compromissos"');
   });
@@ -37,10 +38,10 @@ describe("conteúdo institucional da página inicial", () => {
   });
 
   it("assegura a escrita refinada de alta autoridade sem ecos ou redundâncias", () => {
-    expect(homeSource).toContain("Orientação jurídica especializada, linguagem acessível e rigor técnico na defesa do seu benefício perante o INSS e a Justiça Federal");
+    expect(homeSource).toContain("Orientação jurídica especializada, linguagem acessível e rigor técnico na conquista e proteção do seu benefício perante o INSS e a Justiça Federal");
     expect(homeSource).toContain("Atenção humana e minuciosa a cada detalhe do histórico contributivo e dos documentos de cada segurado");
     expect(homeSource).toContain("Consultar meu direito neste benefício");
-    expect(homeSource).toContain("Uma advocacia construída para <em>humanizar</em> o direito previdenciário");
+    expect(homeSource).toContain("Uma advocacia construída para humanizar o direito previdenciário");
     expect(homeSource).toContain('title: "BPC / LOAS"');
     expect(homeSource).not.toContain("Outros serviços jurídicos");
     expect(homeSource).toContain('<p className="eyebrow">Advocacia Previdenciária · Salinópolis &amp; Brasil</p>');
@@ -65,7 +66,7 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).not.toContain(">1:1<");
   });
 
-  it("apresenta a Seção 04 de Advogadas com selos de OAB, tags de atuação e CTA de atendimento direto", () => {
+  it("apresenta a Seção 04 de Advogadas com selos de OAB, tags de atuação e foco editorial nobre", () => {
     expect(homeSource).toContain("team-portrait-column");
     expect(homeSource).toContain("team-portrait-frame");
     expect(homeSource).not.toContain("team-portrait-caption");
@@ -76,8 +77,6 @@ describe("conteúdo institucional da página inicial", () => {
     expect(homeSource).toContain("OAB/PA 40.642");
     expect(homeSource).toContain("Estratégia &amp; CNIS");
     expect(homeSource).toContain("Rural &amp; Pesca Artesanal");
-    expect(homeSource).toContain("team-whatsapp-cta");
-    expect(homeSource).toContain("Falar diretamente com as advogadas");
   });
 
   it("apresenta a Seção 05 de FAQ com numeração editorial, 6 categorias e CTAs contextuais", () => {

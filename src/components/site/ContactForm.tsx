@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Send, Loader2, CheckCircle2, ShieldCheck, ChevronDown, AlertCircle, MessageCircle, RotateCcw } from "lucide-react";
+import { Send, Loader2, CheckCircle2, ShieldCheck, ChevronDown, AlertCircle, RotateCcw } from "lucide-react";
 import { PHONE_TEL, WEB3FORMS_ACCESS_KEY } from "./site-config";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 function formatPhoneInput(value: string) {
   const digits = value.replace(/\D/g, "").slice(0, 11);
@@ -190,7 +191,7 @@ export default function ContactForm() {
                   rel="noopener noreferrer"
                   className="button button-outline text-xs px-3 py-1.5 rounded-full inline-flex items-center gap-1.5 text-emerald-800 border-emerald-600/40"
                 >
-                  <MessageCircle size={13} />
+                  <WhatsAppIcon size={13} />
                   <span>Enviar pelo WhatsApp agora</span>
                 </a>
               </div>

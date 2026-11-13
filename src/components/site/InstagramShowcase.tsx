@@ -1,32 +1,33 @@
 /**
- * Destaque da Presença Digital Oficial — Instagram Showcase com Reels Reais
+ * Destaque da Presença Digital Oficial — Instagram Showcase com Card Fan Carousel 3D (GSAP)
  * 
  * Implementação editorial de alto padrão:
- * - Banner institucional oficial (@karllaekeyteleradvogadas) com avatar do logotipo e selo verificado
- * - Grade de 4 Reels reais gravados pelas advogadas (formato vertical 9:16)
- * - Player de vídeo nativo de alta performance com controles de Play/Pause, Mute/Unmute e progresso
- * - Conexão direta de cada vídeo com WhatsApp (mensagem personalizada) e link para o perfil oficial
+ * - 7 Reels reais gravados pelas advogadas em Salinópolis, Belém (Ver-o-Peso) e escritório
+ * - Animação 3D em leque (Card Fan Carousel) com física elástica (GSAP elastic.out)
+ * - Efeito interativo de hover spread: ao passar o mouse, as cartas vizinhas se abrem e a carta ativa sobe
+ * - Player nativo com controles acessíveis de play/pause, áudio e progresso
+ * - Visualizador imersivo em tela cheia (ReelModalViewer) estilo Instagram Stories
+ * - Conexão direta com WhatsApp personalizada para cada tema abordado
  */
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
+import gsap from "gsap";
 import {
   Instagram,
   ArrowUpRight,
-  MessageCircle,
-  CheckCircle2,
   Play,
   Pause,
   Volume2,
   VolumeX,
-  Video,
   ChevronLeft,
   ChevronRight,
   X,
 } from "lucide-react";
+import WhatsAppIcon from "./WhatsAppIcon";
 import { INSTAGRAM_URL, WHATSAPP_URL, INSTAGRAM_AVATAR, ASSET_BASE } from "./site-config";
 
 const PROFILE_AVATAR = INSTAGRAM_AVATAR;
 
-interface ReelItem {
+export interface ReelItem {
   id: string;
   videoSrc: string;
   tag: string;
@@ -39,7 +40,7 @@ interface ReelItem {
   durationLabel: string;
 }
 
-const REEL_ITEMS: ReelItem[] = [
+export const REEL_ITEMS: ReelItem[] = [
   {
     id: "reel-perguntas",
     videoSrc: `${ASSET_BASE}reel-perguntas-previdencia.mp4`,
@@ -53,6 +54,48 @@ const REEL_ITEMS: ReelItem[] = [
     whatsappMessage:
       "Olá, Dra. Karlla e Dra. Keyteler! Assisti ao Reel de Perguntas Rápidas sobre Previdência no site e gostaria de orientações sobre o meu caso.",
     durationLabel: "1:07",
+  },
+  {
+    id: "reel-maternidade-3",
+    videoSrc: `${ASSET_BASE}reel-salario-maternidade-3-situacoes.mp4`,
+    tag: "Salário-Maternidade",
+    formatBadge: "Reel Oficial · 3 Situações",
+    speaker: "Dra. Karlla & Dra. Keyteler",
+    speakerRole: "Direito das Mães & Família",
+    title: "3 Situações em que Você Pode Ter Direito ao Salário-Maternidade",
+    summary:
+      "Grávida sem nunca ter contribuído, demitida no período de graça ou autônoma: saiba os caminhos para garantir o benefício de mais de R$ 6.000.",
+    whatsappMessage:
+      "Olá, doutoras! Assisti ao vídeo das 3 situações do Salário-Maternidade no site e gostaria de orientação para o meu caso.",
+    durationLabel: "1:32",
+  },
+  {
+    id: "reel-defeso-salgado",
+    videoSrc: `${ASSET_BASE}reel-seguro-defeso-salgado.mp4`,
+    tag: "Seguro-Defeso",
+    formatBadge: "Reel Oficial · Região do Salgado",
+    speaker: "Dra. Keyteler Leite",
+    speakerRole: "Direitos da Pesca Artesanal",
+    title: "Prazo Aberto para o Seguro-Defeso na Região do Salgado",
+    summary:
+      "Direto do porto em Salinas: requisitos cruciais de guias INSS, sem vínculo, CadÚnico atualizado e manutenção anual do REAP para não perder o prazo.",
+    whatsappMessage:
+      "Olá, Dra. Keyteler! Assisti ao vídeo gravado no porto de Salinas sobre o prazo e requisitos do Seguro-Defeso e gostaria de orientações.",
+    durationLabel: "0:21",
+  },
+  {
+    id: "reel-rural-roca",
+    videoSrc: `${ASSET_BASE}reel-aposentadoria-rural-roca.mp4`,
+    tag: "Aposentadoria Rural",
+    formatBadge: "Reel Oficial · Ver-o-Peso",
+    speaker: "Dra. Karlla & Dra. Keyteler",
+    speakerRole: "Segurados Especiais & Campo",
+    title: "Trabalhou a Vida Inteira na Roça e Nunca Pagou INSS?",
+    summary:
+      "Direto do Ver-o-Peso em Belém: agricultores familiares e pescadores têm redução de idade (55 mulher / 60 homem) comprovando 15 anos de atividade rural.",
+    whatsappMessage:
+      "Olá, doutoras! Assisti ao vídeo sobre Aposentadoria Rural gravado no Ver-o-Peso e gostaria de saber se tenho direito à aposentadoria por tempo de roça.",
+    durationLabel: "0:50",
   },
   {
     id: "reel-bpc",
@@ -98,13 +141,55 @@ const REEL_ITEMS: ReelItem[] = [
   },
 ];
 
+const FAN_POSITIONS_DESKTOP = [
+  { rot: -18, scale: 0.85, x: -28, y: 3.5, zIndex: 1 },
+  { rot: -9,  scale: 0.92, x: -14, y: 1.0, zIndex: 3 },
+  { rot: 0,   scale: 1.0,  x: 0,   y: 0.0, zIndex: 10 },
+  { rot: 9,   scale: 0.92, x: 14,  y: 1.0, zIndex: 3 },
+  { rot: 18,  scale: 0.85, x: 28,  y: 3.5, zIndex: 1 },
+];
+
+const FAN_POSITIONS_MOBILE = [
+  { rot: -9, scale: 0.88, x: -12, y: 1.2, zIndex: 3 },
+  { rot: 0,  scale: 1.0,  x: 0,   y: 0.0, zIndex: 10 },
+  { rot: 9,  scale: 0.88, x: 12,  y: 1.2, zIndex: 3 },
+];
+
+function getSlotConfig(slotCount: number, slot: number) {
+  if (slotCount === 3) {
+    return FAN_POSITIONS_MOBILE[slot] || FAN_POSITIONS_MOBILE[1];
+  }
+  return FAN_POSITIONS_DESKTOP[slot] || FAN_POSITIONS_DESKTOP[2];
+}
+
+function getResponsiveMultiplier(width: number) {
+  if (width < 480) return 0.28;
+  if (width < 640) return 0.38;
+  if (width < 768) return 0.5;
+  if (width < 1024) return 0.75;
+  return 1.0;
+}
+
+function getHeightMultiplier(width: number) {
+  let idealPx: number;
+  if (width < 480) idealPx = 352;
+  else if (width < 640) idealPx = 416;
+  else if (width < 768) idealPx = 448;
+  else if (width < 1024) idealPx = 544;
+  else idealPx = 608;
+
+  const available = typeof window !== "undefined" ? window.innerHeight * 0.7 : idealPx;
+  if (available >= idealPx) return 1;
+  return available / idealPx;
+}
+
 interface ReelCardProps {
   reel: ReelItem;
   isActive: boolean;
   isMuted: boolean;
   onTogglePlay: () => void;
   onToggleMute: (e: React.MouseEvent) => void;
-  onEnded: () => void;
+  onOpenModal: () => void;
 }
 
 function ReelCard({
@@ -113,63 +198,23 @@ function ReelCard({
   isMuted,
   onTogglePlay,
   onToggleMute,
-  onEnded,
+  onOpenModal,
 }: ReelCardProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [progress, setProgress] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [hasStarted, setHasStarted] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    if (isActive) {
-      const playPromise = video.play();
-      if (playPromise !== undefined) {
-        playPromise
-          .then(() => {
-            setIsPlaying(true);
-            setHasStarted(true);
-          })
-          .catch(() => {
-            setIsPlaying(false);
-          });
-      }
-    } else {
-      video.pause();
-      setIsPlaying(false);
-    }
+    video.pause();
+    setIsPlaying(false);
   }, [isActive]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = isMuted;
-  }, [isMuted]);
 
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (!video || !video.duration) return;
     setProgress((video.currentTime / video.duration) * 100);
-  };
-
-  const handleVideoPlay = () => {
-    setIsPlaying(true);
-    setHasStarted(true);
-  };
-
-  const handleVideoPause = () => {
-    setIsPlaying(false);
-  };
-
-  const handleVideoEnded = () => {
-    const video = videoRef.current;
-    if (video) {
-      video.currentTime = 0;
-    }
-    setIsPlaying(false);
-    onEnded();
   };
 
   const handleCardClick = (e: React.MouseEvent) => {
@@ -181,85 +226,96 @@ function ReelCard({
     ) {
       return;
     }
-    onTogglePlay();
+    // Ao clicar no card, abre diretamente o visualizador imersivo em tela cheia se for o card central ativo
+    if (isActive) {
+      onOpenModal();
+    }
   };
 
   return (
     <article
       className={`reel-card ${isActive ? "is-active" : ""} ${isPlaying ? "is-playing" : ""}`}
       onClick={handleCardClick}
+      tabIndex={0}
+      role="button"
+      aria-label={`Reproduzir Reel: ${reel.title}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          if (isActive) {
+            onOpenModal();
+          } else {
+            onTogglePlay();
+          }
+        }
+      }}
     >
       <div className="reel-media-wrapper">
         <video
           ref={videoRef}
           src={reel.videoSrc}
           playsInline
-          preload="auto"
           muted={isMuted}
+          preload="metadata"
           onTimeUpdate={handleTimeUpdate}
-          onPlay={handleVideoPlay}
-          onPause={handleVideoPause}
-          onEnded={handleVideoEnded}
+          onEnded={() => {
+            setIsPlaying(false);
+            setProgress(0);
+          }}
           className="reel-video-element"
         />
 
-        {/* Linha de progresso de reprodução */}
-        <div className="reel-progress-track">
+        <div className="reel-progress-track" aria-hidden="true">
           <div className="reel-progress-fill" style={{ width: `${progress}%` }} />
         </div>
 
-        {/* Barra superior de controles sobre o vídeo */}
-        <div className="reel-top-bar">
-          <span className="reel-tag-pill">{reel.tag}</span>
+        <div className="reel-top-bar" onClick={(e) => e.stopPropagation()}>
+          <span className="reel-tag-badge">{reel.tag}</span>
           <button
             type="button"
-            className={`reel-sound-btn ${!isMuted ? "is-unmuted" : ""}`}
+            className="reel-sound-btn"
             onClick={onToggleMute}
             aria-label={isMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"}
             title={isMuted ? "Ativar som" : "Desativar som"}
           >
-            {isMuted ? <VolumeX size={14} /> : <Volume2 size={14} />}
-            <span>{isMuted ? "Sem som" : "Com som"}</span>
+            {isMuted ? <VolumeX size={15} /> : <Volume2 size={15} />}
+            <span className="reel-sound-label">{isMuted ? "Sem som" : "Com som"}</span>
           </button>
         </div>
 
-        {/* Botão de Play central */}
-        <div className={`reel-play-overlay ${isPlaying ? "is-playing" : ""}`}>
-          <div className="reel-play-circle" aria-hidden="true">
+        <div className={`reel-play-overlay ${isPlaying ? "is-hidden" : ""}`}>
+          <div className="reel-play-circle">
             {isPlaying ? (
-              <Pause size={20} className="reel-play-icon" />
+              <Pause size={28} className="reel-play-icon" aria-hidden="true" />
             ) : (
-              <Play size={22} className="reel-play-icon is-play" />
+              <Play size={28} className="reel-play-icon is-play" aria-hidden="true" />
             )}
           </div>
-          {!hasStarted && <span className="reel-play-hint">Clique para assistir</span>}
+          <span className="reel-play-hint">CLIQUE PARA ASSISTIR</span>
         </div>
 
-        {/* Painel inferior com informações e chamadas para ação */}
-        <div className="reel-bottom-panel">
-          <div className="reel-speaker-row">
-            <CheckCircle2 size={12} className="reel-verified-icon" aria-hidden="true" />
-            <strong className="reel-speaker-name">{reel.speaker}</strong>
-            <span className="reel-speaker-role">· {reel.speakerRole}</span>
+        <div className="reel-overlay-content">
+          <div className="reel-speaker-badge">
+            <span className="reel-speaker-name">{reel.speaker}</span>
+            <span className="reel-speaker-sep">·</span>
+            <span className="reel-speaker-role">{reel.speakerRole}</span>
           </div>
-
-          <h3 className="reel-title">{reel.title}</h3>
-
-          <div className="reel-actions" onClick={(e) => e.stopPropagation()}>
-            <a
-              href={`https://wa.me/559191620280?text=${encodeURIComponent(reel.whatsappMessage)}`}
-              target="_blank"
-              rel="noreferrer"
-              className="reel-whatsapp-link"
-              onClick={(e) => e.stopPropagation()}
-              aria-label={`Tirar dúvida no WhatsApp sobre ${reel.title}`}
-            >
-              <MessageCircle size={15} aria-hidden="true" />
-              <span>Tirar dúvida sobre o tema</span>
-              <ArrowUpRight size={13} aria-hidden="true" className="reel-cta-arrow" />
-            </a>
-          </div>
+          <h4 className="reel-card-title">{reel.title}</h4>
         </div>
+      </div>
+
+      <div className="reel-actions" onClick={(e) => e.stopPropagation()}>
+        <a
+          href={`${WHATSAPP_URL}?text=${encodeURIComponent(reel.whatsappMessage)}`}
+          target="_blank"
+          rel="noreferrer"
+          className="reel-whatsapp-link"
+          aria-label={`Tirar dúvida sobre ${reel.tag} com as advogadas pelo WhatsApp`}
+        >
+          <WhatsAppIcon size={15} aria-hidden="true" />
+          <span>Tirar dúvida sobre o tema</span>
+          <ArrowUpRight size={13} aria-hidden="true" />
+        </a>
       </div>
     </article>
   );
@@ -272,7 +328,7 @@ interface ReelModalViewerProps {
   onNavigate: (index: number) => void;
 }
 
-function ReelModalViewer({
+export function ReelModalViewer({
   reels,
   currentIndex,
   onClose,
@@ -283,135 +339,57 @@ function ReelModalViewer({
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [showPlayPulse, setShowPlayPulse] = useState(false);
 
-  const touchStartY = useRef(0);
-  const touchStartX = useRef(0);
-
-  // Bloqueia a rolagem da página ao fundo enquanto o visualizador estiver aberto
-  useEffect(() => {
-    const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
-    return () => {
-      document.body.style.overflow = originalOverflow;
-    };
-  }, []);
-
-  // Atalhos de teclado (Esc para fechar, setas para navegar, espaço para play/pause, M para som)
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        e.preventDefault();
-        onClose();
-      } else if (e.key === "ArrowLeft") {
-        e.preventDefault();
-        if (currentIndex > 0) onNavigate(currentIndex - 1);
-      } else if (e.key === "ArrowRight") {
-        e.preventDefault();
-        if (currentIndex < reels.length - 1) onNavigate(currentIndex + 1);
-      } else if (e.key === " " || e.key === "k") {
+      if (e.key === "Escape") onClose();
+      else if (e.key === "ArrowLeft" && currentIndex > 0) onNavigate(currentIndex - 1);
+      else if (e.key === "ArrowRight" && currentIndex < reels.length - 1) onNavigate(currentIndex + 1);
+      else if (e.key === " ") {
         e.preventDefault();
         togglePlay();
-      } else if (e.key === "m" || e.key === "M") {
-        e.preventDefault();
-        setIsMuted((prev) => !prev);
       }
     };
-
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [currentIndex, reels.length, onClose, onNavigate]);
 
-  // Carrega e reproduz o novo vídeo ao trocar de slide
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-
-    setProgress(0);
     video.currentTime = 0;
-    video.muted = isMuted;
-
+    setProgress(0);
     const playPromise = video.play();
     if (playPromise !== undefined) {
       playPromise
         .then(() => setIsPlaying(true))
-        .catch(() => {
-          // Autoplay fallback caso a política do navegador requeira início mutado
-          video.muted = true;
-          setIsMuted(true);
-          video
-            .play()
-            .then(() => setIsPlaying(true))
-            .catch(() => setIsPlaying(false));
-        });
+        .catch(() => setIsPlaying(false));
     }
   }, [currentIndex]);
-
-  useEffect(() => {
-    const video = videoRef.current;
-    if (!video) return;
-    video.muted = isMuted;
-  }, [isMuted]);
 
   const togglePlay = () => {
     const video = videoRef.current;
     if (!video) return;
-
     if (video.paused) {
-      video
-        .play()
-        .then(() => setIsPlaying(true))
-        .catch(() => {});
+      video.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
       video.pause();
       setIsPlaying(false);
     }
-    setShowPlayPulse(true);
-    setTimeout(() => setShowPlayPulse(false), 500);
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = !video.muted;
+    setIsMuted(video.muted);
   };
 
   const handleTimeUpdate = () => {
     const video = videoRef.current;
     if (!video || !video.duration) return;
     setProgress((video.currentTime / video.duration) * 100);
-  };
-
-  const handleVideoEnded = () => {
-    // Ao finalizar o vídeo, avança automaticamente para o próximo se houver
-    if (currentIndex < reels.length - 1) {
-      onNavigate(currentIndex + 1);
-    } else {
-      const video = videoRef.current;
-      if (video) {
-        video.currentTime = 0;
-        video.play().catch(() => {});
-      }
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartY.current = e.touches[0].clientY;
-    touchStartX.current = e.touches[0].clientX;
-  };
-
-  const handleTouchEnd = (e: React.TouchEvent) => {
-    const deltaY = e.changedTouches[0].clientY - touchStartY.current;
-    const deltaX = e.changedTouches[0].clientX - touchStartX.current;
-
-    // Deslizar para baixo fecha o modal imersivo
-    if (deltaY > 80 && Math.abs(deltaY) > Math.abs(deltaX)) {
-      onClose();
-      return;
-    }
-
-    // Deslizar para os lados navega entre os Reels
-    if (Math.abs(deltaX) > 50 && Math.abs(deltaX) > Math.abs(deltaY)) {
-      if (deltaX < 0 && currentIndex < reels.length - 1) {
-        onNavigate(currentIndex + 1);
-      } else if (deltaX > 0 && currentIndex > 0) {
-        onNavigate(currentIndex - 1);
-      }
-    }
   };
 
   return (
@@ -426,202 +404,143 @@ function ReelModalViewer({
           onClose();
         }
       }}
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
     >
-      <div
-        className="reel-modal-shell"
-        onClick={(e) => {
-          const target = e.target as HTMLElement;
-          if (!target.closest(".reel-modal-card") && !target.closest(".reel-modal-nav-arrow")) {
-            onClose();
-          }
-        }}
-      >
+      <div className="reel-modal-shell">
         <div className="reel-modal-card-wrapper">
-          {/* Botão lateral de navegação Anterior (Desktop / Tablet) */}
           {currentIndex > 0 && (
-          <button
-            type="button"
-            className="reel-modal-nav-arrow is-prev"
+            <button
+              type="button"
+              className="reel-modal-nav-arrow is-prev"
+              onClick={(e) => {
+                e.stopPropagation();
+                onNavigate(currentIndex - 1);
+              }}
+              aria-label="Vídeo anterior"
+            >
+              <ChevronLeft size={28} aria-hidden="true" />
+            </button>
+          )}
+
+          <div
+            className={`reel-modal-card ${isPlaying ? "is-playing" : "is-paused"}`}
             onClick={(e) => {
               e.stopPropagation();
-              onNavigate(currentIndex - 1);
+              togglePlay();
             }}
-            aria-label="Vídeo anterior"
           >
-            <ChevronLeft size={28} aria-hidden="true" />
-          </button>
-        )}
-
-        <div
-          className={`reel-modal-card ${isPlaying ? "is-playing" : "is-paused"}`}
-          onClick={(e) => {
-            e.stopPropagation();
-            togglePlay();
-          }}
-        >
-          {/* Vídeo Nativo de Alta Performance */}
-          <video
-            ref={videoRef}
-            src={currentReel.videoSrc}
-            playsInline
-            preload="auto"
-            muted={isMuted}
-            onTimeUpdate={handleTimeUpdate}
-            onEnded={handleVideoEnded}
-            className="reel-modal-video"
-          />
-
-          {/* Linha de Progresso no Topo (Estilo Stories/Reels) */}
-          <div className="reel-modal-progress-bar">
-            <div
-              className="reel-modal-progress-fill"
-              style={{ width: `${progress}%` }}
+            <video
+              ref={videoRef}
+              src={currentReel.videoSrc}
+              playsInline
+              preload="auto"
+              muted={isMuted}
+              onTimeUpdate={handleTimeUpdate}
+              onEnded={() => setIsPlaying(false)}
+              className="reel-modal-video"
             />
-          </div>
 
-          {/* Barra Superior do Modal (Instagram Official Bar) */}
-          <div className="reel-modal-top-bar" onClick={(e) => e.stopPropagation()}>
-            <div className="reel-modal-creator-info">
-              <img
-                src={PROFILE_AVATAR}
-                alt="Karlla Pinheiro & Keyteler Leite Advogadas"
-                className="reel-modal-avatar"
-                width="38"
-                height="38"
+            <div className="reel-modal-progress-bar">
+              <div
+                className="reel-modal-progress-fill"
+                style={{ width: `${progress}%` }}
               />
-              <div className="reel-modal-handle-box">
-                <div className="reel-modal-handle-row">
-                  <span className="reel-modal-handle">@karllaekeyteleradvogadas</span>
-                  <span className="reel-modal-verified" title="Perfil verificado">
-                    <svg viewBox="0 0 40 40" width="14" height="14" role="img" aria-label="Verificado">
-                      <path
-                        d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Z"
-                        fill="#0095f6"
-                      />
-                      <path
-                        d="m18.25 25.82-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18 2.254 2.287-11.43 11.5Z"
-                        fill="#ffffff"
-                      />
-                    </svg>
-                  </span>
+            </div>
+
+            <div className="reel-modal-top-bar" onClick={(e) => e.stopPropagation()}>
+              <div className="reel-modal-creator-info">
+                <img
+                  src={PROFILE_AVATAR}
+                  alt="Karlla Pinheiro & Keyteler Leite Advogadas"
+                  className="reel-modal-avatar"
+                  width="38"
+                  height="38"
+                />
+                <div className="reel-modal-handle-box">
+                  <div className="reel-modal-handle-row">
+                    <span className="reel-modal-handle">@karllaekeyteleradvogadas</span>
+                  </div>
+                  <span className="reel-modal-format-badge">{currentReel.formatBadge}</span>
                 </div>
-                <span className="reel-modal-format-badge">{currentReel.formatBadge}</span>
+              </div>
+
+              <div className="reel-modal-controls">
+                <button
+                  type="button"
+                  className="reel-modal-mute-btn"
+                  onClick={toggleMute}
+                  aria-label={isMuted ? "Ativar som" : "Desativar som"}
+                >
+                  {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+                </button>
+                <button
+                  type="button"
+                  className="reel-modal-close-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onClose();
+                  }}
+                  aria-label="Fechar visualizador"
+                >
+                  <X size={20} />
+                </button>
               </div>
             </div>
 
-            <div className="reel-modal-top-actions">
-              <button
-                type="button"
-                className={`reel-modal-icon-btn ${!isMuted ? "is-unmuted" : ""}`}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsMuted((prev) => !prev);
-                }}
-                aria-label={isMuted ? "Ativar som do vídeo" : "Desativar som do vídeo"}
-                title={isMuted ? "Ativar som" : "Desativar som"}
-              >
-                {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
-              </button>
+            <div className={`reel-modal-play-overlay ${isPlaying ? "is-hidden" : ""}`}>
+              <div className="reel-modal-play-circle">
+                <Play size={40} className="reel-modal-play-icon" aria-hidden="true" />
+              </div>
+            </div>
 
-              <button
-                type="button"
-                className="reel-modal-icon-btn is-close"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  onClose();
-                }}
-                aria-label="Fechar vídeo em tela cheia"
-                title="Fechar (Esc)"
-              >
-                <X size={20} />
-              </button>
+            <div className="reel-modal-bottom-content" onClick={(e) => e.stopPropagation()}>
+              <span className="reel-modal-tag">{currentReel.tag}</span>
+              <h3 className={`reel-modal-title ${isPlaying ? "is-hidden" : ""}`}>
+                {currentReel.title}
+              </h3>
+              <p className={`reel-modal-summary ${isPlaying ? "is-hidden" : ""}`}>
+                {currentReel.summary}
+              </p>
+
+              <div className="reel-modal-actions">
+                <a
+                  href={`${WHATSAPP_URL}?text=${encodeURIComponent(currentReel.whatsappMessage)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="reel-modal-cta-wa"
+                  aria-label="Conversar com as advogadas pelo WhatsApp sobre este vídeo"
+                >
+                  <WhatsAppIcon size={16} aria-hidden="true" />
+                  <span>Tirar dúvida sobre este tema</span>
+                  <ArrowUpRight size={14} aria-hidden="true" />
+                </a>
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="reel-modal-cta-ig"
+                  aria-label="Ver mais vídeos no Instagram oficial"
+                >
+                  <Instagram size={15} aria-hidden="true" />
+                  <span>Ver no Instagram</span>
+                  <ArrowUpRight size={13} aria-hidden="true" />
+                </a>
+              </div>
             </div>
           </div>
 
-          {/* Indicador Central de Play / Pause com feedback tátil */}
-          <div
-            className={`reel-modal-play-indicator ${!isPlaying || showPlayPulse ? "is-visible" : ""}`}
-            aria-hidden="true"
-          >
-            <div className="reel-modal-play-indicator-bubble">
-              {isPlaying ? <Pause size={32} /> : <Play size={34} style={{ marginLeft: "4px" }} />}
-            </div>
-          </div>
-
-          {/* Painel Inferior de Informações e Ações de Conversão */}
-          <div
-            className={`reel-modal-bottom-panel ${isPlaying ? "is-playing" : "is-paused"}`}
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="reel-modal-speaker-row">
-              <CheckCircle2 size={13} className="reel-verified-icon" aria-hidden="true" />
-              <strong className="reel-modal-speaker">{currentReel.speaker}</strong>
-              <span className="reel-modal-role">· {currentReel.speakerRole}</span>
-            </div>
-
-            {/* Título do vídeo que desaparece durante a reprodução para liberar visualização das legendas gravadas no vídeo */}
-            <h2 className={`reel-modal-title ${isPlaying ? "is-hidden" : ""}`}>
-              {currentReel.title}
-            </h2>
-
-            {/* Legenda/resumo que desaparece durante a reprodução do vídeo para não obstruir a visualização */}
-            <p className={`reel-modal-summary ${isPlaying ? "is-hidden" : ""}`}>
-              {currentReel.summary}
-            </p>
-
-            <div className="reel-modal-actions">
-              <a
-                href={`https://wa.me/559191620280?text=${encodeURIComponent(currentReel.whatsappMessage)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="reel-modal-cta-wa"
-                aria-label={`Tirar dúvida no WhatsApp sobre ${currentReel.title}`}
-              >
-                <MessageCircle size={18} aria-hidden="true" />
-                <span className="reel-modal-cta-text-desktop">Tirar dúvida no WhatsApp</span>
-                <span className="reel-modal-cta-text-mobile">Tirar dúvida sobre o tema no WhatsApp</span>
-              </a>
-
-              <a
-                href={INSTAGRAM_URL}
-                target="_blank"
-                rel="noreferrer"
-                className="reel-modal-cta-ig"
-                title="Acessar publicação oficial no Instagram"
-              >
-                <Instagram size={15} aria-hidden="true" />
-                <span className="reel-modal-cta-text-desktop">Ver no Instagram</span>
-                <span className="reel-modal-cta-text-mobile">Ver publicação no Instagram</span>
-                <ArrowUpRight size={13} aria-hidden="true" />
-              </a>
-            </div>
-
-            {/* Dica de navegação e contador de vídeos */}
-            <div className="reel-modal-footer-hint">
-              <span>Vídeo {currentIndex + 1} de {reels.length}</span>
-              <span className="reel-modal-dot-sep">·</span>
-              <span className="reel-modal-hint-mobile">Deslize para baixo para fechar</span>
-              <span className="reel-modal-hint-desktop">Esc ou clique fora para fechar</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Botão lateral de navegação Próximo (Desktop / Tablet) */}
-        {currentIndex < reels.length - 1 && (
-          <button
-            type="button"
-            className="reel-modal-nav-arrow is-next"
-            onClick={(e) => {
-              e.stopPropagation();
-              onNavigate(currentIndex + 1);
-            }}
-            aria-label="Próximo vídeo"
-          >
-            <ChevronRight size={28} aria-hidden="true" />
-          </button>
-        )}
+          {currentIndex < reels.length - 1 && (
+            <button
+              type="button"
+              className="reel-modal-nav-arrow is-next"
+              onClick={(e) => {
+                e.stopPropagation();
+                onNavigate(currentIndex + 1);
+              }}
+              aria-label="Próximo vídeo"
+            >
+              <ChevronRight size={28} aria-hidden="true" />
+            </button>
+          )}
         </div>
       </div>
     </div>
@@ -629,138 +548,315 @@ function ReelModalViewer({
 }
 
 export default function InstagramShowcase() {
-  const [activeReelId, setActiveReelId] = useState<string | null>(null);
-  const [modalReelIndex, setModalReelIndex] = useState<number | null>(null);
-  const [isMuted, setIsMuted] = useState(true);
-  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isAnimating = useRef(false);
+  const hasEntered = useRef(false);
+  const directionRef = useRef<"left" | "right" | null>(null);
+  const prevVisible = useRef<Set<number>>(new Set());
 
-  const handleTogglePlay = (reelId: string) => {
-    const index = REEL_ITEMS.findIndex((item) => item.id === reelId);
-    if (index !== -1) {
-      setModalReelIndex(index);
-    }
-    setActiveReelId(reelId);
-  };
+  const totalCards = REEL_ITEMS.length;
+  const [centerIndex, setCenterIndex] = useState(3); // Inicia no card central (Aposentadoria Rural Ver-o-Peso)
+  const [isMuted, setIsMuted] = useState(true);
+  const [modalReelIndex, setModalReelIndex] = useState<number | null>(null);
+  const [isMobile, setIsMobile] = useState(() =>
+    typeof window !== "undefined" ? window.innerWidth < 768 : false
+  );
+
+  const getVisibleMap = useCallback(
+    (center: number, isMobileMode = isMobile) => {
+      const slotCount = isMobileMode ? 3 : 5;
+      const half = isMobileMode ? 1 : 2;
+      const map = new Map<number, number>();
+      for (let slot = 0; slot < slotCount; slot++) {
+        map.set(((center + slot - half) % totalCards + totalCards) % totalCards, slot);
+      }
+      return map;
+    },
+    [totalCards, isMobile]
+  );
+
+  const cycle = useCallback(
+    (direction: "left" | "right") => {
+      if (isAnimating.current) return;
+      isAnimating.current = true;
+      directionRef.current = direction;
+      setCenterIndex((prev) =>
+        direction === "right" ? (prev + 1) % totalCards : (prev - 1 + totalCards) % totalCards
+      );
+    },
+    [totalCards]
+  );
+
+  // Animação GSAP Fan Deck
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container || !totalCards) return;
+
+    const cardElements = Array.from(container.querySelectorAll<HTMLElement>(".fan-card"));
+    if (!cardElements.length) return;
+
+    const mobileCurrent = window.innerWidth < 768;
+    const slotCount = mobileCurrent ? 3 : 5;
+    const visibleMap = getVisibleMap(centerIndex, mobileCurrent);
+    const previouslyVisible = prevVisible.current;
+    const direction = directionRef.current;
+    const isFirstMount = !hasEntered.current;
+    const multiplier = getResponsiveMultiplier(window.innerWidth);
+    const hMult = getHeightMultiplier(window.innerWidth);
+    const config = (slot: number) => getSlotConfig(slotCount, slot);
+
+    if (isFirstMount) isAnimating.current = true;
+
+    let completedCount = 0;
+    const visibleCount = visibleMap.size;
+    const onCardDone = () => {
+      if (++completedCount >= visibleCount) {
+        isAnimating.current = false;
+        if (isFirstMount) hasEntered.current = true;
+      }
+    };
+
+    cardElements.forEach((card, cardIndex) => {
+      const slot = visibleMap.get(cardIndex);
+      const wasVisible = previouslyVisible.has(cardIndex);
+
+      if (slot !== undefined) {
+        const { x, y, rot, scale, zIndex } = config(slot);
+        const target = {
+          x: `${x * multiplier}rem`,
+          y: `${y * hMult}rem`,
+          rotation: rot,
+          scale,
+          opacity: 1,
+          zIndex,
+        };
+
+        if (isFirstMount) {
+          gsap.set(card, { x: 0, y: `${12 * hMult}rem`, rotation: 0, scale: 0.5, opacity: 0 });
+          gsap.to(card, {
+            ...target,
+            duration: 1.2,
+            ease: "elastic.out(1.05,.78)",
+            delay: 0.2 + slot * 0.06,
+            onComplete: onCardDone,
+          });
+        } else if (!wasVisible) {
+          const enterX = direction === "right" ? 35 : -35;
+          gsap.set(card, {
+            x: `${enterX}rem`,
+            y: `${y * hMult}rem`,
+            rotation: direction === "right" ? 25 : -25,
+            scale: 0.5,
+            opacity: 0,
+          });
+          gsap.to(card, { ...target, duration: 0.55, ease: "power2.out", onComplete: onCardDone });
+        } else {
+          gsap.to(card, { ...target, duration: 0.5, ease: "power2.out", onComplete: onCardDone });
+        }
+      } else if (wasVisible) {
+        const exitX = direction === "right" ? -35 : 35;
+        gsap.to(card, {
+          x: `${exitX}rem`,
+          opacity: 0,
+          scale: 0.5,
+          rotation: direction === "right" ? -25 : 25,
+          duration: 0.4,
+          ease: "power2.in",
+          zIndex: 0,
+        });
+      } else if (isFirstMount) {
+        gsap.set(card, { opacity: 0, scale: 0.3, x: 0, y: 0, zIndex: 0 });
+      }
+    });
+
+    prevVisible.current = new Set(visibleMap.keys());
+
+    // Interações de Hover Spread
+    const visibleEntries: { el: HTMLElement; slot: number }[] = [];
+    cardElements.forEach((el, i) => {
+      const slot = visibleMap.get(i);
+      if (slot !== undefined) visibleEntries.push({ el, slot });
+    });
+    visibleEntries.sort((a, b) => a.slot - b.slot);
+
+    let activeSlot: number | null = null;
+    let leaveTimer: ReturnType<typeof setTimeout> | null = null;
+
+    const updateHoverLayout = (hoveredSlot: number | null) => {
+      const mobileHover = window.innerWidth < 768;
+      const hoverSlotCount = mobileHover ? 3 : 5;
+      const mult = getResponsiveMultiplier(window.innerWidth);
+      const hM = getHeightMultiplier(window.innerWidth);
+      const hoverConfig = (slot: number) => getSlotConfig(hoverSlotCount, slot);
+
+      visibleEntries.forEach(({ el, slot }) => {
+        const base = hoverConfig(slot);
+        let targetX = base.x * mult;
+        let targetY = base.y * hM;
+        let targetRot = base.rot;
+        let targetScale = base.scale;
+        let currentZIndex = base.zIndex;
+
+        if (hoveredSlot !== null && slot === hoveredSlot) {
+          // Apenas a carta focada ganha uma elevação sutil e elegante
+          targetY -= 1.0 * hM;
+          targetScale *= 1.03;
+          currentZIndex = 25; // Garante que a carta focada fique à frente das vizinhas
+        }
+        // As demais cartas permanecem 100% imóveis em suas posições de leque originais
+
+        gsap.to(el, {
+          x: `${targetX}rem`,
+          y: `${targetY}rem`,
+          rotation: targetRot,
+          scale: targetScale,
+          duration: 0.35,
+          ease: "power2.out",
+          overwrite: "auto",
+        });
+        gsap.set(el, { zIndex: currentZIndex });
+      });
+    };
+
+    const enterHandlers = visibleEntries.map(({ el, slot }) => {
+      const handler = () => {
+        if (isAnimating.current) return;
+        if (leaveTimer) {
+          clearTimeout(leaveTimer);
+          leaveTimer = null;
+        }
+        if (activeSlot !== slot) {
+          activeSlot = slot;
+          updateHoverLayout(slot);
+        }
+      };
+      el.addEventListener("mouseenter", handler);
+      return { el, handler };
+    });
+
+    const onMouseLeave = () => {
+      if (isAnimating.current) return;
+      if (leaveTimer) clearTimeout(leaveTimer);
+      leaveTimer = setTimeout(() => {
+        activeSlot = null;
+        updateHoverLayout(null);
+      }, 50);
+    };
+    container.addEventListener("mouseleave", onMouseLeave);
+
+    const onResize = () => {
+      const mobileNow = window.innerWidth < 768;
+      setIsMobile((prev) => (prev !== mobileNow ? mobileNow : prev));
+      if (!isAnimating.current) updateHoverLayout(activeSlot);
+    };
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      enterHandlers.forEach(({ el, handler }) => el.removeEventListener("mouseenter", handler));
+      container.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("resize", onResize);
+      if (leaveTimer) clearTimeout(leaveTimer);
+    };
+  }, [centerIndex, totalCards, getVisibleMap, isMobile]);
 
   const handleToggleMute = (e: React.MouseEvent) => {
     e.stopPropagation();
     setIsMuted((prev) => !prev);
   };
 
-  const scrollToSlide = (index: number) => {
-    const clampedIndex = Math.max(0, Math.min(REEL_ITEMS.length - 1, index));
-    const container = carouselRef.current;
-    if (container) {
-      const cards = container.querySelectorAll<HTMLElement>(".reel-card");
-      if (cards[clampedIndex]) {
-        cards[clampedIndex].scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-          block: "nearest",
-        });
-      }
-    }
-    setActiveSlideIndex(clampedIndex);
-    // Se outro vídeo estiver em reprodução, pausar para não sobrepor áudios
-    if (activeReelId && REEL_ITEMS[clampedIndex].id !== activeReelId) {
-      setActiveReelId(null);
-    }
-  };
-
-  const handleNavigate = (direction: -1 | 1) => {
-    scrollToSlide(activeSlideIndex + direction);
-  };
-
-  useEffect(() => {
-    const container = carouselRef.current;
-    if (!container) return;
-
-    let timeoutId: ReturnType<typeof setTimeout>;
-    const handleScroll = () => {
-      clearTimeout(timeoutId);
-      timeoutId = setTimeout(() => {
-        const cards = container.querySelectorAll<HTMLElement>(".reel-card");
-        if (!cards.length) return;
-
-        const containerRect = container.getBoundingClientRect();
-        const containerCenter = containerRect.left + containerRect.width / 2;
-        let closestIdx = 0;
-        let minDiff = Infinity;
-
-        cards.forEach((card, idx) => {
-          const cardRect = card.getBoundingClientRect();
-          const cardCenter = cardRect.left + cardRect.width / 2;
-          const diff = Math.abs(cardCenter - containerCenter);
-          if (diff < minDiff) {
-            minDiff = diff;
-            closestIdx = idx;
-          }
-        });
-
-        setActiveSlideIndex(closestIdx);
-      }, 50);
-    };
-
-    container.addEventListener("scroll", handleScroll, { passive: true });
-    return () => {
-      container.removeEventListener("scroll", handleScroll);
-      clearTimeout(timeoutId);
-    };
-  }, []);
-
   return (
-    <section className="instagram-section" aria-labelledby="instagram-showcase-title">
+    <section
+      id="instagram"
+      className="section section-paper instagram-section"
+      aria-labelledby="instagram-showcase-title"
+    >
       <div className="site-container">
-        {/* Cabeçalho de Seção Editorial de Luxo */}
-        <div className="instagram-header" data-reveal>
-          <div className="instagram-editorial-marker" aria-label="Presença digital oficial no Instagram">
-            <span className="instagram-marker-icon-pill">
-              <Instagram size={13} aria-hidden="true" />
-              <span>Presença Digital</span>
-            </span>
-            <span className="instagram-marker-line" aria-hidden="true" />
-            <span className="instagram-marker-label">Canal Oficial</span>
-          </div>
-
-          <p className="section-kicker">Orientações em vídeo · Salinópolis & Atuação Nacional</p>
-
+        {/* Cabeçalho Editorial Centralizado Monumental */}
+        <div className="instagram-header instagram-header-centered" data-reveal>
           <h2 id="instagram-showcase-title">
-            Acompanhe nossas orientações no <em>Instagram</em>.
+            Acompanhe nossas orientações no Instagram.
           </h2>
         </div>
 
-        {/* Banner Institucional do Perfil Oficial */}
+        {/* Faixa Oficial do Perfil com Avatar e Selo Verificado */}
         <div className="instagram-profile-banner" data-reveal>
           <div className="instagram-profile-left">
-            <div className="instagram-avatar-ring">
-              <img
-                src={PROFILE_AVATAR}
-                alt="Logotipo oficial de Karlla Pinheiro & Keyteler Leite Advogadas"
-                className="instagram-avatar-img"
-                width="64"
-                height="64"
-                loading="lazy"
-              />
+            <div className="instagram-avatar-ring-container" aria-label="Perfil verificado no Instagram">
+              <svg
+                viewBox="0 0 100 100"
+                className="instagram-avatar-vector"
+                width="68"
+                height="68"
+                role="img"
+                aria-label="Avatar oficial Karlla e Keyteler Advogadas"
+              >
+                <defs>
+                  <linearGradient id="ig-story-gradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stopColor="#f09433" />
+                    <stop offset="25%" stopColor="#e6683c" />
+                    <stop offset="50%" stopColor="#dc2743" />
+                    <stop offset="75%" stopColor="#cc2366" />
+                    <stop offset="100%" stopColor="#bc1888" />
+                  </linearGradient>
+                  <clipPath id="ig-avatar-cutout">
+                    <circle cx="50" cy="50" r="39.5" />
+                  </clipPath>
+                </defs>
+
+                {/* 1. Anel Externo de Stories (Gradiente Oficial com Espessura Uniforme) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="46.5"
+                  fill="none"
+                  stroke="url(#ig-story-gradient)"
+                  strokeWidth="3.5"
+                />
+
+                {/* 2. Anel de Respiro Marfim (Matemática Vetorial Concêntrica Perfeita) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="43.5"
+                  fill="var(--bg-primary, #FAF6F0)"
+                />
+
+                {/* 3. Foto de Perfil Oficial com Fundo Vinho e Corte Circular Analítico */}
+                <g clipPath="url(#ig-avatar-cutout)">
+                  <circle cx="50" cy="50" r="39.5" fill="#50001D" />
+                  <image
+                    href={PROFILE_AVATAR}
+                    xlinkHref={PROFILE_AVATAR}
+                    x="10.5"
+                    y="10.5"
+                    width="79"
+                    height="79"
+                    preserveAspectRatio="xMidYMid slice"
+                  />
+                </g>
+
+                {/* 4. Micro-linha capilar para fusão óptica e anti-aliasing sedoso */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="39.5"
+                  fill="none"
+                  stroke="rgba(163, 126, 75, 0.35)"
+                  strokeWidth="0.75"
+                />
+              </svg>
             </div>
-            <div className="instagram-profile-info">
+            <div className="instagram-profile-meta">
               <div className="instagram-profile-handle-row">
-                <strong className="instagram-profile-handle">@karllaekeyteleradvogadas</strong>
-                <span className="instagram-verified-badge" title="Perfil verificado no Instagram">
-                  <svg
-                    viewBox="0 0 40 40"
-                    width="18"
-                    height="18"
-                    aria-label="Perfil verificado no Instagram"
-                    role="img"
-                    className="instagram-verified-icon"
-                  >
+                <span className="instagram-profile-handle">@karllaekeyteleradvogadas</span>
+                <span className="instagram-verified-badge" title="Perfil oficial verificado">
+                  <svg viewBox="0 0 40 40" width="16" height="16" role="img" aria-label="Verificado">
                     <path
                       d="M19.998 3.094 14.638 0l-2.972 5.15H5.432v6.354L0 14.64 3.094 20 0 25.359l5.432 3.137v5.905h5.975L14.638 40l5.36-3.094L25.358 40l3.232-5.6h6.162v-6.01L40 25.359 36.905 20 40 14.641l-5.248-3.03v-6.46h-6.419L25.358 0l-5.36 3.094Z"
                       fill="#0095f6"
                     />
                     <path
-                      d="m18.25 25.82-6.835-6.93 2.244-2.258 4.587 4.581 9.18-9.18 2.254 2.287-11.43 11.5Z"
+                      d="m16.88 28.1-6.1-6.1 2.36-2.36 3.74 3.74 10.6-10.6 2.36 2.36-12.96 12.96Z"
                       fill="#ffffff"
                     />
                   </svg>
@@ -774,89 +870,105 @@ export default function InstagramShowcase() {
               href={INSTAGRAM_URL}
               target="_blank"
               rel="noreferrer"
-              className="button button-instagram-main"
+              className="button-instagram-main"
+              aria-label="Seguir perfil oficial @karllaekeyteleradvogadas no Instagram"
             >
-              <Instagram size={16} aria-hidden="true" />
-              <span>Seguir no Instagram</span>
+              <Instagram size={17} aria-hidden="true" />
+              <span>SEGUIR NO INSTAGRAM</span>
               <ArrowUpRight size={14} aria-hidden="true" />
             </a>
           </div>
         </div>
 
-        {/* Barra de Instrução / Destaque de Vídeos */}
-        <div className="reels-section-heading" data-reveal>
-          <div className="reels-heading-left">
-            <Video size={16} className="reels-heading-icon" aria-hidden="true" />
-            <h3 className="reels-heading-title">Reels em Destaque</h3>
-            <span className="reels-heading-count">4 vídeos informativos</span>
-          </div>
-          <span className="reels-heading-hint">Clique em qualquer vídeo para assistir</span>
-        </div>
-
-        {/* Grade de Reels Verticais (Desktop: 4 Colunas | Mobile: Carrossel Horizontal com Snap) */}
-        <div
-          className="instagram-reels-grid reels-carousel-track"
-          ref={carouselRef}
-          data-reveal
-        >
-          {REEL_ITEMS.map((reel) => (
-            <ReelCard
-              key={reel.id}
-              reel={reel}
-              isActive={activeReelId === reel.id}
-              isMuted={isMuted}
-              onTogglePlay={() => handleTogglePlay(reel.id)}
-              onToggleMute={handleToggleMute}
-              onEnded={() => setActiveReelId(null)}
-            />
-          ))}
-        </div>
-
-        {/* Controles do Carrossel (Visíveis exclusivamente no Mobile) */}
-        <div className="reels-carousel-controls" aria-label="Navegação dos Reels">
-          <div className="reels-carousel-nav">
-            <button
-              type="button"
-              className="reels-carousel-arrow"
-              onClick={() => handleNavigate(-1)}
-              disabled={activeSlideIndex === 0}
-              aria-label="Ver vídeo anterior"
+        {/* CONTAINER DO LEQUE 3D (GSAP FAN CAROUSEL) */}
+        <div className="card-fan-container-outer" data-reveal>
+          <div className="card-fan-viewport">
+            <div
+              ref={containerRef}
+              className="fan-layout reels-carousel-track"
+              role="region"
+              aria-label="Carrossel de Reels em Leque 3D"
             >
-              <ChevronLeft size={20} aria-hidden="true" />
-            </button>
-
-            <div className="reels-carousel-dots" role="tablist" aria-label="Indicadores dos vídeos">
-              {REEL_ITEMS.map((reel, idx) => (
-                <button
+              {REEL_ITEMS.map((reel, index) => (
+                <div
                   key={reel.id}
-                  type="button"
-                  role="tab"
-                  aria-selected={activeSlideIndex === idx}
-                  aria-label={`Ir para o vídeo ${idx + 1} de ${REEL_ITEMS.length}: ${reel.title}`}
-                  className={`reels-carousel-dot ${activeSlideIndex === idx ? "is-active" : ""}`}
-                  onClick={() => scrollToSlide(idx)}
-                />
+                  className="fan-card"
+                  onClick={() => {
+                    if (index !== centerIndex) {
+                      // Se o usuário clicar em uma carta lateral, gira o leque para trazê-la ao centro
+                      setCenterIndex(index);
+                    } else {
+                      // Se for a carta central, abre imediatamente o vídeo em tela cheia com áudio
+                      setModalReelIndex(index);
+                    }
+                  }}
+                >
+                  <ReelCard
+                    reel={reel}
+                    isActive={index === centerIndex}
+                    isMuted={isMuted}
+                    onTogglePlay={() => {
+                      if (index === centerIndex) {
+                        setModalReelIndex(index);
+                      } else {
+                        setCenterIndex(index);
+                      }
+                    }}
+                    onToggleMute={handleToggleMute}
+                    onOpenModal={() => {
+                      if (index === centerIndex) {
+                        setModalReelIndex(index);
+                      } else {
+                        setCenterIndex(index);
+                      }
+                    }}
+                  />
+                </div>
               ))}
             </div>
-
-            <button
-              type="button"
-              className="reels-carousel-arrow"
-              onClick={() => handleNavigate(1)}
-              disabled={activeSlideIndex === REEL_ITEMS.length - 1}
-              aria-label="Ver próximo vídeo"
-            >
-              <ChevronRight size={20} aria-hidden="true" />
-            </button>
           </div>
 
-          <div className="reels-carousel-info">
-            <span className="reels-carousel-counter">
-              Vídeo <strong>{activeSlideIndex + 1}</strong> de {REEL_ITEMS.length}
-            </span>
-            <span className="reels-carousel-swipe-hint">
-              ⇄ Deslize para navegar
-            </span>
+          {/* Controles do Carrossel de Leque com Ouro Champanhe e Vidro Fosco (Sempre Visível) */}
+          <div className="reels-carousel-controls card-fan-navigation" aria-label="Navegação dos Reels">
+            <div className="card-fan-nav-bar reels-carousel-nav">
+              <button
+                type="button"
+                className="reels-carousel-arrow card-fan-arrow is-prev"
+                onClick={() => cycle("left")}
+                aria-label="Ver vídeo anterior"
+              >
+                <ChevronLeft size={20} aria-hidden="true" />
+              </button>
+
+              <div className="reels-carousel-dots card-fan-dots" role="tablist" aria-label="Indicadores dos vídeos">
+                {REEL_ITEMS.map((reel, idx) => (
+                  <button
+                    key={reel.id}
+                    type="button"
+                    role="tab"
+                    aria-selected={centerIndex === idx}
+                    aria-label={`Ir para o vídeo ${idx + 1} de ${REEL_ITEMS.length}: ${reel.title}`}
+                    className={`reels-carousel-dot card-fan-dot ${centerIndex === idx ? "is-active" : ""}`}
+                    onClick={() => setCenterIndex(idx)}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                className="reels-carousel-arrow card-fan-arrow is-next"
+                onClick={() => cycle("right")}
+                aria-label="Ver próximo vídeo"
+              >
+                <ChevronRight size={20} aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className="reels-carousel-info">
+              <span className="reels-carousel-counter">
+                Vídeo <strong>{centerIndex + 1}</strong> de {REEL_ITEMS.length}
+              </span>
+            </div>
           </div>
         </div>
 
@@ -879,7 +991,7 @@ export default function InstagramShowcase() {
               className="instagram-minimal-btn-wa"
               aria-label="Tirar dúvida sobre o seu caso pelo WhatsApp"
             >
-              <MessageCircle size={16} aria-hidden="true" />
+              <WhatsAppIcon size={16} aria-hidden="true" />
               <span>Conversar no WhatsApp</span>
               <ArrowUpRight size={13} aria-hidden="true" />
             </a>
@@ -905,12 +1017,10 @@ export default function InstagramShowcase() {
           currentIndex={modalReelIndex}
           onClose={() => {
             setModalReelIndex(null);
-            setActiveReelId(null);
           }}
           onNavigate={(index) => {
             setModalReelIndex(index);
-            setActiveReelId(REEL_ITEMS[index].id);
-            scrollToSlide(index);
+            setCenterIndex(index);
           }}
         />
       )}

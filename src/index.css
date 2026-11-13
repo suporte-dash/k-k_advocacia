@@ -8,6 +8,8 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -63,7 +65,7 @@
   --border-subtle: #EAE3D9;
 
   /* Typography tokens */
-  --font-serif: "Playfair Display", Georgia, serif;
+  --font-serif: "Newsreader", "Playfair Display", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
 
   /* Tailwind theme bindings */
@@ -83,7 +85,7 @@
   --card-foreground: var(--text-primary);
   --popover: var(--bg-surface);
   --popover-foreground: var(--text-primary);
-  --secondary: #F3ECE1;
+  --secondary: #EFE7DC;
   --secondary-foreground: var(--text-primary);
   --muted: var(--border-subtle);
   --muted-foreground: var(--text-secondary);
@@ -286,34 +288,6 @@ a:focus-visible {
   margin-inline: auto;
 }
 
-.utility-bar {
-  position: relative;
-  z-index: 20;
-  background: var(--wine-deep);
-  color: rgba(255, 250, 243, 0.74);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-.utility-inner {
-  display: flex;
-  justify-content: space-between;
-  gap: 24px;
-  min-height: 32px;
-  align-items: center;
-}
-
-.utility-inner a {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  transition: color 180ms ease;
-}
-
-.utility-inner a:hover {
-  color: var(--ivory);
-}
 
 .site-header {
   position: sticky;
@@ -637,18 +611,16 @@ a:focus-visible {
   color: var(--ivory);
 }
 
-.hero-copy h1 em,
+.hero-copy h1 em {
+  font-style: italic;
+  font-weight: 500;
+  color: var(--accent-gold, #9e7b56);
+}
+
 .section h2 em {
   font-style: italic;
   font-weight: 500;
-}
-
-.hero-copy h1 em {
-  color: #e2bd89;
-}
-
-.section h2 em {
-  color: var(--gold-dark);
+  color: inherit;
 }
 
 .section.section-wine h2,
@@ -662,7 +634,9 @@ a:focus-visible {
 .section-wine h2 em,
 .commitments-section h2 em,
 .quote-section em {
-  color: var(--gold-light);
+  font-style: italic;
+  font-weight: 500;
+  color: inherit;
 }
 
 .hero-lead {
@@ -1011,65 +985,6 @@ a:focus-visible {
   box-shadow: 0 0 6px rgba(226, 189, 137, 0.6);
 }
 
-.hero-image-caption {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 12px;
-  border-top: 1px solid rgba(255, 250, 243, 0.3);
-  padding-top: 10px;
-  color: rgba(255, 250, 243, 0.82);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-
-.hero-image-caption span:first-child {
-  font-weight: 700;
-  color: var(--gold-light);
-}
-
-.hero-image-wrap:hover .hero-image-caption {
-  opacity: 0.86;
-  transform: translateY(-3px);
-}
-
-.hero-stamp {
-  position: absolute;
-  z-index: 2;
-  right: -36px;
-  bottom: -36px;
-  display: grid;
-  gap: 2px;
-  width: 126px;
-  height: 126px;
-  align-content: center;
-  justify-items: center;
-  border: 1px solid var(--gold);
-  background: var(--wine);
-  color: var(--ivory);
-  font-family: var(--font-serif);
-  font-size: 17px;
-  line-height: 1;
-  transform: rotate(-8deg);
-}
-
-.stamp-number {
-  color: #e2bd89;
-  font-family: var(--font-sans);
-  font-size: 9px;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-}
-
-.stamp-rule {
-  width: 28px;
-  height: 1px;
-  margin: 5px 0;
-  background: var(--gold);
-}
 
 .hero-bottom-note {
   position: relative;
@@ -1707,7 +1622,7 @@ a:focus-visible {
 
 .commitments-header h2 em,
 .commitments-section h2 em {
-  color: var(--gold-light);
+  color: inherit;
 }
 
 .commitments-header > div:last-child > p:last-child {
@@ -2232,7 +2147,8 @@ a:focus-visible {
 }
 
 .brand-footer .brand-mark {
-  border-color: var(--gold);
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .brand-footer .brand-copy {
@@ -2363,9 +2279,6 @@ a:focus-visible {
     grid-template-columns: minmax(0, 0.9fr) minmax(380px, 1.1fr);
   }
 
-  .hero-stamp {
-    right: -18px;
-  }
 
   .team-grid {
     grid-template-columns: 1fr;
@@ -2555,22 +2468,7 @@ a:focus-visible {
     height: 28px;
   }
 
-  .hero-stamp {
-    right: -11px;
-    bottom: -30px;
-    width: 104px;
-    height: 104px;
-    font-size: 15px;
-  }
 
-  .hero-bottom-note {
-    padding-bottom: 16px;
-    font-size: 8px;
-  }
-
-  .hero-bottom-note > span:nth-child(2) {
-    display: none;
-  }
 
   .section {
     padding: clamp(56px, 9vw, 76px) 0;
@@ -6018,23 +5916,29 @@ a:focus-visible {
 /* ==========================================================================
    9. Instagram Showcase Section
    ========================================================================== */
-.instagram-section {
-  background: var(--paper);
-  padding: 104px 0 80px;
-  border-top: 1px solid var(--line);
-  position: relative;
+.instagram-section,
+.section.instagram-section {
+  background: var(--bg-primary, #FAF6F0) !important;
+  padding: 104px 0 80px !important;
+  border-top: 1px solid rgba(163, 126, 75, 0.22) !important;
+  border-bottom: 1px solid rgba(163, 126, 75, 0.22) !important;
+  position: relative !important;
 }
 
-.instagram-header {
+/* Cabeçalho Centralizado do Instagram Showcase */
+.instagram-header,
+.instagram-header.instagram-header-centered {
   max-width: 820px;
-  margin-bottom: 24px;
+  margin: 0 auto 28px;
+  text-align: center;
 }
 
 .instagram-editorial-marker {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 14px;
-  margin-bottom: 18px;
+  margin: 0 auto 18px;
   user-select: none;
 }
 
@@ -6086,105 +5990,90 @@ a:focus-visible {
   color: var(--gold-dark);
 }
 
-.instagram-header .section-kicker {
-  margin: 0 0 16px;
-  color: var(--gold-dark);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-
 .instagram-header h2 {
-  margin: 0;
+  margin: 0 auto;
   color: var(--wine-deep);
   font-family: var(--font-serif);
-  font-size: clamp(2.4rem, 4.4vw, 3.8rem);
+  font-size: clamp(2.3rem, 4.2vw, 3.6rem);
   font-weight: 600;
   letter-spacing: -0.025em;
-  line-height: 1.08;
+  line-height: 1.15;
+  text-align: center;
+  text-wrap: balance; /* Equilíbrio óptico automático */
 }
 
 .instagram-header h2 em {
   font-style: italic;
   font-weight: 500;
-  color: var(--gold-dark);
+  color: inherit;
 }
 
-.instagram-subtitle {
-  margin: 0;
-  color: var(--slate);
-  font-size: 16px;
-  line-height: 1.74;
-  max-width: 680px;
-}
-
-/* 1. Barra Institucional do Perfil — Integrada e Fluida (Sem Caixa/Borda Quadrada) */
+/* Barra Institucional do Perfil — Centralizada & Integrada */
 .instagram-profile-banner {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center; /* Centraliza avatar, handle e botão */
   flex-wrap: wrap;
-  gap: 24px;
+  gap: 28px;
   background: transparent;
   border: none;
   border-bottom: 1px solid rgba(163, 126, 75, 0.2);
-  border-radius: 0;
-  padding: 6px 0 26px 0;
-  margin-bottom: 32px;
+  padding: 6px 0 28px 0;
+  margin: 0 auto 36px;
+  max-width: 860px;
   box-shadow: none;
-  position: relative;
-  overflow: visible;
-  transition: border-color 0.2s ease;
 }
 
 .instagram-profile-banner:hover {
   border-color: rgba(163, 126, 75, 0.38);
 }
 
-.instagram-profile-banner::before,
-.instagram-profile-banner::after {
-  display: none;
-}
-
 .instagram-profile-left {
   display: flex;
   align-items: center;
-  gap: 22px;
+  gap: 16px;
   position: relative;
   z-index: 1;
 }
 
-.instagram-avatar-ring {
-  position: relative;
-  width: 72px;
-  height: 72px;
-  border-radius: 50%;
-  padding: 2.5px;
-  background: linear-gradient(135deg, var(--gold) 0%, #b23a57 50%, var(--wine) 100%);
-  flex-shrink: 0;
-  box-shadow: 0 6px 20px rgba(91, 31, 42, 0.18), 0 0 0 1px rgba(163, 126, 75, 0.25);
+.instagram-profile-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
 }
 
-.instagram-profile-banner:hover .instagram-avatar-ring {
-  transform: scale(1.05) rotate(3deg);
-  box-shadow: 0 8px 24px rgba(91, 31, 42, 0.26), 0 0 0 1px rgba(163, 126, 75, 0.4);
+/* ==========================================================================
+   Instagram Profile Avatar — Componente Vetorial SVG (Zero Serrilhado)
+   ========================================================================== */
+.instagram-avatar-ring-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-shrink: 0 !important;
+  cursor: pointer !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.instagram-avatar-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  padding: 0;
-  background: #530020;
-  border: none;
-  display: block;
+.instagram-avatar-vector {
+  width: 68px !important;
+  height: 68px !important;
+  display: block !important;
+  filter: drop-shadow(0 4px 14px rgba(91, 31, 42, 0.18)) !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease !important;
+  transform: translateZ(0) !important;
+  backface-visibility: hidden !important;
+}
+
+.instagram-profile-banner:hover .instagram-avatar-vector,
+.instagram-avatar-ring-container:hover .instagram-avatar-vector {
+  transform: scale(1.06) rotate(2deg) !important;
+  filter: drop-shadow(0 8px 22px rgba(91, 31, 42, 0.28)) !important;
+}
+
+@media (max-width: 640px) {
+  .instagram-avatar-vector {
+    width: 58px !important;
+    height: 58px !important;
+  }
 }
 
 .instagram-profile-info {
@@ -6857,7 +6746,7 @@ a:focus-visible {
 
 .instagram-minimal-title em {
   font-style: italic;
-  color: var(--gold-dark);
+  color: inherit;
   font-weight: 500;
   font-family: var(--font-serif);
 }
@@ -6989,14 +6878,21 @@ a:focus-visible {
 @media (max-width: 860px) {
   .instagram-profile-banner {
     flex-direction: column;
-    align-items: flex-start;
-    gap: 20px;
+    align-items: center;
+    text-align: center;
+    gap: 18px;
+  }
+  .instagram-profile-left {
+    justify-content: center;
   }
   .instagram-profile-actions {
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
   .button-instagram-main {
     width: 100%;
+    max-width: 320px;
     justify-content: center;
   }
 }
@@ -7236,12 +7132,9 @@ a:focus-visible {
     gap: 14px;
     width: 100%;
   }
-  .instagram-avatar-ring {
-    width: 60px;
-    height: 60px;
-    min-width: 60px;
-    min-height: 60px;
-    flex-shrink: 0;
+  .instagram-avatar-vector {
+    width: 58px !important;
+    height: 58px !important;
   }
   .instagram-profile-info {
     display: flex;
@@ -8552,79 +8445,220 @@ a:focus-visible {
   color: var(--wine-deep);
 }
 
+/* ==========================================================================
+   ServiceDetailDrawer — Arquitetura Editorial de Alto Contraste & Escaneabilidade
+   ========================================================================== */
+
 .service-drawer-overview {
   margin: 0;
-  color: var(--slate);
+  color: #4A3A3D;
   font-size: 14.5px;
   line-height: 1.65;
 }
 
+/* 1. Card de Público-Alvo em Bege Linho Nobre */
 .service-drawer-target {
-  padding: 14px 18px;
-  border-radius: 10px;
-  background: rgba(91, 31, 42, 0.035);
-  border: 1px solid rgba(163, 126, 75, 0.25);
-  border-left: 3.5px solid var(--gold);
+  padding: 16px 20px !important;
+  border-radius: 12px !important;
+  background: var(--secondary, #F4ECE1) !important;
+  border: 1px solid rgba(163, 126, 75, 0.35) !important;
+  border-left: 4px solid var(--accent-gold, #A37E4B) !important;
+  box-shadow: 0 2px 8px rgba(58, 23, 28, 0.04) !important;
+  margin: 6px 0 2px 0 !important;
 }
 
 .service-drawer-target-label {
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--wine);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 6px;
+  display: flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  color: var(--wine-deep, #3a171c) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin-bottom: 8px !important;
+}
+
+.service-drawer-target-label svg {
+  color: var(--accent-gold, #A37E4B) !important;
 }
 
 .service-drawer-target-text {
-  margin: 0;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--graphite);
+  margin: 0 !important;
+  font-size: 14px !important;
+  line-height: 1.6 !important;
+  color: #2D1A1E !important;
+  font-weight: 500 !important;
 }
 
+/* 2. Dossiê de Rigor Técnico & Micro-Cards Brancos */
 .service-drawer-subblock {
-  padding-top: 18px;
-  border-top: 1px solid rgba(163, 126, 75, 0.18);
+  padding-top: 20px !important;
+  border-top: 1px solid rgba(163, 126, 75, 0.20) !important;
 }
 
 .service-drawer-subblock-title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin: 0 0 12px;
-  font-size: 11.5px;
-  font-weight: 800;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--wine);
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 0 12px 0 !important;
+  font-size: 12px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.07em !important;
+  text-transform: uppercase !important;
+  color: var(--wine-deep, #3a171c) !important;
 }
 
 .service-drawer-subblock-title svg {
-  color: var(--gold-dark);
+  color: var(--accent-gold, #A37E4B) !important;
 }
 
 .service-drawer-checklist {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 10px;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
 }
 
-.service-drawer-checklist li {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  font-size: 13.5px;
-  line-height: 1.55;
-  color: var(--graphite);
+/* Micro-Cards de Análise Pericial */
+.service-drawer-analysis-card {
+  display: flex !important;
+  align-items: flex-start !important;
+  gap: 12px !important;
+  padding: 12px 16px !important;
+  background: #FFFFFF !important;
+  border: 1px solid rgba(163, 126, 75, 0.24) !important;
+  border-radius: 10px !important;
+  box-shadow: 0 1px 4px rgba(45, 15, 20, 0.03) !important;
+  transition: border-color 200ms ease, box-shadow 200ms ease !important;
 }
 
-.service-drawer-check-icon {
-  flex-shrink: 0;
-  margin-top: 3.5px;
-  color: var(--gold-dark);
+.service-drawer-analysis-card:hover {
+  border-color: rgba(163, 126, 75, 0.45) !important;
+  box-shadow: 0 3px 10px rgba(45, 15, 20, 0.06) !important;
+}
+
+.service-drawer-check-badge {
+  width: 22px !important;
+  height: 22px !important;
+  border-radius: 50% !important;
+  background: rgba(163, 126, 75, 0.14) !important;
+  color: #7D5928 !important;
+  display: grid !important;
+  place-items: center !important;
+  flex-shrink: 0 !important;
+  margin-top: 1px !important;
+}
+
+.service-drawer-analysis-text {
+  font-size: 13.5px !important;
+  line-height: 1.55 !important;
+  color: #2D1E22 !important;
+}
+
+/* 3. Checklist Tátil de Documentos com Badge Contador */
+.service-drawer-doc-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: wrap !important;
+  gap: 8px !important;
+  margin-bottom: 6px !important;
+}
+
+.service-drawer-doc-header .service-drawer-subblock-title {
+  margin-bottom: 0 !important;
+}
+
+.service-drawer-counter-badge {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 5px !important;
+  background: rgba(163, 126, 75, 0.16) !important;
+  color: #64451B !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.03em !important;
+  padding: 3px 10px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(163, 126, 75, 0.30) !important;
+}
+
+.service-drawer-check-hint {
+  font-size: 12.5px !important;
+  color: #6E5A5E !important;
+  font-style: italic !important;
+  line-height: 1.45 !important;
+  margin: 0 0 12px 0 !important;
+}
+
+.service-drawer-doc-checklist {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 9px !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.service-drawer-check-item {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 12px 16px !important;
+  background: #FFFFFF !important;
+  border: 1.5px solid rgba(163, 126, 75, 0.28) !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+  transition: all 180ms ease !important;
+  user-select: none !important;
+  min-height: 48px !important; /* Área mínima ergonômica de toque WCAG */
+}
+
+.service-drawer-check-item:hover {
+  background: #FFFFFF !important;
+  border-color: var(--accent-gold, #A37E4B) !important;
+  box-shadow: 0 3px 10px rgba(58, 23, 28, 0.08) !important;
+  transform: translateY(-1px) !important;
+}
+
+.service-drawer-check-item.is-checked {
+  background: rgba(163, 126, 75, 0.09) !important;
+  border-color: var(--accent-gold, #A37E4B) !important;
+  box-shadow: 0 2px 8px rgba(163, 126, 75, 0.15) !important;
+}
+
+.service-drawer-checkbox {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 5px !important;
+  border: 1.8px solid rgba(163, 126, 75, 0.55) !important;
+  display: grid !important;
+  place-items: center !important;
+  background: #FFFFFF !important;
+  flex-shrink: 0 !important;
+  transition: all 180ms ease !important;
+  color: #FFFFFF !important;
+}
+
+.service-drawer-checkbox.is-checked {
+  background: var(--wine-deep, #3a171c) !important;
+  border-color: var(--wine-deep, #3a171c) !important;
+  color: #FAF6F0 !important;
+}
+
+.service-drawer-doc-text {
+  font-size: 13.5px !important;
+  line-height: 1.45 !important;
+  color: #261619 !important;
+  font-weight: 500 !important;
+  flex: 1 !important;
+}
+
+.service-drawer-check-item.is-checked .service-drawer-doc-text {
+  color: var(--wine-deep, #3a171c) !important;
+  font-weight: 600 !important;
 }
 
 .service-drawer-switch-box {
@@ -8929,10 +8963,32 @@ h2 {
   letter-spacing: -0.015em !important;
 }
 
-h1 em, h2 em {
+/* ==========================================================================
+   Opção 2: Dourado Nobre Exclusivo no Hero & Títulos Secundários Sólidos
+   ========================================================================== */
+
+/* 1. Dourado Nobre Exclusivo na Coroa do Hero */
+.hero-copy h1 em,
+.hero-copy h1 span em,
+h1 em {
+  font-family: var(--font-serif, "Newsreader", serif) !important;
   font-style: italic !important;
   font-weight: 500 !important;
-  color: var(--accent-gold) !important;
+  color: var(--accent-gold, #9e7b56) !important; /* Dourado champanhe acolhedor e prestigioso */
+}
+
+/* 2. Todos os demais títulos (H2 de seções) herdam a cor sólida pura sem marca-texto */
+h2 em,
+.section h2 em,
+.section.section-wine h2 em,
+.section-wine h2 em,
+.commitments-section h2 em,
+.quote-section em,
+.instagram-header h2 em,
+.faq-header h2 em {
+  font-style: italic !important;
+  font-weight: 500 !important;
+  color: inherit !important; /* Zero dourado nas seções inferiores */
 }
 
 h3, h4, h5, h6 {
@@ -9010,6 +9066,26 @@ textarea:focus-visible {
   color: var(--text-secondary) !important;
 }
 
+/* Marcadores em Seções Escuras (FAQ / Vinho) — Alto Contraste WCAG AAA (13:1) */
+.section-wine .section-marker .marker-label,
+.section-wine .section-marker-light .marker-label,
+.faq-section .section-marker .marker-label,
+.faq-section .section-marker-light .marker-label,
+.services-faq-section .section-marker .marker-label,
+.services-faq-section .section-marker-light .marker-label {
+  color: #FAF6F0 !important;
+  opacity: 0.95 !important;
+}
+
+.section-wine .section-marker .marker-rule,
+.section-wine .section-marker-light .marker-rule,
+.faq-section .section-marker .marker-rule,
+.faq-section .section-marker-light .marker-rule,
+.services-faq-section .section-marker .marker-rule,
+.services-faq-section .section-marker-light .marker-rule {
+  background-color: rgba(198, 161, 119, 0.45) !important;
+}
+
 .eyebrow,
 .section-kicker {
   font-family: var(--font-sans) !important;
@@ -9021,44 +9097,24 @@ textarea:focus-visible {
   margin-bottom: 12px !important;
 }
 
-/* 4. Utility Bar */
-.utility-bar {
-  background: var(--bg-accent-dark) !important;
-  color: var(--text-on-dark) !important;
-  border-bottom: 1px solid rgba(250, 246, 240, 0.1) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 11px !important;
-}
-
-.utility-inner span {
-  color: rgba(250, 246, 240, 0.85) !important;
-}
-
-.utility-inner a {
-  color: rgba(250, 246, 240, 0.9) !important;
-  transition: color 180ms ease !important;
-}
-
-.utility-inner a:hover {
-  color: #FFFFFF !important;
-}
 
 /* 5. Header & Navigation */
 .site-header {
   position: sticky !important;
   top: 0 !important;
   z-index: 50 !important;
-  background: var(--bg-primary) !important;
-  border-bottom: 1px solid var(--border-subtle) !important;
-  box-shadow: none !important;
+  background: #3A171C !important;
+  border-bottom: 1px solid rgba(198, 161, 119, 0.22) !important;
+  box-shadow: 0 4px 20px rgba(25, 8, 11, 0.25) !important;
   transition: background-color 200ms ease, box-shadow 200ms ease !important;
 }
 
 .site-header.is-scrolled {
-  background: rgba(250, 246, 240, 0.96) !important;
+  background: rgba(45, 16, 21, 0.96) !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
-  box-shadow: 0 4px 20px rgba(30, 19, 21, 0.05) !important;
+  border-bottom: 1px solid rgba(198, 161, 119, 0.3) !important;
+  box-shadow: 0 10px 30px rgba(20, 6, 9, 0.35) !important;
 }
 
 .brand {
@@ -9068,12 +9124,14 @@ textarea:focus-visible {
 .brand-mark {
   width: 44px !important;
   height: 44px !important;
-  border-radius: 8px !important;
-  overflow: hidden !important;
-  box-shadow: 0 2px 8px rgba(58, 23, 28, 0.16) !important;
-  border: 0 !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  border: none !important;
   background: transparent !important;
-  display: block !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
   flex-shrink: 0 !important;
 }
 
@@ -9082,17 +9140,18 @@ textarea:focus-visible {
   height: 100% !important;
   object-fit: contain !important;
   display: block !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.35)) !important;
 }
 
 .brand-copy {
-  color: var(--text-primary) !important;
+  color: #FAF6F0 !important;
 }
 
 .brand-copy span {
   font-family: var(--font-serif) !important;
   font-size: 16px !important;
   font-weight: 600 !important;
-  color: var(--text-primary) !important;
+  color: #FAF6F0 !important;
   line-height: 1.15 !important;
 }
 
@@ -9102,8 +9161,8 @@ textarea:focus-visible {
   font-weight: 600 !important;
   letter-spacing: 0.12em !important;
   text-transform: uppercase !important;
-  color: var(--text-secondary) !important;
-  opacity: 0.85 !important;
+  color: #C6A177 !important;
+  opacity: 0.95 !important;
 }
 
 .desktop-nav {
@@ -9116,19 +9175,20 @@ textarea:focus-visible {
   font-weight: 500 !important;
   letter-spacing: 0.01em !important;
   text-transform: none !important;
-  color: var(--text-primary) !important;
-  opacity: 0.82 !important;
+  color: #FAF6F0 !important;
+  opacity: 0.88 !important;
   padding: 8px 0 !important;
+  transition: color 180ms ease, opacity 180ms ease !important;
 }
 
 .desktop-nav > a:not(.nav-cta):hover,
 .desktop-nav > a:not(.nav-cta).is-active {
-  color: var(--text-primary) !important;
+  color: #C6A177 !important;
   opacity: 1 !important;
 }
 
 .desktop-nav > a:not(.nav-cta)::after {
-  background: var(--accent-gold) !important;
+  background: #C6A177 !important;
   height: 2px !important;
 }
 
@@ -9140,26 +9200,27 @@ textarea:focus-visible {
   min-height: 42px !important;
   padding: 8px 22px !important;
   border-radius: 9999px !important;
-  background: var(--bg-accent-dark) !important;
-  color: #FFFFFF !important;
+  background: #FAF6F0 !important;
+  color: #3A171C !important;
   font-family: var(--font-sans) !important;
   font-size: 13.5px !important;
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   text-transform: none !important;
-  border: 1px solid transparent !important;
-  box-shadow: 0 4px 12px rgba(58, 23, 28, 0.18) !important;
+  border: 1px solid rgba(198, 161, 119, 0.4) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25) !important;
   transition: all 200ms ease !important;
 }
 
 .nav-cta:hover {
-  background: var(--bg-accent-dark-hover) !important;
-  color: #FFFFFF !important;
+  background: #FFFFFF !important;
+  color: #2D0F14 !important;
   transform: translateY(-1px) !important;
-  box-shadow: 0 6px 18px rgba(58, 23, 28, 0.28) !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35) !important;
+  border-color: #C6A177 !important;
 }
 
 .menu-toggle {
-  color: var(--text-primary) !important;
+  color: #FAF6F0 !important;
 }
 
 /* 6. Hero Section (Fundo Claro com Alto Contraste) */
@@ -9179,11 +9240,11 @@ textarea:focus-visible {
 
 .hero-grid {
   display: grid !important;
-  grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr) !important;
+  grid-template-columns: minmax(0, 1fr) minmax(420px, 1.05fr) !important;
   align-items: center !important;
-  gap: clamp(32px, 5vw, 64px) !important;
+  gap: clamp(28px, 4vw, 56px) !important;
   min-height: auto !important;
-  padding-block: 24px 48px !important;
+  padding-block: 28px 44px !important;
 }
 
 .hero-copy {
@@ -9201,9 +9262,10 @@ textarea:focus-visible {
 }
 
 .hero-copy h1 em {
+  font-family: var(--font-serif, "Newsreader", serif) !important;
   font-style: italic !important;
   font-weight: 500 !important;
-  color: var(--accent-gold) !important;
+  color: var(--accent-gold, #9e7b56) !important;
 }
 
 .hero-lead,
@@ -9288,102 +9350,294 @@ textarea:focus-visible {
 }
 
 /* ==========================================================================
-   Moldura da Foto da Advogada no Hero — Anti-Aliasing Óptico de Alta Definição
+   Hero Stage — Dual-Frame Velvet Crossfade (Duas Fotos Reais Sobrepostas)
    ========================================================================== */
-.hero-image-wrap {
-  border-radius: 16px !important;
-  overflow: hidden !important;
-  border: none !important; /* Remove a borda dura que gerava o serrilhado */
-  background: var(--wine-deep, #3a171c) !important;
-  
-  /* Anel Óptico Suavizado por Subpixel em vez de borda denteada */
-  box-shadow: 
-    0 0 0 1px rgba(163, 126, 75, 0.35),
-    0 16px 44px rgba(45, 15, 20, 0.16) !important;
 
-  /* Força anti-aliasing contínuo de subpixels na GPU */
-  -webkit-mask-image: -webkit-radial-gradient(white, black) !important;
-  mask-image: radial-gradient(white, black) !important;
-  transform: translateZ(0) !important;
-  -webkit-transform: translateZ(0) !important;
-  isolation: isolate !important;
-  will-change: transform !important;
+.hero-visual {
+  width: 100% !important;
+  max-width: 460px !important;
+  margin: 0 auto !important;
 }
 
-.hero-carousel-track {
-  margin-left: 0 !important;
-}
-
-.hero-carousel-item {
-  padding-left: 0 !important;
+.hero-atelier-stage {
   position: relative !important;
-  overflow: hidden !important;
+  width: 100% !important;
+  max-width: 440px !important;
+  aspect-ratio: 4 / 5 !important;
+  margin: 0 auto 8px auto !important;
+  cursor: pointer !important;
+  user-select: none !important;
 }
 
-.hero-image {
-  border-radius: 0 !important;
-  display: block !important;
+/* 1. Backdrop com Halo Sutil de Galeria */
+.hero-frame-offset-backdrop {
+  position: absolute !important;
+  inset: -14px -14px 14px 14px !important;
+  background: radial-gradient(circle at center, rgba(163, 126, 75, 0.16) 0%, transparent 70%) !important;
+  border-radius: 24px !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  box-shadow: 0 0 45px rgba(198, 161, 119, 0.14) !important;
+  transition: transform 600ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease !important;
+}
+
+/* 2. Carta de Trás (Com a Foto Real da Outra Sócia Espiando) */
+.hero-portrait-frame-back {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: #231b1d !important;
+  border: 1px solid rgba(163, 126, 75, 0.45) !important;
+  transform: translate3d(16px, -16px, 0) scale(0.965) rotate(0.8deg) !important;
+  box-shadow: 0 0 0 1px rgba(163, 126, 75, 0.45), 0 18px 42px rgba(45, 15, 20, 0.20) !important;
+  z-index: 1 !important;
+  transition: 
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+    box-shadow 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+    border-color 600ms ease !important;
+}
+
+/* Slides com Crossfade na Carta de Trás */
+.hero-back-slide {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 1200ms !important;
+  will-change: opacity !important;
+}
+
+.hero-back-slide.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s !important;
+}
+
+.hero-back-slide.is-hidden {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1200ms !important;
+}
+
+/* Véu de Profundidade na Carta de Trás */
+.hero-card-depth-overlay {
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(135deg, rgba(45, 15, 20, 0.24) 0%, rgba(30, 10, 15, 0.12) 100%) !important;
+  pointer-events: none !important;
+  z-index: 3 !important;
+}
+
+/* 3. Carta da Frente (Sócia Ativa em Primeiro Plano) */
+.hero-portrait-frame-front {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border-radius: 18px !important;
+  overflow: hidden !important;
+  background: var(--bg-tertiary, #EDE5D8) !important;
+  border: 1px solid rgba(163, 126, 75, 0.38) !important;
+  box-shadow: 0 0 0 1px rgba(163, 126, 75, 0.40), 0 28px 64px rgba(45, 15, 20, 0.22) !important;
+  z-index: 2 !important;
+  transform: translate3d(0, 0, 0) scale(1) rotate(0deg) !important;
+  transition: 
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+    box-shadow 600ms cubic-bezier(0.16, 1, 0.3, 1), 
+    border-color 600ms ease !important;
+}
+
+/* Slides com Velvet Crossfade na Carta da Frente */
+.hero-deck-card {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 1200ms !important;
+  will-change: opacity !important;
+}
+
+.hero-deck-card.is-active {
+  opacity: 1 !important;
+  visibility: visible !important;
+  z-index: 2 !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 0s !important;
+}
+
+.hero-deck-card.is-inactive {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  z-index: 1 !important;
+  transition: opacity 1200ms cubic-bezier(0.4, 0, 0.2, 1), visibility 0s linear 1200ms !important;
+}
+
+/* 4. Imagem Interna com Ken Burns Micro-Drift */
+.hero-portrait-img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
-  background: var(--wine-deep, #3a171c) !important;
-  
-  /* Renderização nítida sem borramento */
-  image-rendering: auto !important;
-  backface-visibility: hidden !important;
-  -webkit-backface-visibility: hidden !important;
+  object-position: center top !important;
+  display: block !important;
   transform: translateZ(0) !important;
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
-.hero-image-caption {
-  font-family: var(--font-sans) !important;
-  font-size: 11.5px !important;
-  color: var(--text-secondary) !important;
-  background: rgba(250, 246, 240, 0.95) !important;
-  border: 1px solid var(--border-subtle) !important;
-  border-radius: 9999px !important;
-  padding: 6px 14px !important;
+.hero-deck-card.is-active .hero-portrait-img {
+  animation: heroKenBurnsDrift 6.5s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
+}
+
+.hero-deck-card.is-inactive .hero-portrait-img,
+.hero-portrait-frame-back .hero-portrait-img {
+  animation: none !important;
+  transform: scale(1) translateZ(0) !important;
+}
+
+@keyframes heroKenBurnsDrift {
+  0% {
+    transform: scale(1) translateZ(0);
+  }
+  100% {
+    transform: scale(1.035) translateZ(0);
+  }
+}
+
+/* Sutil Vinheta de Integração Cromática */
+.hero-portrait-vignette {
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  background: linear-gradient(to top, rgba(45, 15, 20, 0.28) 0%, transparent 35%) !important;
+  z-index: 4 !important;
+}
+
+/* ==========================================================================
+   5. HOVER SEDOSO EM LEQUE (REVELA A FOTO REAL DA SEGUNDA SÓCIA)
+   ========================================================================== */
+.hero-atelier-stage:hover .hero-portrait-frame-front {
+  transform: translate3d(0, -14px, 0) scale(1.025) !important;
+  border-color: rgba(198, 161, 119, 0.70) !important;
+  box-shadow: 
+    0 0 0 1px rgba(198, 161, 119, 0.70), 
+    0 36px 84px rgba(45, 15, 20, 0.30), 
+    0 0 55px rgba(198, 161, 119, 0.28) !important;
+}
+
+.hero-atelier-stage:hover .hero-portrait-frame-front .hero-portrait-img {
+  transform: scale(1.045) translateZ(0) !important;
+}
+
+.hero-atelier-stage:hover .hero-portrait-frame-back {
+  /* A carta de trás se abre ainda mais em leque, revelando a outra foto */
+  transform: translate3d(28px, -24px, 0) scale(0.98) rotate(2.2deg) !important;
+  border-color: rgba(198, 161, 119, 0.60) !important;
+  box-shadow: 
+    0 0 0 1px rgba(198, 161, 119, 0.60), 
+    0 24px 56px rgba(45, 15, 20, 0.22) !important;
+}
+
+.hero-atelier-stage:hover .hero-frame-offset-backdrop {
+  transform: scale(1.06) !important;
+  opacity: 1 !important;
+}
+
+/* Assinatura Minimalista e Linha Capilar */
+.hero-signature-wrap {
   margin-top: 14px !important;
-  display: inline-flex !important;
-  gap: 8px !important;
-}
-
-.hero-image-caption span:first-child {
-  color: var(--accent-gold) !important;
-  font-weight: 600 !important;
-}
-
-.hero-carousel-dot {
-  background: rgba(158, 123, 86, 0.3) !important;
-}
-
-.hero-carousel-dot.is-active {
-  background: var(--accent-gold) !important;
-  width: 24px !important;
-  border-radius: 9999px !important;
-}
-
-.hero-bottom-note {
-  border-top: 1px solid var(--border-subtle) !important;
-  padding-top: 18px !important;
-  color: var(--text-secondary) !important;
-  font-family: var(--font-sans) !important;
-  font-size: 13px !important;
-  font-weight: 500 !important;
   display: flex !important;
-  gap: 24px !important;
+  flex-direction: column !important;
   align-items: center !important;
-  justify-content: flex-start !important;
+  text-align: center !important;
+  gap: 7px !important;
+  z-index: 3 !important;
+  padding: 2px 8px !important;
 }
+
+.hero-signature-name {
+  font-family: var(--font-serif) !important;
+  font-size: 1.32rem !important;
+  font-weight: 600 !important;
+  color: var(--wine-deep, #3a171c) !important;
+  letter-spacing: 0.02em !important;
+  margin: 0 !important;
+  line-height: 1.25 !important;
+  transition: opacity 600ms ease !important;
+}
+
+.hero-signature-line {
+  display: block !important;
+  width: 48px !important;
+  height: 1.5px !important;
+  background: linear-gradient(90deg, transparent 0%, var(--accent-gold, #a37e4b) 20%, var(--accent-gold, #a37e4b) 80%, transparent 100%) !important;
+  border-radius: 999px !important;
+  opacity: 0.9 !important;
+  animation: signatureLineBreathe 6.5s ease-in-out infinite !important;
+}
+
+@keyframes signatureLineBreathe {
+  0%, 100% {
+    width: 40px;
+    opacity: 0.75;
+  }
+  50% {
+    width: 52px;
+    opacity: 1;
+  }
+}
+
+/* Adaptação Mobile-First (Sem Overflow Horizontal) */
+@media (max-width: 768px) {
+  .hero-visual {
+    max-width: 340px !important;
+  }
+  .hero-atelier-stage {
+    max-width: 325px !important;
+  }
+  .hero-portrait-frame-back {
+    transform: translate3d(12px, -12px, 0) scale(0.965) rotate(0.6deg) !important;
+  }
+  .hero-atelier-stage:hover .hero-portrait-frame-back {
+    transform: translate3d(18px, -16px, 0) scale(0.975) rotate(1.2deg) !important;
+  }
+}
+
+/* Suporte a Movimento Reduzido (Acessibilidade) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-deck-card,
+  .hero-back-slide,
+  .hero-portrait-img,
+  .hero-portrait-frame-front,
+  .hero-portrait-frame-back,
+  .hero-frame-offset-backdrop {
+    animation: none !important;
+    transition: none !important;
+  }
+  .hero-deck-card.is-inactive,
+  .hero-back-slide.is-hidden {
+    display: none !important;
+  }
+}
+
 
 @media (max-width: 768px) {
+  /* Calibragem da Primeira Dobra Mobile: Respiro Nobre de ~24px */
+  .hero-section {
+    padding: 16px 0 24px 0 !important;
+  }
+
   .hero-grid {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     text-align: center !important;
-    gap: 28px !important;
-    padding-block: 28px 36px !important;
+    gap: 24px !important;
+    padding-block: 8px 24px !important;
   }
   .hero-copy {
     width: 100% !important;
@@ -9429,7 +9683,7 @@ textarea:focus-visible {
   }
   .hero-visual {
     width: 100% !important;
-    max-width: 320px !important;
+    max-width: 380px !important;
     margin: 0 auto !important;
   }
   .hero-image-wrap {
@@ -9443,16 +9697,8 @@ textarea:focus-visible {
       0 0 0 1px rgba(163, 126, 75, 0.35),
       0 12px 32px rgba(45, 15, 20, 0.16) !important;
   }
-  .hero-image-caption {
-    justify-content: center !important;
-    gap: 8px !important;
-    margin: 12px auto 0 auto !important;
-  }
   .hero-bottom-note {
-    justify-content: center !important;
-    gap: 16px !important;
-    font-size: 0.78rem !important;
-    padding-top: 20px !important;
+    display: none !important;
   }
 }
 
@@ -9578,10 +9824,13 @@ textarea:focus-visible {
 }
 
 /* 7. Seção 01 — Presença em Números (Horizonte Estatístico Aberto & Integrado) */
+.section.section-secondary,
+.section.proof-section,
 .proof-section {
-  background: var(--bg-primary) !important;
+  background: var(--secondary, #EFE7DC) !important;
   padding: 88px 0 92px !important;
-  border-bottom: none !important; /* Remoção da linha divisória entre Seção 01 e 02 */
+  border-top: 1px solid rgba(163, 126, 75, 0.24) !important;
+  border-bottom: 1px solid rgba(163, 126, 75, 0.24) !important;
 }
 
 .proof-header {
@@ -10063,39 +10312,41 @@ textarea:focus-visible {
 .practice-card-footer-actions {
   display: flex !important;
   flex-direction: column !important;
-  gap: 10px !important;
+  gap: 8px !important;
   margin-top: auto !important;
-  padding-top: 16px !important;
-  border-top: 1px dashed var(--border-subtle) !important;
+  padding-top: 14px !important;
+  border-top: 1px dashed rgba(163, 126, 75, 0.22) !important;
 }
 
 .practice-card-action {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 8px !important;
+  gap: 7px !important;
   width: 100% !important;
-  min-height: 44px !important;
-  padding: 10px 18px !important;
+  min-height: 38px !important;
+  padding: 8px 16px !important;
   border-radius: 9999px !important;
-  background: var(--bg-accent-dark) !important;
-  border: 1px solid rgba(158, 123, 86, 0.45) !important;
+  background: #3A171C !important;
+  border: 1px solid rgba(198, 161, 119, 0.38) !important;
   color: #FFFFFF !important;
   font-family: var(--font-sans) !important;
-  font-size: 13.5px !important;
+  font-size: 12px !important;
   font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  text-transform: none !important;
   text-decoration: none !important;
-  box-shadow: 0 4px 14px rgba(58, 23, 28, 0.18) !important;
-  transition: all 200ms ease !important;
+  box-shadow: 0 2px 8px rgba(58, 23, 28, 0.14) !important;
+  transition: all 180ms ease !important;
   cursor: pointer !important;
 }
 
 .practice-card-action:hover {
-  background: var(--bg-accent-dark-hover) !important;
-  border-color: var(--accent-gold) !important;
+  background: #4E1E25 !important;
+  border-color: #C6A177 !important;
   color: #FFFFFF !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 8px 22px rgba(58, 23, 28, 0.28) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(58, 23, 28, 0.24) !important;
 }
 
 .practice-card-action:active {
@@ -10106,32 +10357,44 @@ textarea:focus-visible {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 7px !important;
+  gap: 6px !important;
   width: 100% !important;
-  min-height: 38px !important;
-  padding: 6px 14px !important;
-  border-radius: 9999px !important;
-  background: rgba(250, 246, 240, 0.8) !important;
-  border: 1px solid var(--border-subtle) !important;
+  min-height: 28px !important;
+  padding: 4px 8px !important;
+  border-radius: 6px !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   color: var(--text-secondary) !important;
   font-family: var(--font-sans) !important;
-  font-size: 12.5px !important;
+  font-size: 11.5px !important;
   font-weight: 500 !important;
   cursor: pointer !important;
-  transition: all 180ms ease !important;
+  transition: color 160ms ease, opacity 160ms ease !important;
 }
 
 .practice-card-detail-trigger:hover {
-  background: #FFFFFF !important;
-  border-color: var(--accent-gold) !important;
-  color: var(--text-primary) !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  color: var(--accent-gold, #A37E4B) !important;
+}
+
+.practice-card-detail-trigger svg:last-child {
+  transition: transform 160ms ease !important;
+}
+
+.practice-card-detail-trigger:hover svg:last-child {
+  transform: translate(2px, -2px) !important;
 }
 
 /* 11. Seção 04 — Advogadas (Sócias Titulares) */
+.section.team-section,
+.section.section-secondary.team-section,
 .team-section {
-  background: var(--bg-primary) !important;
+  background: var(--secondary, #EFE7DC) !important;
   padding: 88px 0 !important;
-  border-top: none !important;
+  border-top: 1px solid rgba(163, 126, 75, 0.24) !important;
+  border-bottom: 1px solid rgba(163, 126, 75, 0.24) !important;
 }
 
 .team-header {
@@ -10260,6 +10523,19 @@ textarea:focus-visible {
   padding: 88px 0 !important;
 }
 
+.faq-section .section-marker .marker-label,
+.section-wine.faq-section .section-marker .marker-label,
+.faq-section .section-marker-light .marker-label {
+  color: #FAF6F0 !important;
+  opacity: 0.95 !important;
+}
+
+.faq-section .section-marker .marker-rule,
+.section-wine.faq-section .section-marker .marker-rule,
+.faq-section .section-marker-light .marker-rule {
+  background-color: rgba(198, 161, 119, 0.45) !important;
+}
+
 .faq-header {
   margin-bottom: 32px !important;
 }
@@ -10273,7 +10549,7 @@ textarea:focus-visible {
 }
 
 .faq-header h2 em {
-  color: var(--accent-gold) !important;
+  color: inherit !important;
 }
 
 .faq-subtitle {
@@ -10469,9 +10745,13 @@ textarea:focus-visible {
 }
 
 /* 13. Seção 06 — Contato & Localização */
+.section.contact-section,
+.section.section-secondary.contact-section,
 .contact-section {
-  background: var(--bg-primary) !important;
+  background: var(--secondary, #EFE7DC) !important;
   padding: 88px 0 !important;
+  border-top: 1px solid rgba(163, 126, 75, 0.24) !important;
+  border-bottom: 1px solid rgba(163, 126, 75, 0.24) !important;
 }
 
 .contact-header {
@@ -10811,73 +11091,6 @@ textarea:focus-visible {
    16. Lapidação de Experiência Única (UX/UI & Conversão 2026)
    ========================================================================== */
 
-/* 2. Checklist Interativo de Documentos no Drawer */
-.service-drawer-check-hint {
-  font-size: 12.5px;
-  color: var(--text-secondary);
-  margin: 0 0 12px 0;
-  font-style: italic;
-  line-height: 1.4;
-}
-
-.service-drawer-doc-checklist {
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 8px !important;
-  padding: 0 !important;
-  list-style: none !important;
-}
-
-.service-drawer-check-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  padding: 11px 14px;
-  background: rgba(250, 246, 240, 0.65);
-  border: 1px solid var(--border-subtle);
-  border-radius: 9px;
-  cursor: pointer;
-  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
-  user-select: none;
-  min-height: 44px;
-}
-
-.service-drawer-check-item:hover {
-  background: #ffffff;
-  border-color: var(--accent-gold);
-  box-shadow: 0 2px 8px rgba(58, 23, 28, 0.05);
-}
-
-.service-drawer-check-item.is-checked {
-  background: rgba(158, 123, 86, 0.09);
-  border-color: var(--accent-gold);
-}
-
-.service-drawer-checkbox {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  border: 1.5px solid rgba(158, 123, 86, 0.6);
-  display: grid;
-  place-items: center;
-  background: #ffffff;
-  flex-shrink: 0;
-  transition: all 180ms ease;
-  margin-top: 1.5px;
-  color: #ffffff;
-}
-
-.service-drawer-checkbox.is-checked {
-  background: var(--bg-accent-dark);
-  border-color: var(--bg-accent-dark);
-}
-
-.service-drawer-doc-text {
-  font-size: 13.5px;
-  line-height: 1.4;
-  color: var(--text-primary);
-  flex: 1;
-}
 
 /* 3. Marca-Texto Dourado em Tempo Real no FAQ */
 .faq-search-highlight {
@@ -11127,18 +11340,9 @@ textarea:focus-visible {
 }
 
 @media (max-width: 768px) {
+  /* Otimização Mobile: Oculta as chancelas empilhadas para economizar ~120px de rolagem e eliminar redundância */
   .hero-bottom-note {
-    border-top: none !important;
-    gap: 12px 18px !important;
-    justify-content: center !important;
-    padding-top: 24px !important;
-  }
-  .hero-trust-divider {
     display: none !important;
-  }
-  .hero-trust-item {
-    font-size: 10.5px !important;
-    gap: 6px !important;
   }
 }
 
@@ -11177,7 +11381,7 @@ textarea:focus-visible {
 }
 
 .contact-form-success-title {
-  font-family: var(--font-serif, "Playfair Display", serif);
+  font-family: var(--font-serif, "Newsreader", serif);
   font-size: 1.35rem;
   font-weight: 700;
   color: var(--wine-deep, #3a171c);
@@ -11230,11 +11434,6 @@ textarea:focus-visible {
 /* ==========================================================================
    Hero Signature — Assinatura Tipográfica Minimalista de Luxo (Apenas Nome)
    ========================================================================== */
-.hero-slide-glass,
-.hero-image-caption,
-.hero-editorial-caption {
-  display: none !important;
-}
 
 .hero-signature-wrap {
   margin-top: 14px;
@@ -11247,7 +11446,7 @@ textarea:focus-visible {
 }
 
 .hero-signature-name {
-  font-family: var(--font-serif, "Playfair Display", serif);
+  font-family: var(--font-serif, "Newsreader", serif);
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--wine-deep, #3a171c);
@@ -11284,22 +11483,22 @@ textarea:focus-visible {
    Refinamentos Mobile de Alta Fidelidade (Menu, FAQ e Seção 01)
    ========================================================================== */
 @media (max-width: 768px) {
-  /* 1. Menu Mobile em Fundo Marfim Claro de Alto Contraste */
+  /* 1. Menu Mobile em Fundo Vinho Nobre de Alto Contraste */
   .desktop-nav {
-    background: var(--bg-primary, #FAF6F0) !important;
-    border-bottom: 1px solid var(--border-subtle, rgba(163, 126, 75, 0.28)) !important;
-    box-shadow: 0 16px 36px rgba(58, 23, 28, 0.12) !important;
+    background: #3A171C !important;
+    border-bottom: 1px solid rgba(198, 161, 119, 0.25) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35) !important;
     padding: 12px 20px 24px !important;
   }
 
   .desktop-nav > a:not(.nav-cta) {
-    color: var(--wine-deep, #3a171c) !important; /* Texto escuro com legibilidade máxima */
-    opacity: 0.9 !important;
+    color: #FAF6F0 !important;
+    opacity: 0.92 !important;
     font-size: 15px !important;
     font-weight: 500 !important;
     letter-spacing: 0.01em !important;
     padding: 15px 0 !important;
-    border-bottom: 1px solid rgba(163, 126, 75, 0.18) !important;
+    border-bottom: 1px solid rgba(198, 161, 119, 0.18) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -11308,7 +11507,7 @@ textarea:focus-visible {
 
   .desktop-nav > a:not(.nav-cta):hover,
   .desktop-nav > a:not(.nav-cta).is-active {
-    color: var(--accent-gold, #9e7b56) !important;
+    color: #C6A177 !important;
     opacity: 1 !important;
     padding-left: 6px !important;
   }
@@ -11325,6 +11524,9 @@ textarea:focus-visible {
     font-size: 13.5px !important;
     font-weight: 600 !important;
     border-radius: 999px !important;
+    background: #FAF6F0 !important;
+    color: #3A171C !important;
+    border: 1px solid rgba(198, 161, 119, 0.4) !important;
   }
 
   /* 2. Pílulas de Categoria do FAQ com Scroll Horizontal Suave */
@@ -11445,11 +11647,603 @@ textarea:focus-visible {
 }
 
 
+/* ==========================================================================
+   Seção 04: Galeria Dupla de Sócias (Díptico Editorial Nobre)
+   ========================================================================== */
+/* Cabeçalho Centralizado Monumental da Seção 04 */
+.team-header.team-header-centered {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 52px;
+}
 
+.team-header.team-header-centered .section-marker {
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 16px !important;
+}
 
+.team-header.team-header-centered h2 {
+  max-width: 820px !important; /* Espaço suficiente para respirar e equilibrar as 2 linhas */
+  margin: 14px auto 16px !important;
+  text-align: center !important;
+  font-size: clamp(2.2rem, 3.8vw, 3.1rem) !important;
+  line-height: 1.22 !important;
+  text-wrap: balance !important; /* Blindagem matemática: proíbe palavras órfãs em qualquer resolução */
+  letter-spacing: -0.015em !important;
+}
 
+.team-header.team-header-centered .team-description {
+  max-width: 68ch !important;
+  margin: 0 auto !important;
+  text-align: center !important;
+  line-height: 1.68 !important;
+  font-size: 1.02rem !important;
+  color: var(--text-secondary) !important;
+  text-wrap: pretty !important;
+}
 
+/* ==========================================================================
+   SEÇÃO 04: ADVOGADAS — ARQUITETURA EDITORIAL ASSIMÉTRICA (REFERÊNCIA DE LUXO)
+   ========================================================================== */
 
+.team-diptych-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 48px;
+  align-items: stretch;
+}
 
+.team-diptych-card {
+  position: relative;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
 
+.team-diptych-card.team-portrait-column {
+  position: relative !important;
+  top: auto !important;
+  display: block !important;
+}
 
+.team-diptych-card:hover {
+  transform: translateY(-5px);
+}
+
+.team-arch-stage {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding-left: 36px; /* Espaço para o lettering vertical lateral */
+}
+
+.team-arch-stage.team-portrait-frame {
+  position: relative !important;
+  display: flex !important;
+  flex-direction: column !important;
+  border-radius: 0 !important;
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+
+/* Lettering Lateral Rotacionado */
+.team-lateral-name {
+  position: absolute;
+  left: 0;
+  top: 36%;
+  transform: translateY(-50%) rotate(-90deg);
+  transform-origin: center center;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(58, 23, 28, 0.45);
+  white-space: nowrap;
+  user-select: none;
+  pointer-events: none;
+  transition: color 0.3s ease;
+}
+
+.team-diptych-card:hover .team-lateral-name {
+  color: var(--wine-deep);
+}
+
+/* Arco Arquitetural Assimétrico — Altura e Enquadramento Otimizados */
+.team-arch-canvas {
+  position: relative;
+  background: #FAF6F0;
+  border-radius: 40px 180px 20px 110px;
+  border: 1px solid rgba(163, 126, 75, 0.32);
+  box-shadow: 0 18px 44px rgba(58, 23, 28, 0.1);
+  height: 530px; /* +30px de respiro vertical para acomodar a postura acolhedora */
+  overflow: hidden;
+}
+
+.team-arch-portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 8%; /* Eleva a cabeça em direção ao arco superior, liberando o busto e a mesa */
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.team-diptych-card:hover .team-arch-portrait {
+  transform: scale(1.03);
+}
+
+/* Dossiê Frontal Sobreposto — Altura Nivelada & Simetria a Laser */
+.team-dossier-card.team-profile-card {
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(16px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(16px) saturate(180%) !important;
+  /* Contra-Arco Escultural Rigoroso */
+  border-radius: 40px 20px 130px 60px !important;
+  border: 1px solid rgba(255, 255, 255, 0.7) !important;
+  box-shadow: 0 20px 48px rgba(45, 15, 20, 0.1), 0 2px 10px rgba(0, 0, 0, 0.04), inset 0 1px 1px rgba(255, 255, 255, 0.95) !important;
+  padding: 20px 26px !important;
+  margin-top: -36px !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  width: 90% !important;
+  max-width: 410px !important;
+  min-height: 168px !important; /* Altura cravada: garante horizonte 100% simétrico entre os dois cards */
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: flex-start !important;
+  position: relative !important;
+  z-index: 4 !important;
+  transition: transform 0.35s ease, background 0.35s ease, box-shadow 0.35s ease;
+}
+
+.team-diptych-card:hover .team-dossier-card.team-profile-card {
+  background: rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 24px 54px rgba(45, 15, 20, 0.14), inset 0 1px 1px #FFFFFF !important;
+}
+
+.team-dossier-top {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 8px !important;
+  flex-wrap: wrap !important;
+  margin-bottom: 8px !important;
+}
+
+.team-dossier-card .team-profile-oab {
+  background: rgba(163, 126, 75, 0.12) !important;
+  color: var(--gold-dark) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  padding: 4px 10px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(163, 126, 75, 0.25) !important;
+  margin-left: 0 !important;
+  white-space: nowrap !important;
+}
+
+.team-dossier-card .team-profile-focus-tag {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: var(--slate) !important;
+  letter-spacing: 0.04em !important;
+  text-transform: uppercase !important;
+  margin-left: 0 !important; /* Neutraliza o margin-left: auto para eliminar a escada no wrap */
+  background: rgba(163, 126, 75, 0.08) !important;
+  border: 1px solid rgba(163, 126, 75, 0.2) !important;
+  border-radius: 999px !important;
+  padding: 4px 10px !important;
+  white-space: nowrap !important;
+}
+
+.team-dossier-card .team-profile-name {
+  font-family: var(--font-serif);
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--wine-deep);
+  margin: 8px 0 6px;
+  line-height: 1.2;
+}
+
+.team-dossier-card .team-profile-bio {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.55;
+  margin-bottom: 0 !important; /* Respiro inferior balanceado pelo padding do card */
+}
+
+/* Limpeza de classes de botões que não são mais necessárias */
+.team-portal-cta {
+  display: none !important;
+}
+
+/* Limpeza de classes da faixa inferior da Seção 04 */
+.team-footer-guarantee,
+.team-actions-guarantee,
+.team-whatsapp-cta-unified {
+  display: none !important;
+}
+
+/* Responsividade Mobile-First Estrita */
+@media (max-width: 900px) {
+  .team-diptych-grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+}
+
+@media (max-width: 768px) {
+  .team-header.team-header-centered {
+    margin-bottom: 36px;
+  }
+  .team-header.team-header-centered h2 {
+    font-size: 1.85rem !important;
+    line-height: 1.25 !important;
+    margin-top: 10px !important;
+  }
+  .team-header.team-header-centered .team-description {
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+  }
+  .team-arch-stage {
+    padding-left: 28px;
+  }
+  .team-lateral-name {
+    font-size: 9.5px;
+    letter-spacing: 0.2em;
+    left: -4px;
+  }
+  .team-arch-canvas {
+    height: 440px;
+    border-radius: 30px 140px 16px 85px;
+  }
+  .team-arch-portrait {
+    object-position: center 8%;
+  }
+  .team-dossier-card.team-profile-card {
+    background: rgba(255, 255, 255, 0.88) !important;
+    backdrop-filter: blur(14px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+    border-radius: 28px 16px 80px 36px !important;
+    margin-top: -28px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 95% !important;
+    min-height: auto !important;
+    padding: 16px 16px 20px !important; /* Respiro interno horizontal calibrado para telas estreitas */
+  }
+
+  .team-dossier-top {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 6px 8px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 8px !important;
+  }
+
+  .team-dossier-card .team-profile-oab {
+    font-size: 10.5px !important;
+    padding: 3px 8px !important;
+    letter-spacing: 0.06em !important;
+    margin-left: 0 !important;
+  }
+
+  .team-dossier-card .team-profile-focus-tag {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+    letter-spacing: 0.03em !important;
+    margin-left: 0 !important;
+  }
+
+  .team-dossier-card .team-profile-name {
+    font-size: 1.35rem !important;
+    margin: 6px 0 4px !important;
+  }
+
+  .team-dossier-card .team-profile-bio {
+    font-size: 0.88rem !important;
+    line-height: 1.5 !important;
+  }
+
+}
+
+/* ==========================================================================
+   INSTAGRAM SHOWCASE — CENTRALIZAÇÃO EDITORIAL BLINDADA (SOBERANIA DA CASCATA)
+   ========================================================================== */
+
+.instagram-section .instagram-header,
+.instagram-header.instagram-header-centered,
+.instagram-header {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin: 0 auto 32px !important;
+  max-width: 860px !important;
+  width: 100% !important;
+}
+
+.instagram-section .instagram-editorial-marker,
+.instagram-editorial-marker {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 0 auto 18px !important;
+}
+
+.instagram-section .instagram-header h2,
+.instagram-header h2,
+#instagram-showcase-title {
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: 820px !important;
+  width: 100% !important;
+  text-wrap: balance !important;
+}
+
+.instagram-section .instagram-profile-banner,
+.instagram-profile-banner {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex-wrap: wrap !important;
+  gap: 24px 32px !important;
+  margin: 0 auto 36px !important;
+  max-width: 860px !important;
+  width: 100% !important;
+  text-align: center !important;
+}
+
+.instagram-profile-left {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 16px !important;
+}
+
+.instagram-profile-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+@media (max-width: 860px) {
+  .instagram-section .instagram-profile-banner,
+  .instagram-profile-banner {
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 18px !important;
+  }
+  .instagram-profile-left {
+    justify-content: center !important;
+  }
+  .instagram-profile-actions {
+    width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  .button-instagram-main {
+    width: 100% !important;
+    max-width: 320px !important;
+    justify-content: center !important;
+  }
+}
+
+/* ==========================================================================
+   SEÇÃO 01: CABEÇALHO CENTRALIZADO SIMÉTRICO (PRESENÇA EM NÚMEROS)
+   ========================================================================== */
+
+.proof-header.proof-header-centered {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  margin: 0 auto 48px !important;
+  max-width: 860px !important;
+}
+
+.proof-header.proof-header-centered .section-marker {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  margin-bottom: 16px !important;
+}
+
+.proof-header.proof-header-centered h2,
+#proof-title {
+  text-align: center !important;
+  margin: 0 auto !important;
+  max-width: 780px !important;
+  width: 100% !important;
+  text-wrap: balance !important;
+  font-size: clamp(2.1rem, 3.5vw, 2.9rem) !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.015em !important;
+}
+
+@media (max-width: 768px) {
+  .proof-header.proof-header-centered {
+    margin-bottom: 28px !important;
+  }
+}
+
+/* ==========================================================================
+   INSTAGRAM SHOWCASE: LEQUE DE 5 VÍDEOS & BARRA DE NAVEGAÇÃO PROEMINENTE
+   ========================================================================== */
+
+.card-fan-container-outer {
+  width: 100% !important;
+  position: relative !important;
+  margin: 32px auto 60px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+}
+
+.card-fan-viewport {
+  width: 100% !important;
+  max-width: 1180px !important;
+  min-height: 520px !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  perspective: 1200px !important;
+  padding: 24px 0 10px !important;
+}
+
+.fan-layout {
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 500px !important;
+}
+
+.fan-card {
+  position: absolute !important;
+  width: 280px !important;
+  height: 480px !important;
+  will-change: transform, opacity !important;
+  transform-origin: center bottom !important;
+  cursor: pointer !important;
+  transition: box-shadow 0.3s ease !important;
+  border-radius: 20px !important;
+  overflow: hidden !important;
+  box-shadow: 0 16px 36px rgba(45, 16, 21, 0.22), 0 0 0 1px rgba(198, 161, 119, 0.35) !important;
+}
+
+.fan-card:hover {
+  box-shadow: 0 24px 50px rgba(45, 16, 21, 0.38), 0 0 0 1.5px rgba(198, 161, 119, 0.7) !important;
+}
+
+/* BARRA DE NAVEGAÇÃO VISÍVEL EM TODAS AS TELAS (DESKTOP E MOBILE) */
+.card-fan-navigation,
+.reels-carousel-controls {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 28px auto 36px !important;
+  position: relative !important;
+  z-index: 30 !important;
+  width: 100% !important;
+}
+
+.card-fan-nav-bar,
+.reels-carousel-nav {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  padding: 8px 18px !important;
+  background: rgba(45, 16, 21, 0.88) !important;
+  border: 1px solid rgba(198, 161, 119, 0.45) !important;
+  border-radius: 999px !important;
+  backdrop-filter: blur(14px) !important;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25) !important;
+}
+
+.card-fan-arrow,
+.reels-carousel-arrow {
+  width: 40px !important;
+  height: 40px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(198, 161, 119, 0.35) !important;
+  color: #FAF6F0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.25s ease !important;
+  cursor: pointer !important;
+  padding: 0 !important;
+}
+
+.card-fan-arrow:hover,
+.reels-carousel-arrow:hover {
+  background: var(--accent-gold, #c6a177) !important;
+  border-color: var(--accent-gold, #c6a177) !important;
+  color: var(--wine-deep, #3a171c) !important;
+  transform: scale(1.08) !important;
+}
+
+.card-fan-dots,
+.reels-carousel-dots {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+}
+
+.card-fan-dot,
+.reels-carousel-dot {
+  width: 9px !important;
+  height: 9px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: none !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  padding: 0 !important;
+}
+
+.card-fan-dot.is-active,
+.reels-carousel-dot.is-active {
+  width: 13px !important;
+  height: 13px !important;
+  background: #FAF6F0 !important;
+  box-shadow: 0 0 10px rgba(250, 246, 240, 0.8), 0 0 0 2px rgba(198, 161, 119, 0.6) !important;
+}
+
+.reels-carousel-counter {
+  font-size: 0.85rem !important;
+  color: var(--text-secondary) !important;
+  letter-spacing: 0.02em !important;
+}
+
+.reels-carousel-counter strong {
+  color: var(--wine-deep, #3a171c) !important;
+  font-weight: 700 !important;
+}
+
+@media (max-width: 768px) {
+  .card-fan-container-outer {
+    margin: 24px auto 44px !important;
+    overflow: hidden !important; /* Previne qualquer barra de rolagem horizontal */
+  }
+
+  .card-fan-viewport {
+    width: 100% !important;
+    max-width: 100vw !important;
+    min-height: 440px !important;
+    padding: 12px 0 6px !important;
+    overflow: hidden !important;
+  }
+
+  .fan-layout {
+    width: 100% !important;
+    height: 410px !important;
+  }
+
+  .fan-card {
+    width: 240px !important;
+    height: 400px !important;
+    border-radius: 18px !important;
+  }
+}

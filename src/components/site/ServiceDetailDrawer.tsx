@@ -4,11 +4,13 @@ import {
   Check,
   CheckCircle2,
   FileText,
-  MessageCircle,
+  ShieldCheck,
+  Users,
   X,
 } from "lucide-react";
 import type { DetailedService } from "@/data/servicesData";
 import { PHONE_TEL } from "@/components/site/site-config";
+import WhatsAppIcon from "./WhatsAppIcon";
 
 interface ServiceDetailDrawerProps {
   service: DetailedService | null;
@@ -116,41 +118,53 @@ export default function ServiceDetailDrawer({
 
           <p className="service-drawer-overview">{service.overview}</p>
 
-          {/* Bloco de público-alvo com destaque editorial */}
+          {/* 1. Bloco de Público-Alvo & Elegibilidade em Bege Linho Nobre */}
           <div className="service-drawer-target">
             <div className="service-drawer-target-label">
+              <Users size={14} aria-hidden="true" />
               <span>Para quem é este benefício:</span>
             </div>
             <p className="service-drawer-target-text">{service.targetAudience}</p>
           </div>
 
-          {/* O que o escritório analisa */}
-          <div className="service-drawer-subblock">
+          {/* 2. Dossiê de Rigor Técnico & Análise Minuciosa */}
+          <div className="service-drawer-subblock service-drawer-analysis-block">
             <h3 className="service-drawer-subblock-title">
-              <CheckCircle2 size={16} aria-hidden="true" />
+              <ShieldCheck size={16} aria-hidden="true" />
               <span>O que o escritório analisa minuciosamente:</span>
             </h3>
             <ul className="service-drawer-checklist">
               {service.analysisPoints.map((point, idx) => (
-                <li key={idx}>
-                  <Check size={14} className="service-drawer-check-icon" aria-hidden="true" />
-                  <span>{point}</span>
+                <li key={idx} className="service-drawer-analysis-card">
+                  <span className="service-drawer-check-badge" aria-hidden="true">
+                    <Check size={12} strokeWidth={2.5} />
+                  </span>
+                  <span className="service-drawer-analysis-text">{point}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Documentos recomendados interativos */}
-          <div className="service-drawer-subblock">
-            <h3 className="service-drawer-subblock-title">
-              <FileText size={16} aria-hidden="true" />
-              <span>Documentos recomendados (marque os que já possui):</span>
-            </h3>
+          {/* 3. Checklist Tátil de Documentos Recomendados */}
+          <div className="service-drawer-subblock service-drawer-doc-block">
+            <div className="service-drawer-doc-header">
+              <h3 className="service-drawer-subblock-title">
+                <FileText size={16} aria-hidden="true" />
+                <span>Documentos recomendados:</span>
+              </h3>
+              {checkedDocs.length > 0 && (
+                <span className="service-drawer-counter-badge">
+                  ✦ {checkedDocs.length} de {service.recommendedDocuments.length} selecionado(s)
+                </span>
+              )}
+            </div>
+
             <p className="service-drawer-check-hint">
               {checkedDocs.length > 0
-                ? `${checkedDocs.length} de ${service.recommendedDocuments.length} documento(s) selecionado(s) para incluir na sua mensagem.`
+                ? "Os documentos marcados serão incluídos automaticamente na sua mensagem para o WhatsApp."
                 : "Selecione os documentos que você já tem em mãos para incluirmos na conversa pelo WhatsApp."}
             </p>
+
             <ul className="service-drawer-checklist service-drawer-doc-checklist">
               {service.recommendedDocuments.map((doc, idx) => {
                 const isChecked = checkedDocs.includes(doc);
@@ -207,7 +221,7 @@ export default function ServiceDetailDrawer({
             className="service-drawer-cta-btn"
             aria-label={`Tirar dúvida no WhatsApp sobre ${service.title}`}
           >
-            <MessageCircle size={18} aria-hidden="true" />
+            <WhatsAppIcon size={18} aria-hidden="true" />
             <span className="service-drawer-cta-text">
               {checkedDocs.length > 0
                 ? `Enviar com ${checkedDocs.length} documento(s) marcado(s)`

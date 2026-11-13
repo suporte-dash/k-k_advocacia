@@ -3,5 +3,7 @@ dist/
 .vite/
 node_modules/.vite-image-cache/
 .DS_Store
+Thumbs.db
 *.log
+*.tmp
 .backup-reels/

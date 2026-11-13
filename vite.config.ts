@@ -4,7 +4,7 @@ import react from "@vitejs/plugin-react";
 import { ViteImageOptimizer } from "vite-plugin-image-optimizer";
 import { defineConfig } from "vite";
 
-const base = process.env.VITE_BASE_PATH ?? (process.env.NODE_ENV === "production" ? "/k-k_advocacia2.0/" : "/");
+const base = process.env.VITE_BASE_PATH ?? (process.env.NODE_ENV === "production" ? "/k-k_advocacia/" : "/");
 
 export default defineConfig({
   base,

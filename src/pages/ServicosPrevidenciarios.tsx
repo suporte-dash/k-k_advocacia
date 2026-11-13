@@ -32,7 +32,6 @@ import {
   HeartPulse,
   HelpCircle,
   MapPin,
-  MessageCircle,
   Phone,
   Scale,
   ShieldAlert,
@@ -41,6 +40,7 @@ import { internalHref } from "@/lib/site-path";
 import BenefitScreener from "@/components/site/BenefitScreener";
 import ContactForm from "@/components/site/ContactForm";
 import BackToTop from "@/components/site/BackToTop";
+import WhatsAppIcon from "@/components/site/WhatsAppIcon";
 
 const SITE_URL = `${window.location.origin}${import.meta.env.BASE_URL.replace(/\/$/, "")}`;
 const PAGE_PATH = "/servicos-previdenciarios-salinopolis";
@@ -451,7 +451,7 @@ export default function ServicosPrevidenciarios() {
                   rel="noreferrer"
                   variant="primary"
                 >
-                  <MessageCircle size={18} aria-hidden="true" /> Tirar dúvida no WhatsApp
+                  <WhatsAppIcon size={18} aria-hidden="true" /> Tirar dúvida no WhatsApp
                   <ArrowUpRight size={15} aria-hidden="true" />
                 </SiteButton>
                 <a className="text-link text-link-light" href="#servicos-detalhados">
@@ -593,7 +593,7 @@ export default function ServicosPrevidenciarios() {
                         rel="noreferrer"
                         aria-label={`Orientação sobre ${service.title}`}
                       >
-                        <MessageCircle size={16} aria-hidden="true" />
+                        <WhatsAppIcon size={16} aria-hidden="true" />
                         <span>Consultar meu direito neste benefício</span>
                         <ArrowUpRight size={15} aria-hidden="true" />
                       </a>
@@ -649,7 +649,7 @@ export default function ServicosPrevidenciarios() {
                         target="_blank"
                         rel="noreferrer"
                       >
-                        <MessageCircle size={14} aria-hidden="true" />
+                        <WhatsAppIcon size={14} aria-hidden="true" />
                         <span>Falar sobre a minha situação</span>
                         <ArrowUpRight size={13} aria-hidden="true" />
                       </a>
@@ -780,7 +780,7 @@ export default function ServicosPrevidenciarios() {
         title="Falar com as advogadas pelo WhatsApp"
       >
         <span className="whatsapp-float-pulse" aria-hidden="true" />
-        <MessageCircle size={21} strokeWidth={2.2} aria-hidden="true" />
+        <WhatsAppIcon size={21} aria-hidden="true" />
         <span>WhatsApp</span>
       </a>
 
