@@ -1,28 +1,22 @@
 # PROJECT_STATE — Karlla Pinheiro & Keyteler Leite Advogadas
 
 ## 📌 Onde parámos
-- **Sincronização de Rota & Deploy para o Novo Repositório Oficial (`k-k_advocacia`)**:
+- **Implantação do Card Canônico de OpenGraph para WhatsApp e Redes Sociais (`og-share-card.png`)**:
   - **Ações Concluídas com Sucesso**:
-    1. **Sincronização de Base Path no `vite.config.ts`**: Alterado o fallback de produção para `/k-k_advocacia/`.
-    2. **Configuração do Workflow GitHub Pages (`.github/workflows/deploy-pages.yml`)**: Sincronizada a variável `VITE_BASE_PATH: /k-k_advocacia/` para garantir carregamento perfeito de assets no GitHub Pages sob o domínio `https://suporte-dash.github.io/k-k_advocacia/`.
-    3. **Validação e Recompilação dos Assets**: Executado `pnpm pages:build`, gerando build estático 100% íntegro com links absolutos canônicos e SPA fallback em `dist/404.html`.
-    4. **Atualização do Remote Git & Push Institucional**: Apontado o remote `origin` para `https://github.com/suporte-dash/k-k_advocacia.git` e enviado o commit consolidado com todas as otimizações, purga de ativos e nova identidade.
-  - **Validação Automatizada Concluída**:
-    - **`pnpm check` (TypeScript `tsc --noEmit`)**: 0 erros.
-    - **`pnpm test --run` (Vitest)**: 24/24 testes aprovados.
-    - **`pnpm run build` & `pnpm run pages:build`**: 100% íntegros com exit code 0.
+    1. **Geração do Asset de Alta Fidelidade**: Gerado o card canônico [public/assets/og-share-card.png](file:///c:/Users/NOC%2001/Desktop/PROJETOS%20ANTIGRAVITY/PROJETO%20K&K%202.0/public/assets/og-share-card.png) com dimensões oficiais de 1200x630px, fundo Vinho Profundo (`#3A171C`) e o Monograma institucional em Ouro Champanhe centralizado em zona segura (440x440px) via Sharp.
+    2. **Atualização Semântica em `index.html`**: Configurados `og:image`, `og:image:width` (1200), `og:image:height` (630), `og:image:alt`, `twitter:card` (summary_large_image) e `twitter:image` apontando para `%BASE_URL%assets/og-share-card.png`.
+    3. **Compilação e Pipeline de Build**: Executado `pnpm.cmd run pages:build`, gerando o bundle otimizado com imagem otimizada em `dist/assets/og-share-card.png` e fallback SPA em `dist/404.html`.
+    4. **Publicação no GitHub**: Commits sincronizados na branch `main` do repositório `https://github.com/suporte-dash/k-k_advocacia.git`.
 
 ## ⚙️ Estado atual
-- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test --run`).
-- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`pnpm.cmd check`).
-- **Build de Produção**: 100% íntegro com base `/k-k_advocacia/` (`pnpm.cmd run pages:build`).
-- **Repositório Remoto**: `https://github.com/suporte-dash/k-k_advocacia.git` (branch `main`).
-- **Servidor Local**: Ativo e respondendo em `http://localhost:5173/` (Task ID: `task-1267`).
+- **Testes Unitários & Contratuais**: 24/24 testes aprovados no Vitest (`pnpm.cmd test`).
+- **Tipagem & Checagem Estática**: 0 erros no TypeScript (`npx.cmd tsc --noEmit`).
+- **Build de Produção**: 100% íntegro com exit code 0 (`pnpm.cmd run pages:build`).
+- **Repositório Remoto**: Sincronizado com `origin/main`.
 
 ## 🎯 Próximos passos imediatos
-- Verificar a execução da GitHub Actions em `https://github.com/suporte-dash/k-k_advocacia/actions`.
-- Confirmar no repositório GitHub que em `Settings -> Pages` a fonte está configurada para `GitHub Actions`.
-- Acessar o site em produção em `https://suporte-dash.github.io/k-k_advocacia/`.
+- Acompanhar a conclusão do workflow de deploy no GitHub Actions.
+- Testar o compartilhamento do link no WhatsApp ou através do Facebook Sharing Debugger para forçar a renovação do cache da Meta (usando query string `?v=2` se necessário).
 
 - **Otimização de Ergonomia Mobile: Ocultação da Régua de Confiança do Hero (`.hero-bottom-note`)**:
   - **Ações Concluídas com Sucesso**:
